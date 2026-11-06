@@ -1,0 +1,1494 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Lernzettel, Fehlerliste, drei Probeschularbeiten mit Lösungen und Versuche-Protokoll.">
+<title>Lernpaket Mathe-Schularbeit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#fffdf8; --surface-2:#efece3; --text:#1c1e23; --muted:#5b606c; --line:#dcd6c8;
+  --grid:#e9e4d7; --axis:#3b3f48;
+  --ink:#2747a6; --ink-soft:#e6ebf8; --red:#b8322a; --red-soft:#f7e4df; --green:#2b7748; --green-soft:#e2f0e6;
+  --amber:#a86400; --violet:#7440ad;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#131519; --surface:#1b1e24; --surface-2:#22262e; --text:#e9e7e2; --muted:#a2a7b2; --line:#333844;
+    --grid:#272b34; --axis:#c8cbd3;
+    --ink:#94b2ff; --ink-soft:#1d2741; --red:#ff8f80; --red-soft:#3a201d; --green:#80d4a1; --green-soft:#17301f;
+    --amber:#f1b35a; --violet:#c9a0ff;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131519; --surface:#1b1e24; --surface-2:#22262e; --text:#e9e7e2; --muted:#a2a7b2; --line:#333844;
+  --grid:#272b34; --axis:#c8cbd3;
+  --ink:#94b2ff; --ink-soft:#1d2741; --red:#ff8f80; --red-soft:#3a201d; --green:#80d4a1; --green-soft:#17301f;
+  --amber:#f1b35a; --violet:#c9a0ff;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 var(--sans)}
+.wrap{max-width:880px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-right,0px)) 80px max(16px,env(safe-area-inset-left,0px))}
+a{color:var(--ink)}
+b,strong{font-weight:700}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* Kopf */
+.hero{position:relative;padding:22px 0 26px}
+.hero::before{content:"";position:absolute;inset:0 calc(50% - 50vw);z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:22px 22px;opacity:.55;-webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)}
+.kicker{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 0 14px}
+h1{font:600 clamp(1.9rem,5.4vw,2.7rem)/1.08 var(--serif);margin:0 0 12px;letter-spacing:-.01em;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 16px;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;padding:0;margin:0;font-size:14.5px;color:var(--muted)}
+.meta b{color:var(--text);font-weight:600}
+
+/* Tabs */
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;margin-bottom:8px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:0;background:none;font:600 15px/1 var(--sans);color:var(--muted);padding:15px 8px 12px;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--ink)}
+.tab .n{font:600 11px/1 var(--mono);background:var(--red-soft);color:var(--red);padding:3px 6px;border-radius:99px;margin-left:6px;vertical-align:2px}
+
+/* Lernzettel */
+.progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:14.5px;color:var(--muted);padding:16px 0 4px}
+.progress .bar{flex:1;min-width:120px;height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px;padding:0;list-style:none}
+.toc a{display:inline-block;font-size:14px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 11px}
+.toc a:hover{border-color:var(--ink)}
+.toc a.ok{border-color:var(--green);color:var(--green)}
+.topic{padding:30px 0 6px;border-top:1px solid var(--line);scroll-margin-top:56px}
+.toc+.topic,.progress+.toc+.topic{border-top:0}
+.th{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.th .num{font:600 13px/1 var(--mono);color:var(--ink);border:1.5px solid var(--ink);border-radius:50%;width:28px;height:28px;display:inline-grid;place-items:center;flex:none}
+.topic.done .th .num{background:var(--green);border-color:var(--green);color:var(--surface)}
+.th h2{font:600 1.45rem/1.2 var(--serif);margin:0;flex:1;min-width:11rem}
+.sitzt{font-size:14px;color:var(--muted);display:inline-flex;gap:7px;align-items:center;cursor:pointer;user-select:none;border:1px solid var(--line);border-radius:99px;padding:4px 11px 4px 8px;background:var(--surface)}
+.sitzt input{accent-color:var(--green);width:16px;height:16px;margin:0}
+.topic.done .sitzt{border-color:var(--green);color:var(--green)}
+.h4{font:600 12px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+dl.defs{display:grid;grid-template-columns:10.5rem minmax(0,1fr);gap:11px 18px;margin:16px 0}
+dl.defs dt{font-weight:700}
+dl.defs dd{margin:0}
+@media (max-width:620px){dl.defs{grid-template-columns:minmax(0,1fr);gap:2px}dl.defs dd{margin-bottom:12px}}
+.box{margin:16px 0;padding:12px 16px 13px;border-left:3px solid;border-radius:0 7px 7px 0}
+.box .lbl{display:block;font:600 11.5px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.merke{background:var(--ink-soft);border-color:var(--ink)} .merke .lbl{color:var(--ink)}
+.falle{background:var(--red-soft);border-color:var(--red)} .falle .lbl{color:var(--red)}
+.tipp{background:var(--green-soft);border-color:var(--green)} .tipp .lbl{color:var(--green)}
+.rules{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:8px;margin:14px 0}
+.rules>div{background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:10px 8px;text-align:center;min-height:54px;display:grid;place-items:center;font-size:16px}
+ol.steps{margin:8px 0;padding-left:1.4rem}
+ol.steps li{margin:3px 0}
+ul.plain{margin:8px 0;padding-left:1.2rem}
+ul.plain li{margin:4px 0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:22px;align-items:start}
+@media (max-width:680px){.split{grid-template-columns:minmax(0,1fr)}}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:14px 0}
+.figs.big{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+figure{margin:0}
+figure.plot svg.pl{display:block;width:100%;height:auto;max-width:380px}
+figcaption{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.45}
+figcaption b{color:var(--text)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+.tbl{border-collapse:collapse;width:100%;font-size:15.5px}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl th{font:600 12px/1.2 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.vt{border-collapse:collapse;font-size:15px;font-variant-numeric:tabular-nums}
+.vt th,.vt td{border:1px solid var(--line);padding:5px 10px;text-align:center;white-space:nowrap}
+.vt th{background:var(--surface-2);font-weight:600}
+.c-ink{color:var(--ink);font-weight:600} .c-red{color:var(--red);font-weight:600} .c-amb{color:var(--amber);font-weight:600} .c-grn{color:var(--green);font-weight:600}
+
+/* Fehler */
+.intro{color:var(--muted);margin:18px 0 6px;max-width:64ch}
+.grp{font:600 1.2rem/1.2 var(--serif);margin:30px 0 4px;display:flex;align-items:center;gap:10px}
+.tag{font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:5px}
+.tag.neu{background:var(--red);color:var(--surface)}
+.tag.alt{background:var(--surface-2);color:var(--muted)}
+.err{display:grid;grid-template-columns:6.2rem minmax(0,1fr);gap:4px 18px;padding:16px 0;border-top:1px solid var(--line)}
+.err:first-of-type{border-top:0}
+.err .no{font:600 15px/1.35 var(--mono);color:var(--red)}
+.err .no small{display:block;font:400 12.5px/1.3 var(--sans);color:var(--muted);margin-top:3px}
+.err p{margin:0 0 6px}
+.err .bei{color:var(--muted)}
+.err .bei b{color:var(--red);font-weight:600}
+.err .ok b{color:var(--green);font-weight:600}
+.err figure{max-width:320px;margin-top:10px}
+@media (max-width:520px){.err{grid-template-columns:minmax(0,1fr)}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chips span{font:500 13px/1 var(--mono);background:var(--green-soft);color:var(--green);padding:6px 9px;border-radius:99px}
+
+/* Probeschularbeit */
+.ps-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin:18px 0 6px}
+.btn{appearance:none;font:600 14.5px/1 var(--sans);border:1.5px solid var(--ink);color:var(--ink);background:transparent;border-radius:7px;padding:9px 14px;cursor:pointer}
+.btn:hover{background:var(--ink-soft)}
+.task{padding:28px 0 10px;border-top:1px solid var(--line)}
+.task h3{font:600 1.32rem/1.25 var(--serif);margin:0 0 6px}
+.task h3 .an{display:block;font:600 12px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink);margin-bottom:7px}
+.task>p{margin:6px 0}
+ol.sub{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.sub>li{counter-increment:s;padding-left:1.9rem;position:relative;margin:7px 0}
+ol.sub>li::before{content:counter(s,lower-alpha) ")";position:absolute;left:0;font-weight:700;color:var(--ink)}
+details.loes{margin:16px 0 6px;border:1px solid var(--line);border-radius:9px;background:var(--surface)}
+details.loes>summary{cursor:pointer;list-style:none;padding:11px 15px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:10px;user-select:none}
+details.loes>summary::-webkit-details-marker{display:none}
+details.loes>summary::before{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s;flex:none}
+details.loes[open]>summary::before{transform:rotate(45deg)}
+details.loes>summary .sl{margin-left:auto;font:500 12px var(--mono);color:var(--muted)}
+details.loes .in{padding:4px 16px 14px;border-top:1px dashed var(--line)}
+details.loes .in ol.sub>li::before{color:var(--green)}
+.ans{font-weight:600;color:var(--green)}
+
+/* Schularbeit-Format */
+.sa-head{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;align-items:center;font:500 13.5px/1.4 var(--mono);color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:10px 14px;margin:14px 0 4px}
+.sa-head b{color:var(--ink);font-weight:600}
+.sa-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sa-row h3{flex:1;min-width:0}
+.pts{display:inline-grid;grid-template-columns:auto auto;align-items:baseline;column-gap:5px;font:600 14px/1 var(--mono);color:var(--muted);flex:none;cursor:text;padding-top:2px}
+.pts input{width:3.1rem;font:600 15px/1 var(--mono);color:var(--text);background:var(--surface);border:1.5px solid var(--line);border-radius:6px;padding:5px 6px;text-align:right;-moz-appearance:textfield}
+.pts input::-webkit-inner-spin-button,.pts input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.pts input:focus{border-color:var(--ink);outline:none}
+.pts small{grid-column:1/-1;justify-self:end;font:500 11.5px/1 var(--mono);margin-top:5px}
+.assign{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin:12px 0}
+.assign label{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:6px 8px 6px 12px;min-height:52px}
+.assign select{font:600 15px var(--sans);background:var(--surface-2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 6px;cursor:pointer}
+.figs.four{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+figure.cap-top .gl{font:600 15px/1 var(--serif);color:var(--text);text-align:center;margin:0 0 6px}
+.tip{font-size:15.5px;color:var(--muted);margin:8px 0}
+.note{font-size:15px;color:var(--muted)}
+.plot .axl{fill:var(--axis);font:600 11.5px var(--sans)}
+
+/* Protokoll */
+.hist{font:600 14px/1.4 var(--mono);color:var(--muted);letter-spacing:.06em}
+.hist:empty{display:none}
+.hist .y{color:var(--green)} .hist .n{color:var(--red)} .hist .warn{font:600 13.5px var(--sans);letter-spacing:0;color:var(--amber)}
+.quiz .hist{grid-column:1/-1}
+.self{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:15px;color:var(--muted)}
+.self .hist{flex-basis:100%}
+.mini{font:600 14px/1 var(--sans);border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:7px;padding:8px 11px;cursor:pointer;transition:background .2s}
+.mini.y{border-color:var(--green);color:var(--green)} .mini.n{border-color:var(--red);color:var(--red)}
+.mini.y.flash{background:var(--green-soft)} .mini.n.flash{background:var(--red-soft)}
+.sa-head .mini{font-size:13px;padding:6px 10px}
+.chk{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:4px 0 12px}
+.chk .res{font-weight:600}
+.assign label.ok{border-color:var(--green);background:var(--green-soft)}
+.assign label.bad{border-color:var(--red);background:var(--red-soft)}
+.log-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0 4px}
+.log-stats div{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:12px 6px;text-align:center}
+.log-stats b{display:block;font:600 1.7rem/1.1 var(--serif)}
+.log-stats span{font-size:13px;color:var(--muted)}
+#ls-f{color:var(--red)} #ls-g{color:var(--amber)}
+.gi{display:flex;justify-content:space-between;align-items:baseline;gap:4px 14px;padding:10px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.gi b{font-weight:600}
+.log-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.log-bar .grp{margin:22px 0 4px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--surface);color:var(--muted);font:600 13.5px/1 var(--sans);padding:8px 11px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.log-list{list-style:none;padding:0;margin:8px 0 18px}
+.log-list li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.log-list li.empty{display:block}
+.log-list .mk{font:700 16px/1.4 var(--mono)}
+.log-list li.good .mk{color:var(--green)} .log-list li.bad .mk{color:var(--red)} .log-list li.info .mk{color:var(--ink)}
+.log-list b{font-weight:600}
+.log-list small{display:block;color:var(--muted);font-size:13.5px;line-height:1.4}
+.empty{color:var(--muted);font-size:15px;padding:8px 0;margin:0}
+.btn.danger{border-color:var(--red);color:var(--red)}
+.btn.danger:hover{background:var(--red-soft)}
+@media (max-width:600px){
+  .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+  .tab{padding:12px 4px 10px;text-align:center;font-size:14.5px}
+  .topic{scroll-margin-top:100px}
+}
+
+/* Wissenscheck */
+.qhead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:6px}
+.score{font:600 14px var(--mono);color:var(--muted)}
+.quiz{list-style:none;padding:0;margin:10px 0}
+.quiz li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;padding:12px 0;border-top:1px solid var(--line);align-items:center}
+.quiz .bt{display:flex;gap:6px}
+.quiz button{font:600 14px/1 var(--sans);border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:7px;padding:8px 12px;cursor:pointer}
+.quiz button:hover{border-color:var(--muted)}
+.quiz li.done button{cursor:default}
+.quiz li.done button:not(.right):not(.wrong){opacity:.45}
+.quiz button.right{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.quiz button.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.quiz .why{grid-column:1/-1;font-size:15px;color:var(--muted);display:none}
+.quiz li.done .why{display:block}
+@media (max-width:520px){.quiz li{grid-template-columns:minmax(0,1fr)}}
+
+/* Graphen */
+.plot .bgr{fill:var(--surface);stroke:var(--line)}
+.plot .g{stroke:var(--grid);stroke-width:1}
+.plot .ax{stroke:var(--axis);stroke-width:1.3}
+.plot .axh{fill:var(--axis)}
+.plot .tl{fill:var(--muted);font:500 11px var(--mono)}
+.plot .axn{fill:var(--axis);font:italic 600 13px var(--serif)}
+.plot .asy{stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4;fill:none}
+.plot .cv{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.plot .cv.dash{stroke-dasharray:6 5;stroke-width:1.6}
+.plot .tx{font:600 13px var(--sans);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.plot .tx.pt{fill:var(--text);font-size:12.5px}
+svg.pl circle{stroke:var(--surface);stroke-width:1.5}
+.pl-c1{stroke:var(--ink)} .pl-c2{stroke:var(--red)} .pl-c3{stroke:var(--green)} .pl-c4{stroke:var(--amber)} .pl-c5{stroke:var(--violet)} .pl-aux{stroke:var(--muted)}
+.pf-c1{fill:var(--ink)} .pf-c2{fill:var(--red)} .pf-c3{fill:var(--green)} .pf-c4{fill:var(--amber)} .pf-c5{fill:var(--violet)} .pf-aux{fill:var(--muted)}
+
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:2px 0}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},options:{enableMenu:false}};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="kicker">Mathematik · AM 2bHBG · Schularbeit</p>
+  <h1>Funktionen, Potenzen &amp; Polynome</h1>
+  <p class="lede">Alles aus deinen 58 Fotos an einem Ort: der Stoff kurz zusammengefasst, deine Fehler aus SÜ, HÜ und Übungsblättern mit Korrektur, und drei Probeschularbeiten mit Lösungen zum Aufklappen. Probe 2 und 3 sind wie eure echte Schularbeit aufgebaut.</p>
+  <ul class="meta">
+    <li><b>Buch 2</b> S. 5–40, 43–46</li>
+    <li><b>Wissenscheck</b> S. 47</li>
+    <li><b>Polynome</b> wie 2.76–2.79</li>
+  </ul>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Bereiche">
+  <button class="tab" role="tab" id="t-lz" data-tab="lz" aria-controls="p-lz" aria-selected="true">Lernzettel</button>
+  <button class="tab" role="tab" id="t-fl" data-tab="fl" aria-controls="p-fl" aria-selected="false" tabindex="-1">Fehler<span class="n">18</span></button>
+  <button class="tab" role="tab" id="t-ps" data-tab="ps" aria-controls="p-ps" aria-selected="false" tabindex="-1">Probe 1</button>
+  <button class="tab" role="tab" id="t-p2" data-tab="p2" aria-controls="p-p2" aria-selected="false" tabindex="-1">Probe 2</button>
+  <button class="tab" role="tab" id="t-p3" data-tab="p3" aria-controls="p-p3" aria-selected="false" tabindex="-1">Probe 3 · 1:1</button>
+  <button class="tab" role="tab" id="t-log" data-tab="log" aria-controls="p-log" aria-selected="false" tabindex="-1">Protokoll<span class="n" id="log-badge" hidden>0</span></button>
+</nav>
+
+<!-- ===================== LERNZETTEL ===================== -->
+<section id="p-lz" role="tabpanel" aria-labelledby="t-lz">
+<div class="progress"><span><b id="lz-n">0</b> von 7 Kapiteln sitzen</span><div class="bar"><i id="lz-bar"></i></div></div>
+<ul class="toc">
+  <li><a href="#k1">1 Eigenschaften</a></li><li><a href="#k2">2 Umkehrfunktion</a></li><li><a href="#k3">3 Potenzen</a></li><li><a href="#k4">4 Wurzeln</a></li><li><a href="#k5">5 Potenzfunktionen</a></li><li><a href="#k6">6 Wurzelfunktionen</a></li><li><a href="#k7">7 Polynomfunktionen</a></li>
+</ul>
+
+<article class="topic" id="k1">
+  <div class="th"><span class="num">1</span><h2>Funktionen und ihre Eigenschaften</h2><label class="sitzt"><input type="checkbox" data-k="k1">sitzt</label></div>
+  <dl class="defs">
+    <dt>Funktion</dt><dd>Jedem \(x\) aus der Definitionsmenge wird <b>genau ein</b> \(y\) zugeordnet. Test: Jede senkrechte Gerade schneidet den Graphen höchstens einmal.</dd>
+    <dt>Definitionsmenge D</dt><dd>Alle \(x\), die man einsetzen darf. Raus muss, was den <b>Nenner null</b> macht oder unter einer <b>geraden Wurzel negativ</b> wird: \(f(x)=\frac{1}{x-2}\Rightarrow D=\mathbb R\setminus\{2\}\), &nbsp;\(g(x)=\sqrt{x+4}\Rightarrow D=[-4;\infty[\).</dd>
+    <dt>Wertemenge W</dt><dd>Alle \(y\)-Werte, die wirklich herauskommen.</dd>
+    <dt>Nullstelle</dt><dd>\(f(x)=0\): Schnittpunkt mit der x-Achse. Der Graph kann die Achse <b>schneiden</b> oder nur <b>berühren</b> (doppelte Nullstelle).</dd>
+    <dt>Extremstelle</dt><dd>Hochpunkt H, Tiefpunkt T: Dort wechselt die Monotonie. Immer als Punkt angeben, z. B. H(0|2).</dd>
+    <dt>Monotonie</dt><dd><b>streng monoton steigend</b>: \(x_1\lt x_2\Rightarrow f(x_1)\lt f(x_2)\). Bei „monoton steigend“ (ohne „streng“) sind auch waagrechte Stücke erlaubt. Die Intervalle reichen von Extremstelle zu Extremstelle, z. B. fallend in \(]-\infty;-2]\), steigend in \([-2;0]\).</dd>
+    <dt>Fixpunkt</dt><dd>\(f(x)=x\): Dort schneidet der Graph die Gerade \(y=x\).</dd>
+    <dt>Symmetrie</dt><dd><b>gerade</b>: \(f(-x)=f(x)\) → achsensymmetrisch zur y-Achse.<br><b>ungerade</b>: \(f(-x)=-f(x)\) → punktsymmetrisch zum Ursprung.</dd>
+    <dt>Periodizität</dt><dd>\(f(x+p)=f(x)\) für alle \(x\): Der Graph wiederholt sich alle \(p\) Einheiten (z. B. \(\sin x\) mit \(p=2\pi\)). Polynome und Potenzfunktionen sind <b>nie</b> periodisch.</dd>
+    <dt>Polstelle</dt><dd>Nenner \(=0\), Zähler \(\ne0\): Der Graph schießt nach \(\pm\infty\). Ungerade Hochzahl im Nenner → Vorzeichenwechsel (ein Ast oben, einer unten), gerade Hochzahl → beide Äste auf derselben Seite.</dd>
+    <dt>Asymptote</dt><dd>Gerade, an die sich der Graph beliebig nahe anschmiegt: <b>senkrecht</b> bei Polstellen, <b>waagrecht</b> für \(x\to\pm\infty\).</dd>
+  </dl>
+  <div class="box merke"><span class="lbl">Merke · Symmetrie rechnerisch</span>\(-x\) einsetzen und vereinfachen:
+  \[\begin{aligned}f(x)&=0{,}25x^4-2x^2\\ f(-x)&=0{,}25(-x)^4-2(-x)^2\\&=0{,}25x^4-2x^2=f(x)\end{aligned}\]
+  → gerade, achsensymmetrisch. Nur gerade Hochzahlen → gerade, nur ungerade → ungerade, gemischt (z. B. \(x^3+x^2\)) → keine Symmetrie. Achtung: Eine Zahl allein zählt als \(x^0\), also gerade. \(x^3+1\) ist deshalb <b>nicht</b> ungerade.</div>
+  <div class="box falle"><span class="lbl">Falle · deine 1.28c und 1.28e</span>Hat der Graph keinen Hoch- oder Tiefpunkt, gibt es auch keine Extrema: nichts erfinden. Bei W-förmigen Graphen alle drei Extrema angeben, z. B. H(0|2), T₁(−1,5|−2), T₂(1,5|−2).</div>
+  <div class="box tipp"><span class="lbl">Tipp · Wertetabelle</span>Mit der Tabellenfunktion am Taschenrechner arbeiten und auf zwei Kommastellen runden (\(\frac13+3=3{,}33\), nicht 3,3). Bei Polstellen Werte knapp links und rechts davon nehmen, z. B. 0,9 und 1,1.</div>
+</article>
+
+<article class="topic" id="k2">
+  <div class="th"><span class="num">2</span><h2>Umkehrfunktion</h2><label class="sitzt"><input type="checkbox" data-k="k2">sitzt</label></div>
+  <div class="split">
+    <div>
+      <p>\(f\) ist umkehrbar, wenn jeder \(y\)-Wert nur <b>einmal</b> vorkommt. Bei streng monotonen Funktionen ist das sicher so. Sonst schränkt man \(D\) ein, meistens auf \(x\ge0\).</p>
+      <p class="h4">Rechnerisch in 3 Schritten</p>
+      <ol class="steps">
+        <li>\(y=f(x)\) aufschreiben</li>
+        <li>nach \(x\) auflösen</li>
+        <li>\(x\) und \(y\) vertauschen → \(u(x)\), auch \(f^{-1}(x)\)</li>
+      </ol>
+      \[\begin{aligned}y&=2x-2\\ x&=\tfrac{y+2}{2}=\tfrac y2+1\\ u(x)&=\tfrac x2+1\end{aligned}\]
+      <p class="h4">Graphisch</p>
+      <p>Den Graphen an der Geraden \(y=x\) spiegeln: aus \((a|b)\) wird \((b|a)\). Fixpunkte liegen auf \(y=x\) und bleiben, wo sie sind. Außerdem gilt \(D_u=W_f\) und \(W_u=D_f\).</p>
+    </div>
+    <figure class="plot" data-plot="lz-umk"><figcaption><span class="c-ink">blau</span>: \(f(x)=2x-2\), <span class="c-red">rot</span>: \(u(x)=\frac x2+1\), gestrichelt: \(y=x\)</figcaption></figure>
+  </div>
+  <div class="scroll"><table class="tbl">
+    <tr><th>Funktion</th><th>Umkehrfunktion</th><th>Hinweis</th></tr>
+    <tr><td>\(f(x)=x^3+1\)</td><td>\(u(x)=\sqrt[3]{x-1}\)</td><td>hattest du richtig</td></tr>
+    <tr><td>\(f(x)=x^2-3,\ x\ge0\)</td><td>\(u(x)=\sqrt{x+3}\)</td><td>nur mit \(x\ge0\) umkehrbar</td></tr>
+    <tr><td>\(f(x)=\frac1x+2\)</td><td>\(u(x)=\frac{1}{x-2}\)</td><td>Asymptoten tauschen mit</td></tr>
+    <tr><td>\(K(t)=0{,}05t+8\)</td><td>\(t(K)=20K-160\)</td><td>Sachaufgabe</td></tr>
+  </table></div>
+  <div class="box falle"><span class="lbl">Falle · deine 2.97b</span>Bei Quadratfunktionen immer dazuschreiben: <b>nur für \(x\ge0\) umkehrbar</b>. Sonst gehören zu einem \(y\) zwei \(x\)-Werte, z. B. \(f(1)=f(-1)\).</div>
+</article>
+
+<article class="topic" id="k3">
+  <div class="th"><span class="num">3</span><h2>Potenzen: Rechenregeln</h2><label class="sitzt"><input type="checkbox" data-k="k3">sitzt</label></div>
+  <div class="rules">
+    <div>\(a^m\cdot a^n=a^{m+n}\)</div>
+    <div>\(\dfrac{a^m}{a^n}=a^{m-n}\)</div>
+    <div>\((a^m)^n=a^{m\cdot n}\)</div>
+    <div>\(a^n\cdot b^n=(ab)^n\)</div>
+    <div>\(\dfrac{a^n}{b^n}=\left(\dfrac ab\right)^n\)</div>
+    <div>\(a^0=1\)</div>
+    <div>\(a^{-n}=\dfrac1{a^n}\)</div>
+    <div>\(\left(\dfrac ab\right)^{-n}=\left(\dfrac ba\right)^n\)</div>
+    <div>\(a^{\frac mn}=\sqrt[n]{a^m}\)</div>
+    <div>\(a^{-\frac mn}=\dfrac1{\sqrt[n]{a^m}}\)</div>
+  </div>
+  <p class="h4">Vorgehen bei langen Termen</p>
+  <ol class="steps">
+    <li>Klammern mit Hochzahl auflösen: <b>jeden Faktor</b> potenzieren, auch die Zahl.</li>
+    <li>Gleiche Basen zusammenfassen (Hochzahlen addieren bzw. subtrahieren).</li>
+    <li>Zum Schluss negative Hochzahlen in den Nenner bringen.</li>
+  </ol>
+  \[(2a^{-3}b^2)^{-2}=2^{-2}a^{6}b^{-4}=\frac{a^6}{4b^4}\]
+  <div class="box falle"><span class="lbl">Fallen · deine 2.16f und 2.50d</span>
+    <ul class="plain">
+      <li>\(-2^4=-16\), aber \((-2)^4=16\) und \((-2)^3=-8\).</li>
+      <li>Klammer um die Basis: \((r+s)^{-\frac12}=\frac{1}{\sqrt{r+s}}\). Ohne Klammer gilt die Hochzahl nur für \(s\).</li>
+      <li>\(\left(\frac1x\right)^2=x^{-2}\), nicht \(x^{-1}\).</li>
+      <li>\((a+b)^2\ne a^2+b^2\): Summen darf man nicht einzeln potenzieren.</li>
+    </ul>
+  </div>
+</article>
+
+<article class="topic" id="k4">
+  <div class="th"><span class="num">4</span><h2>Wurzeln: Regeln, partiell Wurzelziehen, Rationalmachen</h2><label class="sitzt"><input type="checkbox" data-k="k4">sitzt</label></div>
+  <div class="rules">
+    <div>\(\sqrt[n]a\cdot\sqrt[n]b=\sqrt[n]{ab}\)</div>
+    <div>\(\dfrac{\sqrt[n]a}{\sqrt[n]b}=\sqrt[n]{\dfrac ab}\)</div>
+    <div>\(\sqrt[m]{\sqrt[n]a}=\sqrt[m\cdot n]{a}\)</div>
+    <div>\(\sqrt[n]{a^m}=\sqrt[n\cdot k]{a^{m\cdot k}}\)</div>
+  </div>
+  <p><b>Verschiedene Wurzelexponenten</b> → in Potenzschreibweise umwandeln und auf gleichen Nenner bringen:
+  \[\sqrt[3]{x^2}\cdot\sqrt{x}=x^{\frac23+\frac12}=x^{\frac76}=\sqrt[6]{x^7}=x\,\sqrt[6]{x}\]</p>
+  <p class="h4">Partiell (teilweise) Wurzelziehen</p>
+  <p>Hochzahl durch den Wurzelexponenten teilen: Das Ergebnis kommt vor die Wurzel, der Rest bleibt drin. Bei Zahlen die größte Quadrat- bzw. Kubikzahl suchen.</p>
+  \[\sqrt[3]{x^7}=x^2\sqrt[3]{x}\quad(7:3=2\text{ Rest }1)\]
+  \[\sqrt{72}=\sqrt{36\cdot2}=6\sqrt2\]
+  <p class="h4">Faktor unter die Wurzel</p>
+  <p>Umgekehrt: Der Faktor kommt mit dem Wurzelexponenten als Hochzahl hinein (für \(a\ge0\)): \(a\sqrt[n]{b}=\sqrt[n]{a^n\,b}\), z. B. \(2\sqrt3=\sqrt{12}\).</p>
+  <p class="h4">Nenner rational machen</p>
+  <div class="scroll"><table class="tbl">
+    <tr><th>Im Nenner steht</th><th>erweitern mit</th><th>Nenner danach</th></tr>
+    <tr><td>\(\sqrt a\)</td><td>\(\sqrt a\)</td><td>\(a\)</td></tr>
+    <tr><td>\(\sqrt[3]{a}\)</td><td>\(\sqrt[3]{a^2}\)</td><td>\(a\)</td></tr>
+    <tr><td>\(\sqrt[n]{a^m}\)</td><td>\(\sqrt[n]{a^{n-m}}\)</td><td>\(a\)</td></tr>
+    <tr><td>\(\sqrt a+\sqrt b\)</td><td>\(\sqrt a-\sqrt b\)</td><td>\(a-b\)</td></tr>
+    <tr><td>\(\sqrt a-b\)</td><td>\(\sqrt a+b\)</td><td>\(a-b^2\)</td></tr>
+  </table></div>
+  <p>Die letzten zwei Zeilen funktionieren mit der 3. binomischen Formel \((x+y)(x-y)=x^2-y^2\).</p>
+  <div class="box falle"><span class="lbl">Fallen · deine 2.51a, 2.51c, 2.58f</span>
+    <ul class="plain">
+      <li>Den <b>Wurzelexponenten mitschreiben</b>: \(\sqrt[3]{\frac{m^4}{n^2}}\) ist etwas anderes als \(\sqrt{\frac{m^4}{n^2}}\).</li>
+      <li>\(\sqrt{a^2+b^2}\ne a+b\).</li>
+      <li>Beim Erweitern mit \((\sqrt a-b)\) den ganzen Zähler mitmultiplizieren: \(\frac{a+b}{\sqrt a+b}=\frac{(a+b)(\sqrt a-b)}{a-b^2}\).</li>
+    </ul>
+  </div>
+</article>
+
+<article class="topic" id="k5">
+  <div class="th"><span class="num">5</span><h2>Potenzfunktionen \(f(x)=a\cdot(x-b)^n+c\)</h2><label class="sitzt"><input type="checkbox" data-k="k5">sitzt</label></div>
+  <p class="h4">Die vier Grundformen \(f(x)=x^n\)</p>
+  <div class="figs">
+    <figure class="plot" data-plot="lz-p1"><figcaption><b>n gerade, n &gt; 0</b><br><span class="c-ink">\(x^2\)</span>, <span class="c-amb">\(x^4\)</span>: achsensymmetrisch, T(0|0), durch (±1|1)</figcaption></figure>
+    <figure class="plot" data-plot="lz-p2"><figcaption><b>n ungerade, n &gt; 0</b><br>\(x^3\): punktsymmetrisch, streng steigend, durch (1|1), (−1|−1)</figcaption></figure>
+    <figure class="plot" data-plot="lz-p3"><figcaption><b>n ungerade, n &lt; 0</b><br>\(x^{-1}=\frac1x\): Hyperbel, punktsymmetrisch, Asymptoten \(x=0\), \(y=0\)</figcaption></figure>
+    <figure class="plot" data-plot="lz-p4"><figcaption><b>n gerade, n &lt; 0</b><br>\(x^{-2}=\frac1{x^2}\): beide Äste oben, achsensymmetrisch, Asymptoten \(x=0\), \(y=0\)</figcaption></figure>
+  </div>
+  <p class="h4">Was die Parameter machen</p>
+  <dl class="defs">
+    <dt>a</dt><dd>\(|a|\gt1\) gestreckt (steiler), \(|a|\lt1\) gestaucht (flacher), \(a\lt0\) an der x-Achse gespiegelt.</dd>
+    <dt>b</dt><dd>Verschiebung in x-Richtung, <b>Vorzeichen umgekehrt</b>: \((x-3)\) → 3 nach rechts, \((x+4)\) → 4 nach links.</dd>
+    <dt>c</dt><dd>Verschiebung in y-Richtung: \(+c\) nach oben.</dd>
+    <dt>(b | c)</dt><dd>bei \(n\gt0\): Scheitel bzw. Symmetriepunkt.<br>bei \(n\lt0\): Schnittpunkt der Asymptoten \(x=b\) und \(y=c\).</dd>
+  </dl>
+  <div class="split">
+    <div>
+      <p class="h4">Gleichung aus dem Graphen ablesen</p>
+      <ol class="steps">
+        <li>Punkt \((b|c)\) ablesen (Scheitel oder Asymptoten-Kreuzung).</li>
+        <li>Grundform erkennen → \(n\).</li>
+        <li>Einen gut ablesbaren Punkt einsetzen → \(a\).</li>
+      </ol>
+      <p>Beispiel \(f_1\): S(3|4), nach unten offen, also \(n=2\). Punkt P(5|2):</p>
+      \[2=a\,(5-3)^2+4\;\Rightarrow\;4a=-2\;\Rightarrow\;a=-\tfrac12\]
+      \[f_1(x)=-\tfrac12(x-3)^2+4\]
+      <p class="h4">Skizzieren</p>
+      <p>(b|c) und eventuell Asymptoten einzeichnen, Wertetabelle mit \(x\)-Werten rund um \(b\) (von \(b-2\) bis \(b+2\)), Punkte verbinden.</p>
+    </div>
+    <figure class="plot" data-plot="lz-f1"><figcaption>\(f_1(x)=-\frac12(x-3)^2+4\): von S zwei nach rechts, zwei nach unten</figcaption></figure>
+  </div>
+  <div class="box falle"><span class="lbl">Fallen · deine 2.68b und 2.68d</span>
+    <ul class="plain">
+      <li><b>Nur n &lt; 0 hat Asymptoten.</b> \((x+1)^3-6\) hat keine, nur einen Symmetriepunkt S(−1|−6).</li>
+      <li>Bei \(n\lt0\) laufen die Äste gegen \(y=c\), <b>nicht</b> gegen die x-Achse: \((x+4)^{-3}-3\) nähert sich \(y=-3\).</li>
+    </ul>
+  </div>
+</article>
+
+<article class="topic" id="k6">
+  <div class="th"><span class="num">6</span><h2>Wurzelfunktionen</h2><label class="sitzt"><input type="checkbox" data-k="k6">sitzt</label></div>
+  <p>\(f(x)=\sqrt[n]{x}=x^{\frac1n}\) ist die Umkehrfunktion von \(x^n\) (bei geradem \(n\) nur für \(x\ge0\)). Darum ist ihr Graph das Spiegelbild an \(y=x\).</p>
+  <div class="figs big">
+    <figure class="plot" data-plot="lz-w2"><figcaption><span class="c-ink">\(\sqrt x\)</span> und <span class="c-red">\(x^2\ (x\ge0)\)</span>. \(D=[0;\infty[\), streng steigend, Punkte (0|0), (1|1), (4|2), (9|3)</figcaption></figure>
+    <figure class="plot" data-plot="lz-w3"><figcaption><span class="c-ink">\(\sqrt[3]x\)</span> und <span class="c-red">\(x^3\)</span>. Punkte (−8|−2), (−1|−1), (0|0), (1|1), (8|2); bei ungeradem \(n\) gilt \(D=\mathbb R\)</figcaption></figure>
+  </div>
+  <p><b>Verschoben:</b> \(a\sqrt{x-b}+c\) startet im Punkt \((b|c)\). Beispiel: \(\sqrt{x+4}-1\) startet bei (−4|−1).</p>
+  <div class="box falle"><span class="lbl">Falle · deine 2.98e</span>\(\sqrt[3]{x}-4\) heißt: 4 nach <b>unten</b>. Nur \(\sqrt[3]{x-4}\) (mit dem −4 unter der Wurzel) wäre 4 nach rechts. Genau hinschauen, wie weit der Wurzelstrich reicht.</div>
+</article>
+
+<article class="topic" id="k7">
+  <div class="th"><span class="num">7</span><h2>Polynomfunktionen</h2><label class="sitzt"><input type="checkbox" data-k="k7">sitzt</label></div>
+  \[f(x)=a_nx^n+\dots+a_1x+a_0\]
+  <p>mit \(n\in\mathbb N\) und \(a_n\ne0\).</p>
+  <p><b>Grad</b> \(n\) = höchste Hochzahl, <b>Leitkoeffizient</b> \(a_n\) = Zahl davor, \(a_0\) = Schnittpunkt mit der y-Achse.</p>
+  <p><b>Kein Polynom</b>, sobald \(x\) eine negative oder gebrochene Hochzahl hat, im Nenner oder unter einer Wurzel steht: \(\frac2x\), \(x^{-1}\), \(\sqrt x\), \(x\sqrt x=x^{1{,}5}\). Irrationale Koeffizienten wie \(\sqrt3\,x^3-\pi x\) sind erlaubt.</p>
+  <div class="scroll"><table class="tbl">
+    <tr><th>Grad n</th><th>Nullstellen</th><th>Extremstellen</th></tr>
+    <tr><td>1</td><td>genau 1</td><td>keine</td></tr>
+    <tr><td>2</td><td>0, 1 oder 2</td><td>genau 1</td></tr>
+    <tr><td>3</td><td>1 bis 3</td><td>0 oder 2</td></tr>
+    <tr><td>4</td><td>0 bis 4</td><td>1 oder 3</td></tr>
+    <tr><td>5</td><td>1 bis 5</td><td>0, 2 oder 4</td></tr>
+    <tr><td><b>allgemein</b></td><td>höchstens \(n\); ungerader Grad: mindestens 1</td><td>höchstens \(n-1\)</td></tr>
+  </table></div>
+  <p class="h4">Endverlauf</p>
+  <div class="figs">
+    <figure class="plot" data-plot="lz-e1"><figcaption>gerade, \(a_n\gt0\): beide Enden <b>oben</b></figcaption></figure>
+    <figure class="plot" data-plot="lz-e2"><figcaption>gerade, \(a_n\lt0\): beide Enden <b>unten</b></figcaption></figure>
+    <figure class="plot" data-plot="lz-e3"><figcaption>ungerade, \(a_n\gt0\): links unten → rechts oben</figcaption></figure>
+    <figure class="plot" data-plot="lz-e4"><figcaption>ungerade, \(a_n\lt0\): links oben → rechts unten</figcaption></figure>
+  </div>
+  <div class="box merke"><span class="lbl">Merke · Mindestgrad aus dem Graphen</span>
+    <ol class="steps">
+      <li>Nullstellen zählen (berühren zählt doppelt) → Grad ≥ Anzahl.</li>
+      <li>Extremstellen zählen → Grad ≥ Extrema + 1.</li>
+      <li>Endverlauf prüfen: Enden gleich (beide oben/unten) → gerader Grad, Enden verschieden → ungerader Grad. Passt die Zahl nicht, eins dazu.</li>
+    </ol>
+    Beispiel: 4 Nullstellen, 3 Extrema, beide Enden oben → mindestens Grad 4. &nbsp;1 Nullstelle, 2 Extrema, links unten → rechts oben → mindestens Grad 3.
+  </div>
+  <p class="h4">Produktform</p>
+  <p>\(f(x)=a(x-x_1)(x-x_2)\cdots\) → Nullstellen direkt ablesen. Grad = Summe der höchsten Hochzahlen der Klammern, Leitkoeffizient = Produkt der Zahlen vor den höchsten Potenzen. Eine quadrierte Klammer wie \((x-2)^2\) bedeutet: Bei 2 wird die Achse nur berührt.</p>
+  <p>Beispiel \((1-x)(x+3)(2x^2+1)\):</p>
+  \[\begin{aligned}\text{Grad}&=1+1+2=4\\ a_n&=(-1)\cdot1\cdot2=-2\end{aligned}\]
+  <div class="box falle"><span class="lbl">Falle · dein Übungsblatt 3</span>Beim Mindestgrad den Endverlauf nicht vergessen. Er kann den Grad um eins erhöhen.</div>
+</article>
+</section>
+
+<!-- ===================== FEHLER ===================== -->
+<section id="p-fl" role="tabpanel" aria-labelledby="t-fl" hidden>
+<p class="intro">Alles, was in deinen Fotos nicht gestimmt hat, mit der richtigen Lösung. Die Einträge mit <span class="tag neu">neu</span> sind aus den letzten Fotos und waren noch nicht besprochen. Ganz unten steht, was du richtig hattest.</p>
+
+<h2 class="grp"><span class="tag neu">neu</span> Aus den letzten Fotos</h2>
+<div class="err">
+  <div class="no">2.68b<small>Graph skizzieren</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> mit Asymptote gezeichnet. \(f(x)=(x+1)^3-6\) hat aber keine, weil \(n=3\gt0\).</p>
+    <p class="ok"><b>Richtig:</b> Form wie \(x^3\), 1 nach links und 6 nach unten. Symmetriepunkt S(−1|−6).</p>
+    <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−3</td><td>−2</td><td>−1</td><td>0</td><td>1</td></tr><tr><th>\(f(x)\)</th><td>−14</td><td>−7</td><td>−6</td><td>−5</td><td>2</td></tr></table></div>
+    <figure class="plot" data-plot="fl-268b"></figure>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.68d<small>Graph skizzieren</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Die Äste laufen nicht gegen \(y=-3\).</p>
+    <p class="ok"><b>Richtig:</b> \(f(x)=(x+4)^{-3}-3\) hat die Asymptoten \(x=-4\) und \(y=-3\). Rechts von \(x=-4\) liegt der Ast über \(y=-3\), links darunter (wie \(\frac1{x^3}\), nur verschoben). Nullstelle bei \(x\approx-3{,}31\).</p>
+    <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−6</td><td>−5</td><td>−3</td><td>−2</td></tr><tr><th>\(f(x)\)</th><td>−3,125</td><td>−4</td><td>−2</td><td>−2,875</td></tr></table></div>
+    <figure class="plot" data-plot="fl-268d"></figure>
+  </div>
+</div>
+<div class="err">
+  <div class="no">ÜB 2c<small>Übungsblatt, Graph</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Die Form stimmt nicht. \(f(x)=0{,}1x^4-x^2\) ist ein W.</p>
+    <p class="ok"><b>Richtig:</b> H(0|0), T(±√5|−2,5) ≈ (±2,24|−2,5). Nullstellen: 0 (berührt) und \(\pm\sqrt{10}\approx\pm3{,}16\), also 3 Stück.</p>
+    <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>0</td><td>±1</td><td>±2</td><td>±3</td><td>±4</td></tr><tr><th>\(f(x)\)</th><td>0</td><td>−0,9</td><td>−2,4</td><td>−0,9</td><td>9,6</td></tr></table></div>
+    <figure class="plot" data-plot="fl-2c"></figure>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.98e<small>Umkehrfunktion zeichnen</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Die Kurve geht nicht durch die richtigen Punkte.</p>
+    <p class="ok"><b>Richtig:</b> \(u(x)=\sqrt[3]{x}-4\) ist \(\sqrt[3]x\) um 4 nach unten verschoben. Streng steigend, \(D=\mathbb R\), durch (−8|−6), (−1|−5), (0|−4), (1|−3), (8|−2).</p>
+    <figure class="plot" data-plot="fl-298e"></figure>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.50d<small>Potenzen</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Fehler beim Quadrieren von \(\frac1x\), dadurch falsches Endergebnis.</p>
+    <p class="ok"><b>Richtig:</b> \(\left(\frac1x\right)^2=x^{-2}\). Damit kommt am Ende \(\sqrt x\) heraus.</p>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.16f<small>Schreibweise</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Klammer um \(r+s\) fehlt.</p>
+    <p class="ok"><b>Richtig:</b> \((r+s)^{-\frac12}=\dfrac{1}{\sqrt{r+s}}\). Ohne Klammer gehört die Hochzahl nur zu \(s\).</p>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.58f<small>Rationalmachen</small></div>
+  <div>
+    <p class="ok"><b>Richtig:</b> mit \((\sqrt a-b)\) erweitern, Nenner \((\sqrt a)^2-b^2=a-b^2\):</p>
+    \[\frac{(a+b)(\sqrt a-b)}{a-b^2}\]
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.51a, c<small>Wurzeln</small></div>
+  <div>
+    <p class="bei"><b>Bei dir:</b> Der Wurzelexponent 3 ist unterwegs verloren gegangen.</p>
+    <p class="ok"><b>Richtig:</b> a) \(\sqrt[3]{\dfrac1{c^4}}\) &nbsp; c) \(\sqrt[3]{\dfrac{m^4}{n^2}}\)</p>
+  </div>
+</div>
+<div class="err">
+  <div class="no">2.97b<small>Tipp</small></div>
+  <div>
+    <p>Rechnung stimmt. Schreib aber dazu, dass die Quadratfunktion nur für \(x\ge0\) umkehrbar ist.</p>
+  </div>
+</div>
+
+<h2 class="grp"><span class="tag alt">besprochen</span> Aus den ersten Fotos</h2>
+<div class="err">
+  <div class="no">1.28c<small>bei dir „1.18“</small></div>
+  <div><p class="ok"><b>Richtig:</b> punktsymmetrisch zu (0|0), keine Extrema, Nullstelle \(x=0\).</p></div>
+</div>
+<div class="err">
+  <div class="no">1.28e</div>
+  <div><p class="ok"><b>Richtig:</b> H(0|2), T₁(−1,5|−2), T₂(1,5|−2), 4 Nullstellen.</p></div>
+</div>
+<div class="err">
+  <div class="no">1.30<small>Sachgraph</small></div>
+  <div><p class="ok"><b>Richtig:</b> E stimmt. Bei C: Das Ablassen (50 cm in 1,5 h) geht langsamer als das Befüllen, der fallende Teil muss also flacher sein.</p></div>
+</div>
+<div class="err">
+  <div class="no">Tabelle<small>\(\frac1x+3\)</small></div>
+  <div><p class="ok"><b>Richtig:</b> \(x=3\) → 3,33 und \(x=4\) → 3,25.</p></div>
+</div>
+<div class="err">
+  <div class="no">ÜB 2a</div>
+  <div><p class="ok"><b>Richtig:</b> nur 1 Nullstelle, \(x\approx-1{,}43\).</p></div>
+</div>
+<div class="err">
+  <div class="no">ÜB 3<small>Mindestgrad</small></div>
+  <div><p class="ok"><b>Richtig:</b> blau mindestens 5, grün mindestens 4, rot mindestens 3.</p></div>
+</div>
+<div class="err">
+  <div class="no">2.34d</div>
+  <div><p class="ok"><b>Richtig:</b> \(u^{-\frac23}v^{-\frac56}=\dfrac{1}{\sqrt[6]{u^4v^5}}\) (beide auf Nenner 6 bringen).</p></div>
+</div>
+<div class="err">
+  <div class="no">2.52c<small>Tipp</small></div>
+  <div><p>Stimmt, schöner geschrieben: \((x-1)\sqrt[3]{x^2}\).</p></div>
+</div>
+<div class="err">
+  <div class="no">„1.18“<small>Beschriftung</small></div>
+  <div><p>Die Aufgaben mit „1.18“ sind eigentlich 1.28. Für die Schularbeit egal, beim Lernen aber verwirrend.</p></div>
+</div>
+
+<h2 class="grp">Das hattest du richtig</h2>
+<div class="chips">
+  <span>1.15</span><span>1.24</span><span>1.38b</span><span>2.3e</span><span>2.4b</span><span>2.5b</span><span>2.7a</span><span>2.37b, e</span><span>2.45a, c, d</span><span>2.46g, i, j</span><span>2.48b, c, e, f</span><span>2.51d, e</span><span>2.52e</span><span>2.54b</span><span>2.56c</span><span>2.58a, c, e</span><span>2.59a</span><span>2.97b</span><span>Umkehrfkt. x³+1</span><span>Wertetabellen Potenzfkt.</span>
+</div>
+</section>
+
+<!-- ===================== PROBESCHULARBEIT ===================== -->
+<section id="p-ps" role="tabpanel" aria-labelledby="t-ps" hidden>
+<div class="ps-bar">
+  <p class="intro" style="margin:0">Erst alles auf Papier rechnen, dann die Lösungen aufklappen. Taschenrechner nur für Wertetabellen.</p>
+  <button class="btn all-loes" type="button">Alle Lösungen zeigen</button>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 1</span>Eigenschaften aus dem Graphen</h3>
+  <div class="split">
+    <div>
+      <p>Gegeben ist der Graph von \(f(x)=0{,}25x^4-2x^2\).</p>
+      <ol class="sub">
+        <li>Lies die Nullstellen sowie die Hoch- und Tiefpunkte ab.</li>
+        <li>Gib die Monotonieintervalle an.</li>
+        <li>Weise die Symmetrie rechnerisch nach.</li>
+        <li>Ist \(f\) periodisch? Begründe.</li>
+        <li>Zeichne \(y=x\) ein und lies die Fixpunkte ab.</li>
+        <li>Begründe nur mit dem Graphen: Welchen Grad hat \(f\) mindestens, welches Vorzeichen hat der Leitkoeffizient?</li>
+      </ol>
+    </div>
+    <figure class="plot" data-plot="ps-1"></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>Nullstellen: \(x=0\) (berührt), \(x=\pm\sqrt8\approx\pm2{,}83\). H(0|0), T₁(−2|−4), T₂(2|−4).</li>
+      <li>streng monoton fallend in \(]-\infty;-2]\) und \([0;2]\); streng monoton steigend in \([-2;0]\) und \([2;\infty[\).</li>
+      <li>\(f(-x)=0{,}25(-x)^4-2(-x)^2=0{,}25x^4-2x^2=f(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
+      <li>Nein. Für \(x\to\pm\infty\) wächst \(f\) immer weiter, der Graph wiederholt sich nicht.</li>
+      <li>4 Schnittpunkte mit \(y=x\): \(x\approx-2{,}5\), \(x\approx-0{,}5\), \(x=0\), \(x\approx3{,}05\).</li>
+      <li>3 Extrema → mindestens Grad 4. Beide Enden oben → gerader Grad, Leitkoeffizient positiv.</li>
+    </ol>
+    </div><figure class="plot" data-plot="ps-1l"><figcaption>grün: Fixpunkte auf \(y=x\)</figcaption></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 2</span>Polstelle, Asymptoten, Umkehrfunktion</h3>
+  <p>\(f(x)=\dfrac{2}{x-1}+3\)</p>
+  <ol class="sub">
+    <li>Gib die Definitionsmenge, die Polstelle und beide Asymptoten an.</li>
+    <li>Berechne die Nullstelle und den Schnittpunkt mit der y-Achse.</li>
+    <li>Beschreibe das Monotonieverhalten. Achtung, genau formulieren!</li>
+    <li>Berechne die Umkehrfunktion.</li>
+    <li>Zusatz: Berechne die Fixpunkte.</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>\(D=\mathbb R\setminus\{1\}\), Polstelle \(x=1\) (mit Vorzeichenwechsel). Asymptoten \(x=1\) und \(y=3\).</li>
+      <li>\(\frac{2}{x-1}=-3\Rightarrow x-1=-\frac23\Rightarrow x=\frac13\). &nbsp;\(f(0)=-2+3=1\) → (0|1).</li>
+      <li>streng monoton fallend in \(]-\infty;1[\) und in \(]1;\infty[\), jeweils einzeln. Auf ganz \(D\) ist \(f\) nicht monoton, weil der Graph bei \(x=1\) springt.</li>
+      <li>\(y-3=\frac{2}{x-1}\Rightarrow x-1=\frac{2}{y-3}\Rightarrow x=\frac{2}{y-3}+1\) → \(u(x)=\dfrac{2}{x-3}+1\), \(D_u=\mathbb R\setminus\{3\}\).</li>
+      <li>\(\frac{2}{x-1}+3=x\;\big|\cdot(x-1)\Rightarrow 2+3x-3=x^2-x\Rightarrow x^2-4x+1=0\Rightarrow x=2\pm\sqrt3\), also \(x_1\approx0{,}27\), \(x_2\approx3{,}73\).</li>
+    </ol>
+    </div><figure class="plot" data-plot="ps-2l"><figcaption>Asymptoten gestrichelt, rot: Nullstelle, grün: Fixpunkte auf \(y=x\)</figcaption></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 3</span>Umkehrfunktionen</h3>
+  <ol class="sub">
+    <li>\(f(x)=(x-2)^3+1\)</li>
+    <li>\(g(x)=3x^2-6\) mit \(x\ge0\). Warum braucht man \(x\ge0\)? Gib \(D\) und \(W\) der Umkehrfunktion an.</li>
+    <li>\(h(x)=\sqrt{x+4}-1\): Gib \(D\), \(W\) und die Nullstelle an und berechne die Umkehrfunktion.</li>
+    <li>Ein Handytarif kostet 8 € Grundgebühr und 5 Cent pro Minute. Stelle \(K(t)\) auf, berechne die Umkehrfunktion und erkläre, was sie angibt. Wie lange kann man um 20 € telefonieren?</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(y-1=(x-2)^3\Rightarrow x-2=\sqrt[3]{y-1}\) → \(u(x)=\sqrt[3]{x-1}+2\)</li>
+      <li>Ohne Einschränkung gäbe es zu einem \(y\) zwei \(x\) (\(g(1)=g(-1)=-3\)), also nicht umkehrbar.<br>\(y+6=3x^2\Rightarrow x=\sqrt{\frac{y+6}{3}}\) → \(u(x)=\sqrt{\dfrac{x+6}{3}}\), \(D_u=[-6;\infty[\), \(W_u=[0;\infty[\).</li>
+      <li>\(D=[-4;\infty[\), \(W=[-1;\infty[\), Startpunkt (−4|−1). Nullstelle: \(\sqrt{x+4}=1\Rightarrow x=-3\).<br>\(y+1=\sqrt{x+4}\Rightarrow x=(y+1)^2-4\) → \(u(x)=(x+1)^2-4\) mit \(D_u=[-1;\infty[\).
+        <figure class="plot" data-plot="ps-3c" style="max-width:300px;margin-top:10px"><figcaption><span class="c-ink">blau</span>: \(h\), <span class="c-red">rot</span>: \(u\), gespiegelt an \(y=x\)</figcaption></figure></li>
+      <li>\(K(t)=0{,}05t+8\) (t in Minuten, K in €).<br>\(K-8=0{,}05t\Rightarrow t=\frac{K-8}{0{,}05}\) → \(t(K)=20K-160\). Sie gibt an, wie viele Minuten man für \(K\) Euro telefonieren kann.<br>\(t(20)=400-160=\) <span class="ans">240 min = 4 h</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 4</span>Potenzen vereinfachen</h3>
+  <p>Ergebnis ohne negative Hochzahlen.</p>
+  <ol class="sub">
+    <li>\((2a^{-3}b^2)^{-2}\cdot(4a^2b^{-1})^3\)</li>
+    <li>\((-3x^2y^{-1})^3:(9x^{-1}y^2)^{-2}\)</li>
+    <li>\(-2^4+(-2)^4-(-2)^3\)</li>
+    <li>\((x^{n+1})^2:x^{2n-1}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(2^{-2}a^{6}b^{-4}\cdot64a^6b^{-3}=\frac{64}{4}a^{12}b^{-7}=\) <span class="ans">\(\dfrac{16a^{12}}{b^7}\)</span></li>
+      <li>\((-27x^6y^{-3}):\left(\frac{1}{81}x^2y^{-4}\right)=-27\cdot81\,x^{6-2}y^{-3+4}=\) <span class="ans">\(-2187x^4y\)</span></li>
+      <li>\(-16+16-(-8)=\) <span class="ans">8</span></li>
+      <li>\(x^{2n+2}:x^{2n-1}=x^{2n+2-2n+1}=\) <span class="ans">\(x^3\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 5</span>Rationale Exponenten</h3>
+  <p>Schreibe als eine Wurzel (a–c) bzw. als Potenz (d). Alle Variablen sind positiv.</p>
+  <ol class="sub">
+    <li>\(\sqrt[3]{x^2}\cdot\sqrt[4]{x^3}\)</li>
+    <li>\(\sqrt[4]{a^3}:\sqrt a\)</li>
+    <li>\(\sqrt{x\cdot\sqrt[3]{x}}\)</li>
+    <li>\(\dfrac{1}{\sqrt[5]{y^3}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(x^{\frac23+\frac34}=x^{\frac{8}{12}+\frac{9}{12}}=x^{\frac{17}{12}}=\) <span class="ans">\(\sqrt[12]{x^{17}}=x\sqrt[12]{x^5}\)</span></li>
+      <li>\(a^{\frac34-\frac24}=a^{\frac14}=\) <span class="ans">\(\sqrt[4]{a}\)</span></li>
+      <li>\(\sqrt{x^{\frac43}}=x^{\frac46}=x^{\frac23}=\) <span class="ans">\(\sqrt[3]{x^2}\)</span></li>
+      <li><span class="ans">\(y^{-\frac35}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 6</span>Partiell Wurzelziehen, Faktor unter die Wurzel</h3>
+  <p>Alle Variablen sind positiv.</p>
+  <ol class="sub">
+    <li>\(\sqrt{72}\)</li>
+    <li>\(\sqrt[3]{250}\)</li>
+    <li>\(\sqrt{48a^5b^8}\)</li>
+    <li>\(\sqrt[3]{54x^7y^3}\)</li>
+    <li>Als eine Wurzel: \(2x\cdot\sqrt{\dfrac3x}\)</li>
+    <li>Als eine Wurzel: \(\dfrac{a^2}{b}\cdot\sqrt[3]{\dfrac{b}{a^4}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(\sqrt{36\cdot2}=\) <span class="ans">\(6\sqrt2\)</span></li>
+      <li>\(\sqrt[3]{125\cdot2}=\) <span class="ans">\(5\sqrt[3]2\)</span></li>
+      <li>\(\sqrt{16\cdot3\cdot a^4\cdot a\cdot b^8}=\) <span class="ans">\(4a^2b^4\sqrt{3a}\)</span></li>
+      <li>\(\sqrt[3]{27\cdot2\cdot x^6\cdot x\cdot y^3}=\) <span class="ans">\(3x^2y\sqrt[3]{2x}\)</span></li>
+      <li>\(\sqrt{4x^2\cdot\frac3x}=\) <span class="ans">\(\sqrt{12x}\)</span></li>
+      <li>\(\sqrt[3]{\frac{a^6}{b^3}\cdot\frac{b}{a^4}}=\) <span class="ans">\(\sqrt[3]{\dfrac{a^2}{b^2}}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 7</span>Nenner rational machen</h3>
+  <ol class="sub">
+    <li>\(\dfrac{6}{\sqrt3}\)</li>
+    <li>\(\dfrac{10}{\sqrt[3]{25}}\)</li>
+    <li>\(\dfrac{4}{\sqrt7-\sqrt3}\)</li>
+    <li>\(\dfrac{\sqrt x+2}{\sqrt x-2}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(\frac{6\sqrt3}{3}=\) <span class="ans">\(2\sqrt3\)</span></li>
+      <li>mit \(\sqrt[3]5\) erweitern: \(\frac{10\sqrt[3]5}{\sqrt[3]{125}}=\frac{10\sqrt[3]5}{5}=\) <span class="ans">\(2\sqrt[3]5\)</span></li>
+      <li>mit \(\sqrt7+\sqrt3\) erweitern: \(\frac{4(\sqrt7+\sqrt3)}{7-3}=\) <span class="ans">\(\sqrt7+\sqrt3\)</span></li>
+      <li>mit \(\sqrt x+2\) erweitern: \(\frac{(\sqrt x+2)^2}{x-4}=\) <span class="ans">\(\dfrac{x+4\sqrt x+4}{x-4}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 8</span>Gleichung aus dem Graphen</h3>
+  <p>Alle Graphen gehören zu \(f(x)=a\cdot(x-b)^n+c\) mit \(n\in\{-2;-1;2;3\}\). Die Punkte sind genau auf Gitterpunkten. Gib jeweils die Gleichung an.</p>
+  <div class="figs big">
+    <figure class="plot" data-plot="ps-8a"><figcaption><b>a)</b></figcaption></figure>
+    <figure class="plot" data-plot="ps-8b"><figcaption><b>b)</b></figcaption></figure>
+    <figure class="plot" data-plot="ps-8c"><figcaption><b>c)</b> Asymptoten gestrichelt</figcaption></figure>
+    <figure class="plot" data-plot="ps-8d"><figcaption><b>d)</b> Asymptoten gestrichelt</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>Scheitel (−2|3), nach unten offen → \(n=2\). Punkt (0|1): \(1=4a+3\Rightarrow a=-\frac12\). <span class="ans">\(f(x)=-\frac12(x+2)^2+3\)</span></li>
+      <li>Symmetriepunkt (1|−2), Form wie \(x^3\) → \(n=3\). Punkt (2|−1): \(-1=a\cdot1^3-2\Rightarrow a=1\). <span class="ans">\(f(x)=(x-1)^3-2\)</span></li>
+      <li>Asymptoten \(x=3\), \(y=1\); Äste rechts oben und links unten → \(n=-1\), \(a\gt0\). Punkt (4|2): \(2=\frac a1+1\Rightarrow a=1\). <span class="ans">\(f(x)=\frac{1}{x-3}+1\)</span></li>
+      <li>Asymptoten \(x=-1\), \(y=4\); beide Äste unter \(y=4\) → \(n=-2\), \(a\lt0\). Punkt (0|2): \(2=\frac{a}{1}+4\Rightarrow a=-2\). <span class="ans">\(f(x)=-2(x+1)^{-2}+4\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 9</span>Skizzieren mit Wertetabelle</h3>
+  <p>Gib den Punkt \((b|c)\), die Asymptoten (falls es welche gibt) und eine Wertetabelle an, skizziere den Graphen und berechne die Nullstellen.</p>
+  <ol class="sub">
+    <li>\(f(x)=2(x-1)^2-3\)</li>
+    <li>\(g(x)=-(x+2)^{-1}+1\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>S(1|−3), nach oben offen, gestreckt (\(a=2\)). Keine Asymptoten.
+        <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>\(f(x)\)</th><td>5</td><td>−1</td><td>−3</td><td>−1</td><td>5</td></tr></table></div>
+        Nullstellen: \((x-1)^2=1{,}5\Rightarrow x=1\pm\sqrt{1{,}5}\), also \(x_1\approx-0{,}22\), \(x_2\approx2{,}22\).</li>
+      <li>Hyperbel (\(n=-1\)), an der x-Achse gespiegelt (\(a=-1\)): Äste links oben und rechts unten. Asymptoten \(x=-2\), \(y=1\).
+        <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−4</td><td>−3</td><td>−2,5</td><td>−1,5</td><td>−1</td><td>0</td></tr><tr><th>\(g(x)\)</th><td>1,5</td><td>2</td><td>3</td><td>−1</td><td>0</td><td>0,5</td></tr></table></div>
+        Nullstelle: \(\frac{1}{x+2}=1\Rightarrow x=-1\).</li>
+    </ol>
+    <div class="figs big">
+      <figure class="plot" data-plot="ps-9a"><figcaption><b>a)</b> \(f(x)=2(x-1)^2-3\)</figcaption></figure>
+      <figure class="plot" data-plot="ps-9b"><figcaption><b>b)</b> \(g(x)=-(x+2)^{-1}+1\)</figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 10</span>Polynomfunktionen</h3>
+  <ol class="sub">
+    <li>Ist das eine Polynomfunktion? Wenn ja: Grad und Leitkoeffizient.<br>
+      ① \((x-2)^2(3-x)\) &nbsp; ② \(3x^{-2}+x\) &nbsp; ③ \(\frac{2x^4-6x}{3}\) &nbsp; ④ \(x\sqrt x+1\) &nbsp; ⑤ \(\sqrt3\,x^3-\pi x\)</li>
+    <li>Beschreibe den Endverlauf: ① \(-2x^5+x^2\) &nbsp; ② \((1-x)(x+3)(2x^2+1)\)</li>
+    <li>Gib zu beiden Graphen den Mindestgrad und das Vorzeichen des Leitkoeffizienten an.</li>
+    <li>\(f(x)=2x^5-3x^3+x\): Wie viele Nullstellen und Extremstellen kann \(f\) höchstens haben? Wie viele Nullstellen hat \(f\) sicher? Zusatz: Berechne alle Nullstellen.</li>
+  </ol>
+  <div class="figs big">
+    <figure class="plot" data-plot="ps-10a"><figcaption><b>Graph A</b></figcaption></figure>
+    <figure class="plot" data-plot="ps-10b"><figcaption><b>Graph B</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>① ja, Grad 3, LK −1 (aus \(x^2\cdot(-x)\)) &nbsp;② nein, negative Hochzahl &nbsp;③ ja: \(\frac23x^4-2x\), Grad 4, LK \(\frac23\) &nbsp;④ nein: \(x^{1{,}5}\) &nbsp;⑤ ja, Grad 3, LK \(\sqrt3\)</li>
+      <li>① ungerader Grad, LK \(\lt0\) → von links oben nach rechts unten.<br>② Grad \(1+1+2=4\), LK \((-1)\cdot1\cdot2=-2\) → beide Enden unten. (Nullstellen 1 und −3; \(2x^2+1\) hat keine.)</li>
+      <li>Graph A: 3 Nullstellen, 2 Extrema, links unten → rechts oben → <span class="ans">mindestens Grad 3, LK &gt; 0</span>.<br>Graph B: 4 Nullstellen, 3 Extrema, beide Enden oben → <span class="ans">mindestens Grad 4, LK &gt; 0</span>.</li>
+      <li>Grad 5: höchstens 5 Nullstellen, höchstens 4 Extremstellen, mindestens 1 Nullstelle (ungerader Grad).<br>Zusatz: \(x(2x^4-3x^2+1)=0\). Mit \(z=x^2\): \(2z^2-3z+1=0\Rightarrow z=1\) oder \(z=\frac12\). Nullstellen: \(0,\ \pm1,\ \pm\sqrt{0{,}5}\approx\pm0{,}71\), also tatsächlich 5.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <h3><span class="an">Aufgabe 11</span>Wissenscheck: richtig oder falsch?</h3>
+  <div class="qhead"><span class="score" id="qscore">0 von 12 beantwortet</span><button class="btn" id="qreset" type="button">Nochmal</button></div>
+  <ul class="quiz">
+    <li data-a="f"><span>Eine Polynomfunktion 3. Grades hat immer genau 3 Nullstellen.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: höchstens 3, mindestens 1. \(x^3\) hat nur eine.</span></li>
+    <li data-a="r"><span>Der Graph von \(f(x)=x^{-2}\) hat die Asymptoten \(x=0\) und \(y=0\).</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: Polstelle bei 0, für \(x\to\pm\infty\) geht \(f\) gegen 0.</span></li>
+    <li data-a="r"><span>\(f(x)=x^4+x^2\) ist eine gerade Funktion.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: nur gerade Hochzahlen, \(f(-x)=f(x)\).</span></li>
+    <li data-a="f"><span>Eine Polynomfunktion 4. Grades kann 4 Extremstellen haben.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: höchstens \(n-1=3\).</span></li>
+    <li data-a="r"><span>Jede streng monotone Funktion ist umkehrbar.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: Jeder \(y\)-Wert kommt nur einmal vor.</span></li>
+    <li data-a="f"><span>Den Graphen der Umkehrfunktion erhält man durch Spiegelung an der x-Achse.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: Spiegelung an der Geraden \(y=x\).</span></li>
+    <li data-a="f"><span>\(f(x)=(x+3)^2-1\) hat den Scheitel S(3|−1).</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: \((x+3)\) heißt 3 nach links, also S(−3|−1).</span></li>
+    <li data-a="f"><span>\(\sqrt{a^2+b^2}=a+b\)</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: z. B. \(\sqrt{9+16}=5\), aber \(3+4=7\).</span></li>
+    <li data-a="r"><span>\(f(x)=-(x-2)^3+5\) hat keine Asymptoten.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: \(n=3\gt0\). Nur negative Hochzahlen erzeugen Asymptoten.</span></li>
+    <li data-a="r"><span>\(\sin x\) ist periodisch, \(x^2\) nicht.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: \(\sin\) wiederholt sich alle \(2\pi\); Polynome wiederholen sich nie.</span></li>
+    <li data-a="f"><span>\(\sqrt[3]{x^2}=x^{\frac32}\)</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Falsch: Der Wurzelexponent kommt in den Nenner: \(x^{\frac23}\).</span></li>
+    <li data-a="r"><span>\(f(x)=(x-3)^4+2\) hat keine Nullstelle.</span><span class="bt"><button data-v="r">richtig</button><button data-v="f">falsch</button></span><span class="why">Richtig: Der kleinste Wert ist 2 (bei \(x=3\)), der Graph bleibt über der x-Achse.</span></li>
+  </ul>
+</div>
+</section>
+
+<!-- ===================== PROBE 2 ===================== -->
+<section id="p-p2" class="sa-panel" data-total="36" role="tabpanel" aria-labelledby="t-p2" hidden>
+<div class="ps-bar">
+  <p class="intro" style="margin:0">Aufgebaut wie eure echte Schularbeit, mit Punkten rechts und Teilpunkten in Klammern, aber mit eurem aktuellen Stoff. Nach dem Vergleichen trägst du rechts deine Punkte ein.</p>
+  <button class="btn all-loes" type="button">Alle Lösungen zeigen</button>
+</div>
+<div class="sa-head"><span>9 Aufgaben · 36 Punkte (+1 ZP)</span><span>Deine Punkte: <b class="sum">0</b> / 36<span class="pct"></span></span></div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 1</span>Potenzen</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 1"><span>/ 4</span><small>(2/2)</small></label></div>
+  <p>Vereinfache so weit wie möglich. Im Ergebnis dürfen keine negativen Hochzahlen stehen.</p>
+  <ol class="sub">
+    <li>\(\dfrac{(3a^{-2}b)^3\cdot(a^2b^{-1})^{-2}}{(9a^{-1}b^2)^2}\)</li>
+    <li>Schreibe als eine Wurzel: \(\sqrt[3]{x^2\sqrt{x}}\cdot\sqrt[6]{x^{-1}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>Zähler: \(27a^{-6}b^3\cdot a^{-4}b^2=27a^{-10}b^5\). Nenner: \(81a^{-2}b^4\).<br>\(\frac{27}{81}a^{-10+2}b^{5-4}=\frac13a^{-8}b=\) <span class="ans">\(\dfrac{b}{3a^8}\)</span></li>
+      <li>\(\left(x^{2}\cdot x^{\frac12}\right)^{\frac13}\cdot x^{-\frac16}=x^{\frac56}\cdot x^{-\frac16}=x^{\frac46}=x^{\frac23}=\) <span class="ans">\(\sqrt[3]{x^2}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 2</span>Wurzeln</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 2"><span>/ 4</span><small>(1/1/2)</small></label></div>
+  <p>Alle Variablen sind positiv.</p>
+  <ol class="sub">
+    <li>Ziehe partiell die Wurzel: \(\sqrt{75x^3y^6}\)</li>
+    <li>Bring den Faktor unter die Wurzel und vereinfache: \(\dfrac2a\cdot\sqrt[3]{\dfrac{a^4}{4}}\)</li>
+    <li>Mach den Nenner rational: \(\dfrac{6}{3-\sqrt3}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(\sqrt{25\cdot3\cdot x^2\cdot x\cdot y^6}=\) <span class="ans">\(5xy^3\sqrt{3x}\)</span></li>
+      <li>\(\sqrt[3]{\frac{8}{a^3}\cdot\frac{a^4}{4}}=\) <span class="ans">\(\sqrt[3]{2a}\)</span></li>
+      <li>mit \(3+\sqrt3\) erweitern: \(\frac{6(3+\sqrt3)}{9-3}=\) <span class="ans">\(3+\sqrt3\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 3</span>Graphen zuordnen</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 3"><span>/ 4</span></label></div>
+  <p>Ordne den Funktionsgleichungen jeweils den richtigen Funktionsgraphen zu.</p>
+  <div class="assign">
+    <label>\(f_1(x)=\dfrac{1}{x-1}+1\)<select aria-label="Graph zu f1"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_2(x)=-\dfrac{1}{x+1}-1\)<select aria-label="Graph zu f2"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_3(x)=\dfrac{1}{(x+1)^2}-1\)<select aria-label="Graph zu f3"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_4(x)=-\dfrac{1}{(x-1)^2}+1\)<select aria-label="Graph zu f4"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+  </div>
+  <div class="figs four">
+    <figure class="plot cap-top" data-plot="p2-3a"><figcaption class="gl">A</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p2-3b"><figcaption class="gl">B</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p2-3c"><figcaption class="gl">C</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p2-3d"><figcaption class="gl">D</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p><span class="ans">\(f_1\) → B, \(f_2\) → D, \(f_3\) → A, \(f_4\) → C</span></p>
+    <p class="note">So kommst du drauf: Asymptoten-Kreuzung \((b|c)\) ablesen: (1|1) bei B und C, (−1|−1) bei A und D. Hochzahl −2 (gerade) → beide Äste auf derselben Seite (A, C); Hochzahl −1 (ungerade) → Äste schräg gegenüber (B, D). Minus vor dem Bruch spiegelt nach unten.</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 4</span>Polynomfunktion skizzieren</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 4"><span>/ 4</span><small>(2/2)</small></label></div>
+  <div class="split">
+    <div>
+      <ol class="sub">
+        <li>Skizziere im Koordinatensystem den Graphen einer Polynomfunktion 3. Grades mit negativem Leitkoeffizienten, die die x-Achse bei \(x=-2\) berührt und bei \(x=2\) schneidet.</li>
+        <li>Begründe: Warum kann eine Polynomfunktion 3. Grades keine 4 Nullstellen haben, und warum hat sie immer mindestens eine?</li>
+      </ol>
+    </div>
+    <figure class="plot" data-plot="p2-4g"></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>Links oben beginnen (LK negativ, ungerader Grad), bei −2 die Achse nur berühren (Tiefpunkt auf der Achse), wieder hinauf zu einem Hochpunkt, bei 2 durch die Achse und rechts nach unten. Ein passendes Beispiel ist \(f(x)=-0{,}25(x+2)^2(x-2)\) mit H ≈ (0,67|2,37).</li>
+      <li>Grad 3 → höchstens 3 Nullstellen. Ungerader Grad → ein Ende oben, das andere unten, also muss der Graph die x-Achse mindestens einmal kreuzen.</li>
+    </ol>
+    </div><figure class="plot" data-plot="p2-4l"></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 5</span>Windrad</h3><label class="pts"><input type="number" min="0" max="5" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 5"><span>/ 5</span><small>(1/1/2/1)</small></label></div>
+  <p>Ein kleines Windrad liefert bei der Windgeschwindigkeit \(v\) (in m/s) die elektrische Leistung \(P(v)=0{,}5\cdot v^3\) (in Watt).</p>
+  <ol class="sub">
+    <li>Berechne die Leistung bei einer Windgeschwindigkeit von 6 m/s.</li>
+    <li>Wie ändert sich die Leistung, wenn sich die Windgeschwindigkeit verdoppelt? Begründe rechnerisch.</li>
+    <li>Berechne die Umkehrfunktion \(v(P)\) und erkläre, was sie angibt.</li>
+    <li>Welche Windgeschwindigkeit ist für eine Leistung von 250 W nötig?</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(P(6)=0{,}5\cdot216=\) <span class="ans">108 W</span></li>
+      <li>\(P(2v)=0{,}5\cdot(2v)^3=0{,}5\cdot8v^3=8\cdot P(v)\) → <span class="ans">8-fache Leistung</span></li>
+      <li>\(P=0{,}5v^3\Rightarrow v^3=2P\Rightarrow\) <span class="ans">\(v(P)=\sqrt[3]{2P}\)</span>. Sie gibt an, welche Windgeschwindigkeit man für die Leistung \(P\) braucht.</li>
+      <li>\(v(250)=\sqrt[3]{500}\approx\) <span class="ans">7,94 m/s</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 6</span>Potenzfunktionen</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 6"><span>/ 4</span><small>(2/2)</small></label></div>
+  <div class="split">
+    <div>
+      <ol class="sub">
+        <li>Der Graph gehört zu einer Funktion der Form \(f(x)=a\cdot(x-b)^n+c\). Die markierten Punkte liegen auf Gitterpunkten. Gib die Funktionsgleichung an.</li>
+        <li>Skizziere den Graphen von \(g(x)=2\cdot(x+1)^{-1}-2\). Gib die Asymptoten und eine Wertetabelle an.</li>
+      </ol>
+    </div>
+    <figure class="plot" data-plot="p2-6a"><figcaption>zu a)</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>Symmetriepunkt (2|1), Form wie \(-x^3\) → \(n=3\). Punkt (0|5): \(5=a\cdot(-2)^3+1\Rightarrow-8a=4\Rightarrow a=-\frac12\).<br><span class="ans">\(f(x)=-\frac12(x-2)^3+1\)</span></li>
+      <li>Asymptoten \(x=-1\) und \(y=-2\). Nullstelle bei \(x=0\).
+        <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−3</td><td>−2</td><td>−0,5</td><td>0</td><td>1</td><td>3</td></tr><tr><th>\(g(x)\)</th><td>−3</td><td>−4</td><td>2</td><td>0</td><td>−1</td><td>−1,5</td></tr></table></div></li>
+    </ol>
+    </div><figure class="plot" data-plot="p2-6b"><figcaption>zu b)</figcaption></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 7</span>Funktionseigenschaften</h3><label class="pts"><input type="number" min="0" max="5" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 7"><span>/ 4</span><small>(1/1/1/1) +1 ZP</small></label></div>
+  <p>Gegeben sind \(f(x)=x^3-4x\) und \(g(x)=\dfrac{4}{x^2-1}\).</p>
+  <ol class="sub">
+    <li>Zeige rechnerisch, dass \(f\) ungerade ist.</li>
+    <li>Gib die Definitionsmenge von \(g\) an.</li>
+    <li>Gib die Polstellen und alle Asymptoten von \(g\) an.</li>
+    <li>Ist \(g\) gerade, ungerade oder keins von beiden? Begründe rechnerisch.</li>
+  </ol>
+  <p><b>ZP:</b> Berechne die Fixpunkte von \(f\).</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(f(-x)=(-x)^3-4(-x)=-x^3+4x=-(x^3-4x)=-f(x)\) → ungerade, punktsymmetrisch zum Ursprung.</li>
+      <li>\(x^2-1=0\Rightarrow x=\pm1\) → <span class="ans">\(D_g=\mathbb R\setminus\{-1;1\}\)</span></li>
+      <li>Polstellen \(x=-1\) und \(x=1\). Asymptoten: \(x=-1\), \(x=1\) und \(y=0\) (für \(x\to\pm\infty\) wird der Nenner riesig).</li>
+      <li>\(g(-x)=\frac{4}{(-x)^2-1}=\frac{4}{x^2-1}=g(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
+    </ol>
+    <p><b>ZP:</b> \(x^3-4x=x\Rightarrow x^3-5x=0\Rightarrow x(x^2-5)=0\Rightarrow\) <span class="ans">\(x=0,\ x=\pm\sqrt5\approx\pm2{,}24\)</span></p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 8</span>Richtig oder falsch?</h3><label class="pts"><input type="number" min="0" max="3" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 8"><span>/ 3</span><small>(1/1/1)</small></label></div>
+  <p>Entscheide und begründe stichwortartig.</p>
+  <ol class="sub">
+    <li>Jede Polynomfunktion 4. Grades hat mindestens eine Extremstelle.</li>
+    <li>\(f(x)=2x^4-3x+\sqrt x\) ist eine Polynomfunktion 4. Grades.</li>
+    <li>Eine Polynomfunktion 5. Grades kann 6 Nullstellen haben.</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li><span class="ans">richtig</span>: gerader Grad → beide Enden zeigen in dieselbe Richtung, der Graph muss also irgendwo umkehren.</li>
+      <li><span class="ans">falsch</span>: \(\sqrt x=x^{\frac12}\) hat eine gebrochene Hochzahl, also ist es gar keine Polynomfunktion.</li>
+      <li><span class="ans">falsch</span>: Grad 5 → höchstens 5 Nullstellen.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 9</span>Umkehrfunktion</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 9"><span>/ 4</span><small>(2/2)</small></label></div>
+  <div class="split">
+    <div>
+      <p>Gegeben ist \(f(x)=\sqrt{x-1}+2\) mit \(x\ge1\).</p>
+      <ol class="sub">
+        <li>Berechne die Umkehrfunktion \(u\) und gib ihre Definitionsmenge an.</li>
+        <li>Zeichne die Graphen von \(f\) und \(u\) in das Koordinatensystem.</li>
+      </ol>
+    </div>
+    <figure class="plot" data-plot="p2-9g"></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>\(y-2=\sqrt{x-1}\Rightarrow(y-2)^2=x-1\Rightarrow x=(y-2)^2+1\)<br><span class="ans">\(u(x)=(x-2)^2+1\)</span> mit \(D_u=[2;\infty[\) (das ist \(W_f\)).</li>
+      <li>\(f\) durch (1|2), (2|3), (5|4); \(u\) durch (2|1), (3|2), (4|5). Die Graphen sind Spiegelbilder an \(y=x\).</li>
+    </ol>
+    </div><figure class="plot" data-plot="p2-9l"><figcaption><span class="c-ink">blau</span>: \(f\), <span class="c-red">rot</span>: \(u\), gestrichelt: \(y=x\)</figcaption></figure></div>
+  </div></details>
+</div>
+</section>
+
+<!-- ===================== PROBE 3 (1:1) ===================== -->
+<section id="p-p3" class="sa-panel" data-total="37" role="tabpanel" aria-labelledby="t-p3" hidden>
+<div class="ps-bar">
+  <p class="intro" style="margin:0">Gleicher Aufbau, gleiche Aufgabentypen und gleiche Punkte wie die 2. Schularbeit vom 13.01.23, nur mit neuen Zahlen. <b>Achtung:</b> Diese Schularbeit prüft anderen Stoff als euren aktuellen (Wurzelgleichungen, quadratische Gleichungen und Funktionen, Exponentialfunktionen).</p>
+  <button class="btn all-loes" type="button">Alle Lösungen zeigen</button>
+</div>
+<div class="sa-head"><span>9 Aufgaben · 37 Punkte (+1 ZP)</span><span>Deine Punkte: <b class="sum">0</b> / 37<span class="pct"></span></span></div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 1</span>Wurzelgleichung</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 1"><span>/ 4</span></label></div>
+  <p>Ermittle die Definitions- und Lösungsmenge der folgenden Gleichung in \(\mathbb R\).</p>
+  \[3\cdot\sqrt{x+2}-\frac12\cdot\sqrt{4x+44}=0\]
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>\(x+2\ge0\Rightarrow x\ge-2\) und \(4x+44\ge0\Rightarrow x\ge-11\) → <span class="ans">\(D=[-2;\infty[\)</span></p>
+    \[\begin{aligned}3\sqrt{x+2}&=\tfrac12\sqrt{4x+44}\quad\big|\ (\ )^2\\ 9(x+2)&=\tfrac14(4x+44)\\ 9x+18&=x+11\\ x&=-\tfrac78\end{aligned}\]
+    <p>\(-\frac78\in D\). Probe: \(3\sqrt{1{,}125}\approx3{,}18\) und \(\frac12\sqrt{40{,}5}\approx3{,}18\) ✓ → <span class="ans">\(L=\{-\frac78\}\)</span></p>
+    <p class="note">Quadrieren kann falsche Lösungen erzeugen, darum immer D prüfen und die Probe machen. In der echten Schularbeit lag die Lösung außerhalb von D, dort war \(L=\{\,\}\).</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 2</span>Formel umformen</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 2"><span>/ 3</span><small>(+1)</small></label></div>
+  <p>Forme die Formel für die <b>Oberfläche (O)</b> eines Zylinders nach dem gesuchten Radius \(r\) um. Gib an, unter welchen Bedingungen die Lösungen reell sind. (ZP für das Umformen durch quadratisches Ergänzen)</p>
+  \[O=2r^2\pi+2r\pi h\qquad r=\,?\]
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    \[\begin{aligned}r^2+hr&=\frac{O}{2\pi}\\ \left(r+\frac h2\right)^2&=\frac{O}{2\pi}+\frac{h^2}{4}\\ r&=-\frac h2\pm\sqrt{\frac{h^2}{4}+\frac{O}{2\pi}}\end{aligned}\]
+    <p>Reell, wenn \(\frac{h^2}{4}+\frac{O}{2\pi}\ge0\). Für \(O\gt0\) und \(h\gt0\) ist das immer erfüllt. Als Radius ist nur die Lösung mit „+“ sinnvoll, weil \(r\gt0\) sein muss.</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 3</span>Satz von Vieta</h3><label class="pts"><input type="number" min="0" max="2" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 3"><span>/ 2</span></label></div>
+  <p>Begründe mit Hilfe des Satzes von Vieta, warum die gegebenen Zahlen nicht Lösungen der quadratischen Gleichung sein können. Erkläre deine Überlegungen stichwortartig.</p>
+  \[x^2-2x-15=0\qquad x_1=-5,\ x_2=3\]
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Für \(x^2+px+q=0\) gilt \(x_1+x_2=-p\) und \(x_1\cdot x_2=q\). Hier ist \(p=-2\), \(q=-15\).</p>
+    <p>Summe: \(-5+3=-2\), müsste aber \(-p=2\) sein → <span class="ans">kann nicht stimmen</span>. Das Produkt \(-15\) passt zwar, aber beide Bedingungen müssen gelten. (Richtig wären 5 und −3.)</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 4</span>Textaufgabe</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 4"><span>/ 4</span></label></div>
+  <p>Löse die folgende Aufgabe mit Hilfe einer Gleichung.</p>
+  <p>Max fährt eine Strecke von 24 km mit dem Fahrrad. Mit dem E-Bike ist er im Durchschnitt um 4 km/h schneller und braucht dadurch 30 Minuten weniger. Wie schnell ist Max jeweils im Mittel unterwegs? Und wie lange braucht er jeweils?</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>\(v\) … Fahrrad, \(v+4\) … E-Bike (km/h). Zeit = Weg : Geschwindigkeit, 30 min = \(\frac12\) h.</p>
+    \[\begin{aligned}\frac{24}{v}-\frac{24}{v+4}&=\frac12\quad\big|\cdot2v(v+4)\\ 48(v+4)-48v&=v(v+4)\\ 0&=v^2+4v-192\\ v&=-2\pm\sqrt{4+192}=-2\pm14\end{aligned}\]
+    <p>\(v=12\) (die Lösung \(-16\) ist sinnlos). <span class="ans">Fahrrad 12 km/h, 2 h; E-Bike 16 km/h, 1,5 h</span></p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 5</span>Quadratische Funktion</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 5"><span>/ 4</span></label></div>
+  <p>Die Leistung einer Photovoltaikanlage an einem sonnigen Tag kann mit Hilfe einer quadratischen Funktion beschrieben werden. Sie erreicht um 13 Uhr ihr Maximum von 6 kW und ist um 19 Uhr null.</p>
+  <p>Ermittle die Funktionsgleichung der Funktion \(P\), die die Leistung in Abhängigkeit von der Uhrzeit \(t\) (in Stunden) beschreibt.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Scheitel (13|6): \(P(t)=a(t-13)^2+6\)</p>
+    <p>\(P(19)=0\Rightarrow a\cdot36+6=0\Rightarrow a=-\frac16\)</p>
+    <p><span class="ans">\(P(t)=-\frac16(t-13)^2+6\)</span> (wegen der Symmetrie ist \(P\) auch um 7 Uhr null)</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 6</span>Exponentielle Vorgänge</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 6"><span>/ 4</span><small>(2/2)</small></label></div>
+  <p>Um welchen exponentiellen Vorgang handelt es sich jeweils? Erfinde ein kurzes, sinnvolles Beispiel zum jeweiligen Diagramm.</p>
+  <div class="figs">
+    <figure class="plot cap-top" data-plot="p3-6a"><figcaption class="gl">(a)</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p3-6b"><figcaption class="gl">(b)</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li><span class="ans">logistisches Wachstum</span>: erst langsam, dann schnell, dann gebremst bis zu einer oberen Grenze. Beispiel: Ein Gerücht verbreitet sich an einer Schule mit 600 Schülerinnen und Schülern.</li>
+      <li><span class="ans">beschränkte Abnahme</span>: erst schnell, dann immer langsamer, nähert sich einem Wert über 0. Beispiel: Ein Tee mit 80 °C kühlt auf Zimmertemperatur (20 °C) ab.</li>
+    </ol>
+    <p class="note">In der echten Schularbeit kamen beschränktes und logistisches Wachstum vor. Weitere Typen: exponentielles Wachstum (Bakterien), exponentielle Abnahme bis 0 (radioaktiver Zerfall).</p>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 7</span>Halbwertszeit</h3><label class="pts"><input type="number" min="0" max="5" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 7"><span>/ 5</span><small>(2/3)</small></label></div>
+  <div class="split">
+    <div>
+      <p>Ein Patient nimmt eine Tablette mit der Wirkstoffmenge \(D_0\) ein. Der Körper baut den Wirkstoff so ab, dass sich die Menge jeweils innerhalb von 4 Stunden halbiert.</p>
+      <ol class="sub">
+        <li>Veranschauliche das Absinken der Wirkstoffmenge für die ersten 12 Stunden grafisch im nebenstehenden Diagramm.</li>
+        <li>Gib die Funktionsgleichung der Funktion \(D\) an, die jedem Zeitpunkt \(t\) (in Stunden) die Wirkstoffmenge (in mg) im Körper zuordnet, wenn die Tablette 80 mg Wirkstoff enthält.</li>
+      </ol>
+    </div>
+    <figure class="plot" data-plot="p3-7g"></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>Alle 4 Stunden halbieren: \(D_0\) bei 0 h, \(\frac{D_0}{2}\) bei 4 h, \(\frac{D_0}{4}\) bei 8 h, \(\frac{D_0}{8}\) bei 12 h, dazwischen eine glatte, immer flacher werdende Kurve.</li>
+      <li><span class="ans">\(D(t)=80\cdot\left(\frac12\right)^{\frac t4}\)</span>, gleichwertig \(D(t)=80\cdot e^{-0{,}1733\,t}\) (weil \(\frac{\ln2}{4}\approx0{,}1733\)).</li>
+    </ol>
+    </div><figure class="plot" data-plot="p3-7l"></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 8</span>Kondensator</h3><label class="pts"><input type="number" min="0" max="7" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 8"><span>/ 7</span><small>(3/1/2/1)</small></label></div>
+  <p>Ein Kondensator mit Kapazität \(C=5\,\mu F\) ist zum Zeitpunkt \(t=0\) auf die Spannung \(U_0=12\,V\) aufgeladen. Zum Zeitpunkt \(t=0\) wird der Schalter geschlossen und der Kondensator entlädt sich über den Widerstand \(R=4\,k\Omega\). Die Funktion \(u_C\) gibt die Spannung am Kondensator in Volt in Abhängigkeit der Zeit in Millisekunden an.</p>
+  <p class="tip">(Tipp: Die Entladung eines Kondensators wird durch eine exponentielle Zerfallsfunktion mit Zeitkonstante \(\tau=R\cdot C\) beschrieben. Achte auf die Einheiten!)</p>
+  <p class="tip">\(t\) … Zeit in Millisekunden<br>\(u_C(t)\) … Spannung am Kondensator in Volt nach \(t\) Millisekunden nach Betätigung des Schalters</p>
+  <ol class="sub">
+    <li>Gib die Funktionsgleichung von \(u_C\) an.</li>
+    <li>Welche Spannung ist am Kondensator nach 10 Millisekunden?</li>
+    <li>Stelle den Graphen der Funktion \(u_C\) für die ersten 80 Millisekunden dar.</li>
+    <li>Wann beträgt die Spannung am Kondensator 3 V?</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub">
+      <li>\(\tau=R\cdot C=4\cdot10^3\,\Omega\cdot5\cdot10^{-6}\,F=0{,}02\,s=20\,ms\)<br><span class="ans">\(u_C(t)=12\cdot e^{-\frac{t}{20}}\)</span></li>
+      <li>\(u_C(10)=12\cdot e^{-0{,}5}\approx\) <span class="ans">7,28 V</span></li>
+      <li>Wertetabelle: 0 → 12; 20 → 4,41; 40 → 1,62; 60 → 0,60; 80 → 0,22 (ms → V). Nach jedem \(\tau\) bleiben ca. 37 %.</li>
+      <li>\(3=12\cdot e^{-\frac t{20}}\Rightarrow e^{-\frac t{20}}=0{,}25\Rightarrow-\frac t{20}=\ln0{,}25\Rightarrow t=20\cdot\ln4\approx\) <span class="ans">27,7 ms</span></li>
+    </ol>
+    </div><figure class="plot" data-plot="p3-8l"></figure></div>
+  </div></details>
+</div>
+
+<div class="task">
+  <div class="sa-row"><h3><span class="an">Aufgabe 9</span>Graphen zuordnen</h3><label class="pts"><input type="number" min="0" max="4" step="0.5" inputmode="decimal" aria-label="Punkte Aufgabe 9"><span>/ 4</span></label></div>
+  <p>Ordne den angegebenen Funktionsgleichungen jeweils den richtigen Funktionsgraphen zu.</p>
+  <div class="assign">
+    <label>\(f_1(x)=2-e^{x}\)<select aria-label="Graph zu f1"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_2(x)=e^{-x}-2\)<select aria-label="Graph zu f2"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_3(x)=1-e^{-x}\)<select aria-label="Graph zu f3"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+    <label>\(f_4(x)=e^{x}-2\)<select aria-label="Graph zu f4"><option>–</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+  </div>
+  <div class="figs four">
+    <figure class="plot cap-top" data-plot="p3-9a"><figcaption class="gl">A</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p3-9b"><figcaption class="gl">B</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p3-9c"><figcaption class="gl">C</figcaption></figure>
+    <figure class="plot cap-top" data-plot="p3-9d"><figcaption class="gl">D</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p><span class="ans">\(f_1\) → B, \(f_2\) → D, \(f_3\) → C, \(f_4\) → A</span></p>
+    <p class="note">So kommst du drauf: \(x=0\) einsetzen (\(e^0=1\)): \(f_1(0)=1\), \(f_3(0)=0\), \(f_2(0)=f_4(0)=-1\). Dann die Richtung: \(e^{x}\) wächst nach rechts, \(e^{-x}\) nach links. Die waagrechte Asymptote ist die Zahl, die übrig bleibt (\(y=2\), \(y=1\), \(y=-2\)).</p>
+  </div></details>
+</div>
+</section>
+
+<!-- ===================== PROTOKOLL ===================== -->
+<section id="p-log" role="tabpanel" aria-labelledby="t-log" hidden>
+<p class="intro">Hier wird jeder Versuch gespeichert: Antworten im Wissenscheck, „Prüfen“ beim Graphen-Zuordnen, deine Klicks auf „✓ richtig / ✗ falsch“ unter jeder Lösung und gespeicherte Punkte aus Probe 2 und 3. Auch nach „Nochmal“ bleibt alles drin. Was du mal richtig und mal falsch hattest, steht unter „Vielleicht geraten“.</p>
+<div class="log-stats">
+  <div><b id="ls-n">0</b><span>Versuche</span></div>
+  <div><b id="ls-f">0</b><span>Fehlschläge</span></div>
+  <div><b id="ls-g">0</b><span>vielleicht geraten</span></div>
+</div>
+<h2 class="grp">Vielleicht geraten</h2>
+<div id="log-guess"></div>
+<div class="log-bar"><h2 class="grp">Alle Versuche</h2><div class="seg" id="log-filter"><button type="button" data-f="all" aria-pressed="true">Alle</button><button type="button" data-f="bad" aria-pressed="false">Nur Fehlschläge</button></div></div>
+<ol class="log-list" id="log-list"></ol>
+<p class="note">Das Protokoll wird nur in diesem Browser auf diesem Gerät gespeichert. Am Handy hast du ein eigenes.</p>
+<button class="btn danger" id="log-clear" type="button">Protokoll löschen</button>
+</section>
+</div>
+
+<script>
+(function(){
+  /* ---------- Graphen ---------- */
+  const cb=Math.cbrt;
+  const PLOTS={
+    'lz-umk':{x:[-3,5],y:[-3,5],alt:'f(x)=2x−2 und u(x)=x/2+1, gespiegelt an y=x',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>2*x-2,c:'c1',t:'f',at:[3.05,4.7]},{f:x=>x/2+1,c:'c2',t:'u',at:[4.3,2.55]}],
+      p:[{x:2,y:2,c:'c3',t:'Fixpunkt (2|2)',dx:8,dy:16}]},
+    'lz-p1':{w:200,x:[-2.5,2.5],y:[-1,4],alt:'x² und x⁴',f:[{f:x=>x**4,c:'c4'},{f:x=>x*x,c:'c1'}],p:[{x:1,y:1},{x:-1,y:1},{x:0,y:0}]},
+    'lz-p2':{w:200,x:[-2.5,2.5],y:[-2.5,2.5],alt:'x³',f:[{f:x=>x**3,c:'c1'}],p:[{x:1,y:1},{x:-1,y:-1},{x:0,y:0}]},
+    'lz-p3':{w:200,x:[-3,3],y:[-3,3],alt:'1/x',f:[{f:x=>1/x,c:'c1'}],p:[{x:1,y:1},{x:-1,y:-1}]},
+    'lz-p4':{w:200,x:[-3,3],y:[-1,4],alt:'1/x²',f:[{f:x=>1/(x*x),c:'c1'}],p:[{x:1,y:1},{x:-1,y:1}]},
+    'lz-f1':{x:[-1,7],y:[-2,6],alt:'f1(x)=−½(x−3)²+4',f:[{f:x=>-0.5*(x-3)**2+4,c:'c1'}],
+      p:[{x:3,y:4,t:'S(3|4)',dy:-9,a:'middle'},{x:5,y:2,c:'c2',t:'P(5|2)',dx:8,dy:4}]},
+    'lz-w2':{x:[-1,5],y:[-1,5],alt:'Wurzelfunktion und Quadratfunktion gespiegelt an y=x',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>x*x,c:'c2',dom:[0,5],t:'x²',at:[1.25,3.3]},{f:x=>Math.sqrt(x),c:'c1',dom:[0,5],t:'√x',at:[3.6,1.35]}],
+      p:[{x:4,y:2,t:'(4|2)',dx:4,dy:16},{x:1,y:1,c:'c3'}]},
+    'lz-w3':{x:[-3,3],y:[-3,3],alt:'Kubikwurzel und x³ gespiegelt an y=x',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>x**3,c:'c2',t:'x³',at:[1.55,2.75]},{f:x=>cb(x),c:'c1',t:'∛x',at:[2.15,0.75]}],
+      p:[{x:1,y:1,c:'c3'},{x:-1,y:-1,c:'c3'}]},
+    'lz-e1':{w:200,x:[-3,3],y:[-2,3],ticks:false,alt:'gerader Grad, positiver Leitkoeffizient',f:[{f:x=>0.25*x**4-x*x,c:'c1'}]},
+    'lz-e2':{w:200,x:[-3,3],y:[-3,2],ticks:false,alt:'gerader Grad, negativer Leitkoeffizient',f:[{f:x=>-(0.25*x**4-x*x),c:'c2'}]},
+    'lz-e3':{w:200,x:[-3,3],y:[-2.5,2.5],ticks:false,alt:'ungerader Grad, positiver Leitkoeffizient',f:[{f:x=>0.3*x**3-1.2*x,c:'c1'}]},
+    'lz-e4':{w:200,x:[-3,3],y:[-2.5,2.5],ticks:false,alt:'ungerader Grad, negativer Leitkoeffizient',f:[{f:x=>-(0.3*x**3-1.2*x),c:'c2'}]},
+
+    'fl-268b':{w:300,x:[-4,3],y:[-16,4],ys:2,ly:4,alt:'(x+1)³−6',f:[{f:x=>(x+1)**3-6,c:'c3'}],
+      p:[{x:-1,y:-6,c:'c3',t:'S(−1|−6)',dx:8,dy:17},{x:-3,y:-14,c:'c3'},{x:-2,y:-7,c:'c3'},{x:0,y:-5,c:'c3'},{x:1,y:2,c:'c3'}]},
+    'fl-268d':{w:300,x:[-8,1],y:[-7,1],alt:'(x+4)^−3 −3 mit Asymptoten',asy:[{x:-4},{y:-3}],f:[{f:x=>1/(x+4)**3-3,c:'c3'}],
+      p:[{x:-5,y:-4,c:'c3'},{x:-3,y:-2,c:'c3'},{x:-2,y:-2.875,c:'c3'},{x:-6,y:-3.125,c:'c3'}]},
+    'fl-2c':{w:300,x:[-5,5],y:[-4,10],ly:2,alt:'0,1x⁴−x²',f:[{f:x=>0.1*x**4-x*x,c:'c3'}],
+      p:[{x:0,y:0,c:'c3',t:'H',dx:6,dy:-7},{x:-Math.sqrt(5),y:-2.5,c:'c3',t:'T₁',dx:-6,dy:16,a:'end'},{x:Math.sqrt(5),y:-2.5,c:'c3',t:'T₂',dx:6,dy:16},{x:-Math.sqrt(10),y:0,c:'c3'},{x:Math.sqrt(10),y:0,c:'c3'}]},
+    'fl-298e':{w:320,h:210,x:[-9,9],y:[-7,1],lx:2,alt:'Kubikwurzel von x minus 4',f:[{f:x=>cb(x)-4,c:'c3'}],
+      p:[{x:-8,y:-6,c:'c3'},{x:-1,y:-5,c:'c3'},{x:0,y:-4,c:'c3'},{x:1,y:-3,c:'c3'},{x:8,y:-2,c:'c3'}]},
+
+    'ps-1':{x:[-4,4],y:[-5,5],alt:'Graph von f(x)=0,25x⁴−2x²',f:[{f:x=>0.25*x**4-2*x*x,c:'c1',t:'f',at:[3.3,3.6]}]},
+    'ps-1l':{x:[-4,4],y:[-5,5],alt:'Lösung Aufgabe 1',f:[{f:x=>x,c:'aux',dash:1},{f:x=>0.25*x**4-2*x*x,c:'c1'}],
+      p:[{x:0,y:0,t:'H',dx:-6,dy:-8,a:'end'},{x:-2,y:-4,t:'T₁',dx:0,dy:18,a:'middle'},{x:2,y:-4,t:'T₂',dx:0,dy:18,a:'middle'},
+         {x:-Math.sqrt(8),y:0,c:'c2'},{x:Math.sqrt(8),y:0,c:'c2'},
+         {x:-2.534,y:-2.534,c:'c3'},{x:-0.517,y:-0.517,c:'c3'},{x:3.051,y:3.051,c:'c3'}]},
+    'ps-2l':{x:[-4,7],y:[-3,9],alt:'f(x)=2/(x−1)+3 mit Asymptoten und Fixpunkten',asy:[{x:1},{y:3}],
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>2/(x-1)+3,c:'c1'}],
+      p:[{x:1/3,y:0,c:'c2'},{x:2-Math.sqrt(3),y:2-Math.sqrt(3),c:'c3',t:'F₁',dx:8,dy:14},{x:2+Math.sqrt(3),y:2+Math.sqrt(3),c:'c3',t:'F₂',dx:8,dy:14}]},
+    'ps-3c':{w:300,x:[-5,4],y:[-5,4],alt:'h und Umkehrfunktion u',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>Math.sqrt(x+4)-1,c:'c1',dom:[-4,4],t:'h',at:[2.6,1.05]},{f:x=>(x+1)**2-4,c:'c2',dom:[-1,4],t:'u',at:[1.2,-1.6]}],
+      p:[{x:-4,y:-1,c:'c1'},{x:-1,y:-4,c:'c2'},{x:-3,y:0,c:'c1'}]},
+    'ps-8a':{w:300,x:[-6,3],y:[-4,4],alt:'Graph a',f:[{f:x=>-0.5*(x+2)**2+3,c:'c1'}],p:[{x:-2,y:3},{x:0,y:1},{x:-4,y:1}]},
+    'ps-8b':{w:300,x:[-2,4],y:[-5,3],alt:'Graph b',f:[{f:x=>(x-1)**3-2,c:'c1'}],p:[{x:1,y:-2},{x:2,y:-1},{x:0,y:-3}]},
+    'ps-8c':{w:300,x:[-2,7],y:[-3,5],alt:'Graph c',asy:[{x:3},{y:1}],f:[{f:x=>1/(x-3)+1,c:'c1'}],p:[{x:4,y:2},{x:2,y:0}]},
+    'ps-8d':{w:300,x:[-5,3],y:[-3,6],alt:'Graph d',asy:[{x:-1},{y:4}],f:[{f:x=>-2/((x+1)**2)+4,c:'c1'}],p:[{x:0,y:2},{x:-2,y:2}]},
+    'ps-9a':{w:300,x:[-2,4],y:[-4,6],alt:'Lösung 9a',f:[{f:x=>2*(x-1)**2-3,c:'c3'}],
+      p:[{x:1,y:-3,c:'c3',t:'S(1|−3)',dx:0,dy:18,a:'middle'},{x:-1,y:5,c:'c3'},{x:0,y:-1,c:'c3'},{x:2,y:-1,c:'c3'},{x:3,y:5,c:'c3'},{x:1-Math.sqrt(1.5),y:0,c:'c2'},{x:1+Math.sqrt(1.5),y:0,c:'c2'}]},
+    'ps-9b':{w:300,x:[-6,3],y:[-3,5],alt:'Lösung 9b',asy:[{x:-2},{y:1}],f:[{f:x=>-1/(x+2)+1,c:'c3'}],
+      p:[{x:-4,y:1.5,c:'c3'},{x:-3,y:2,c:'c3'},{x:-2.5,y:3,c:'c3'},{x:-1.5,y:-1,c:'c3'},{x:-1,y:0,c:'c2'},{x:0,y:0.5,c:'c3'}]},
+    'ps-10a':{w:300,x:[-4,4],y:[-3,3],alt:'Graph A',f:[{f:x=>0.1*(x**3-9*x),c:'c1'}]},
+    'ps-10b':{w:300,x:[-4,4],y:[-4,5],alt:'Graph B',f:[{f:x=>0.15*(x+3)*(x+1)*(x-2)*(x-3),c:'c1'}]},
+
+    /* Probe 2 */
+    'p2-3a':{w:240,x:[-4,4],y:[-4,4],alt:'Graph A',asy:[{x:-1},{y:-1}],f:[{f:x=>1/((x+1)**2)-1,c:'c1'}]},
+    'p2-3b':{w:240,x:[-4,4],y:[-4,4],alt:'Graph B',asy:[{x:1},{y:1}],f:[{f:x=>1/(x-1)+1,c:'c1'}]},
+    'p2-3c':{w:240,x:[-4,4],y:[-4,4],alt:'Graph C',asy:[{x:1},{y:1}],f:[{f:x=>-1/((x-1)**2)+1,c:'c1'}]},
+    'p2-3d':{w:240,x:[-4,4],y:[-4,4],alt:'Graph D',asy:[{x:-1},{y:-1}],f:[{f:x=>-1/(x+1)-1,c:'c1'}]},
+    'p2-4g':{w:300,x:[-4,4],y:[-4,4],alt:'leeres Koordinatensystem'},
+    'p2-4l':{w:300,x:[-4,4],y:[-4,4],alt:'Lösung Polynom 3. Grades',f:[{f:x=>-0.25*(x+2)**2*(x-2),c:'c3'}],
+      p:[{x:-2,y:0,c:'c3',t:'berührt',dx:0,dy:18,a:'middle'},{x:2,y:0,c:'c2',t:'schneidet',dx:8,dy:-8},{x:2/3,y:64/27,c:'c3',t:'H',dx:0,dy:-10,a:'middle'}]},
+    'p2-6a':{w:300,x:[-1,5],y:[-4,6],alt:'Graph Aufgabe 6a',f:[{f:x=>-0.5*(x-2)**3+1,c:'c1'}],p:[{x:2,y:1},{x:0,y:5},{x:4,y:-3}]},
+    'p2-6b':{w:300,x:[-5,4],y:[-6,3],alt:'Lösung 6b',asy:[{x:-1},{y:-2}],f:[{f:x=>2/(x+1)-2,c:'c3'}],
+      p:[{x:-3,y:-3,c:'c3'},{x:-2,y:-4,c:'c3'},{x:-0.5,y:2,c:'c3'},{x:0,y:0,c:'c2'},{x:1,y:-1,c:'c3'},{x:3,y:-1.5,c:'c3'}]},
+    'p2-9g':{w:300,x:[-1,8],y:[-1,8],alt:'leeres Koordinatensystem'},
+    'p2-9l':{w:300,x:[-1,8],y:[-1,8],alt:'f und Umkehrfunktion u',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>Math.sqrt(x-1)+2,c:'c1',dom:[1,8],t:'f',at:[6.9,3.75]},{f:x=>(x-2)**2+1,c:'c2',dom:[2,8],t:'u',at:[3.55,5.2]}],
+      p:[{x:1,y:2,c:'c1'},{x:2,y:3,c:'c1'},{x:5,y:4,c:'c1'},{x:2,y:1,c:'c2'},{x:3,y:2,c:'c2'},{x:4,y:5,c:'c2'}]},
+
+    /* Probe 3 (1:1) */
+    'p3-6a':{w:240,h:150,nogrid:1,ticks:false,x:[-0.4,6.6],y:[-0.5,5.2],xn:'t',yn:'f(t)',alt:'Skizze a',f:[{f:t=>4.2/(1+6*Math.exp(-1.5*t)),c:'c1',dom:[0,6.2]}]},
+    'p3-6b':{w:240,h:150,nogrid:1,ticks:false,x:[-0.4,6.6],y:[-0.5,5.2],xn:'t',yn:'f(t)',alt:'Skizze b',f:[{f:t=>1+3.2*Math.exp(-0.9*t),c:'c1',dom:[0,6.2]}]},
+    'p3-7g':{w:320,h:250,x:[-1.2,13],y:[-0.14,1.16],ys:0.125,xn:'Zeit in h',yn:'Wirkstoff in mg',yt:[[1,'D₀']],alt:'leeres Diagramm Wirkstoffmenge'},
+    'p3-7l':{w:320,h:250,x:[-2.8,13],y:[-0.14,1.16],ys:0.125,xn:'Zeit in h',yn:'Wirkstoff in mg',yt:[[1,'D₀'],[0.5,'D₀/2'],[0.25,'D₀/4']],alt:'Lösung Halbwertszeit',
+      f:[{f:t=>0.5**(t/4),c:'c3',dom:[0,13]}],p:[{x:0,y:1,c:'c3'},{x:4,y:0.5,c:'c3'},{x:8,y:0.25,c:'c3'},{x:12,y:0.125,c:'c3',t:'D₀/8',dx:0,dy:-9,a:'middle'}]},
+    'p3-8l':{w:320,x:[-7,102],y:[-1.3,13.5],xs:10,ys:1,lx:20,ly:2,xn:'t in ms',yn:'u in V',alt:'Entladekurve',
+      f:[{f:t=>12*Math.exp(-t/20),c:'c3',dom:[0,83]}],
+      p:[{x:0,y:12,c:'c3'},{x:20,y:12*Math.exp(-1),c:'c3'},{x:40,y:12*Math.exp(-2),c:'c3'},{x:60,y:12*Math.exp(-3),c:'c3'},{x:80,y:12*Math.exp(-4),c:'c3'},
+         {x:10,y:12*Math.exp(-0.5),c:'c2',t:'(10|7,28)'},{x:20*Math.log(4),y:3,c:'c1',t:'(27,7|3)'}]},
+    'p3-9a':{w:240,x:[-3,3],y:[-4,3],alt:'Graph A',f:[{f:x=>Math.exp(x)-2,c:'c1'}]},
+    'p3-9b':{w:240,x:[-3,3],y:[-4,3],alt:'Graph B',f:[{f:x=>2-Math.exp(x),c:'c1'}]},
+    'p3-9c':{w:240,x:[-3,3],y:[-4,3],alt:'Graph C',f:[{f:x=>1-Math.exp(-x),c:'c1'}]},
+    'p3-9d':{w:240,x:[-3,3],y:[-4,3],alt:'Graph D',f:[{f:x=>Math.exp(-x)-2,c:'c1'}]}
+  };
+  let pc=0;
+  const fmt=v=>String(Math.round(v*100)/100).replace('.',',').replace('-','−');
+  function draw(el){
+    const o=PLOTS[el.dataset.plot]; if(!o) return;
+    const [x0,x1]=o.x,[y0,y1]=o.y,xs=o.xs||1,ys=o.ys||1,lx=o.lx||xs,ly=o.ly||ys,W=o.w||320;
+    let H=o.h||Math.round(W*((y1-y0)/ys)/((x1-x0)/xs)); H=Math.max(150,Math.min(H,440));
+    const X=x=>+((x-x0)/(x1-x0)*W).toFixed(2), Y=y=>+(H-(y-y0)/(y1-y0)*H).toFixed(2);
+    const id='clp'+(++pc);
+    let s=`<svg class="pl" viewBox="-1 -1 ${W+2} ${H+2}" role="img" aria-label="${o.alt||'Funktionsgraph'}"><defs><clipPath id="${id}"><rect x="0" y="0" width="${W}" height="${H}"/></clipPath></defs><rect class="bgr" x="0" y="0" width="${W}" height="${H}" rx="3"/>`;
+    if(!o.nogrid){
+      for(let k=Math.ceil(x0/xs-1e-9);k*xs<=x1+1e-9;k++) s+=`<line class="g" x1="${X(k*xs)}" y1="0" x2="${X(k*xs)}" y2="${H}"/>`;
+      for(let k=Math.ceil(y0/ys-1e-9);k*ys<=y1+1e-9;k++) s+=`<line class="g" x1="0" y1="${Y(k*ys)}" x2="${W}" y2="${Y(k*ys)}"/>`;
+    }
+    const hasY=x0<=0&&x1>=0, hasX=y0<=0&&y1>=0, ax=hasY?X(0):0, ay=hasX?Y(0):H;
+    const xn=o.xn||'x', yn=o.yn||'y', ncls=n=>n.length>1?'axl':'axn';
+    if(hasX) s+=`<line class="ax" x1="0" y1="${ay}" x2="${W-2}" y2="${ay}"/><path class="axh" d="M${W} ${ay}l-8 -4v8z"/><text class="${ncls(xn)}" x="${W-5}" y="${ay-7}" text-anchor="end">${xn}</text>`;
+    if(hasY) s+=`<line class="ax" x1="${ax}" y1="${H}" x2="${ax}" y2="2"/><path class="axh" d="M${ax} 0l-4 8h8z"/><text class="${ncls(yn)}" x="${ax+8}" y="12">${yn}</text>`;
+    if(o.ticks!==false){
+      const below=ay>H-16, left=ax<20, xt=[], yt=[];
+      if(o.xt) o.xt.forEach(t=>xt.push(t)); else for(let k=Math.ceil(x0/lx-1e-9);k*lx<=x1+1e-9;k++){const x=+(k*lx).toFixed(6); if(Math.abs(x)>1e-9) xt.push([x,fmt(x)]);}
+      if(o.yt) o.yt.forEach(t=>yt.push(t)); else for(let k=Math.ceil(y0/ly-1e-9);k*ly<=y1+1e-9;k++){const y=+(k*ly).toFixed(6); if(Math.abs(y)>1e-9) yt.push([y,fmt(y)]);}
+      xt.forEach(([x,l])=>{const px=X(x); if(px<8||px>W-16) return;
+        s+=`<text class="tl" x="${px}" y="${hasX?(below?ay-5:ay+14):H-4}" text-anchor="middle">${l}</text>`;});
+      yt.forEach(([y,l])=>{const py=Y(y); if(py<16||py>H-6) return;
+        s+= hasY?(left?`<text class="tl" x="${ax+5}" y="${py+4}">${l}</text>`:`<text class="tl" x="${ax-5}" y="${py+4}" text-anchor="end">${l}</text>`):`<text class="tl" x="4" y="${py+4}">${l}</text>`;});
+      if(hasX&&hasY&&!left&&!below) s+=`<text class="tl" x="${ax-5}" y="${ay+14}" text-anchor="end">0</text>`;
+    }
+    s+=`<g clip-path="url(#${id})">`;
+    (o.asy||[]).forEach(a=>{ s+= a.x!==undefined?`<line class="asy" x1="${X(a.x)}" y1="0" x2="${X(a.x)}" y2="${H}"/>`:`<line class="asy" x1="0" y1="${Y(a.y)}" x2="${W}" y2="${Y(a.y)}"/>`; });
+    const span=y1-y0, lim=span*3;
+    (o.f||[]).forEach(c=>{
+      const a=Math.max(x0,(c.dom||[x0])[0]), b=Math.min(x1,(c.dom||[x0,x1])[1]), N=900;
+      let d='',pen=false,prev=null;
+      for(let i=0;i<=N;i++){const x=a+(b-a)*i/N, y=c.f(x);
+        if(!isFinite(y)||y>y1+lim||y<y0-lim){pen=false;prev=null;continue;}
+        if(prev!==null&&Math.abs(y-prev)>span*1.2) pen=false;
+        d+=(pen?'L':'M')+X(x)+' '+Y(y); pen=true; prev=y;}
+      s+=`<path class="cv pl-${c.c||'c1'}${c.dash?' dash':''}" d="${d}"/>`;
+    });
+    s+='</g>';
+    (o.f||[]).forEach(c=>{ if(c.t) s+=`<text class="tx pf-${c.c||'c1'}" x="${X(c.at[0])}" y="${Y(c.at[1])}" text-anchor="middle">${c.t}</text>`; });
+    (o.p||[]).forEach(p=>{const px=X(p.x),py=Y(p.y),c=p.c||'c1';
+      s+=`<circle class="pf-${c}" cx="${px}" cy="${py}" r="${p.r||4}"/>`;
+      if(p.t) s+=`<text class="tx pt" x="${px+(p.dx??7)}" y="${py+(p.dy??-8)}" text-anchor="${p.a||'start'}">${p.t}</text>`;});
+    s+='</svg>';
+    el.insertAdjacentHTML(el.classList.contains('cap-top')?'beforeend':'afterbegin',s);
+  }
+  document.querySelectorAll('[data-plot]').forEach(draw);
+
+  /* ---------- Tabs ---------- */
+  const tabs=[...document.querySelectorAll('[role=tab]')], bar=document.querySelector('.tabs');
+  function show(id,focus){
+    tabs.forEach(t=>{const on=t.dataset.tab===id; t.setAttribute('aria-selected',on); t.tabIndex=on?0:-1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden=!on; if(on&&focus) t.focus();});
+    try{localStorage.setItem('mathe-lp-tab',id)}catch(e){}
+  }
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click',()=>{show(t.dataset.tab); const top=bar.offsetTop; if(window.scrollY>top) window.scrollTo(0,top);});
+    t.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault(); const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length]; show(n.dataset.tab,true);} });
+  });
+  try{const saved=localStorage.getItem('mathe-lp-tab'); if(saved&&tabs.some(t=>t.dataset.tab===saved)) show(saved);}catch(e){}
+
+  /* ---------- Lernzettel-Fortschritt ---------- */
+  let sitzt={}; try{sitzt=JSON.parse(localStorage.getItem('mathe-lp-sitzt')||'{}')||{}}catch(e){sitzt={}}
+  const boxes=[...document.querySelectorAll('.sitzt input')];
+  function prog(){
+    const n=boxes.filter(b=>b.checked).length;
+    document.getElementById('lz-n').textContent=n;
+    document.getElementById('lz-bar').style.width=(n/boxes.length*100)+'%';
+    boxes.forEach(b=>{b.closest('.topic').classList.toggle('done',b.checked);
+      const a=document.querySelector('.toc a[href="#'+b.dataset.k+'"]'); if(a) a.classList.toggle('ok',b.checked);});
+  }
+  boxes.forEach(b=>{b.checked=!!sitzt[b.dataset.k];
+    b.addEventListener('change',()=>{sitzt[b.dataset.k]=b.checked; try{localStorage.setItem('mathe-lp-sitzt',JSON.stringify(sitzt))}catch(e){} prog();});});
+  prog();
+
+  /* ---------- Lösungen ---------- */
+  document.querySelectorAll('.all-loes').forEach(btn=>{
+    const ds=[...btn.closest('[role=tabpanel]').querySelectorAll('details.loes')];
+    const sync=()=>{btn.textContent=ds.every(d=>d.open)?'Alle Lösungen verstecken':'Alle Lösungen zeigen';};
+    btn.addEventListener('click',()=>{const open=!ds.every(d=>d.open); ds.forEach(d=>d.open=open); sync();});
+    ds.forEach(d=>d.addEventListener('toggle',()=>{d.querySelector('summary').firstChild.textContent=d.open?'Lösung verstecken':'Lösung zeigen'; sync();}));
+  });
+
+  /* ---------- Punkte zählen ---------- */
+  document.querySelectorAll('.sa-panel').forEach(panel=>{
+    const ins=[...panel.querySelectorAll('.pts input')], out=panel.querySelector('.sum'), pct=panel.querySelector('.pct'), total=+panel.dataset.total, key='mathe-lp-pts-'+panel.id;
+    let saved={}; try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch(e){saved={}}
+    function sum(){let t=0,any=false; ins.forEach(i=>{const v=parseFloat(String(i.value).replace(',','.')); if(!isNaN(v)){any=true; t+=Math.max(0,Math.min(v,+i.max));}});
+      out.textContent=String(Math.round(t*10)/10).replace('.',','); pct.textContent=any?' · '+Math.round(t/total*100)+' %':'';}
+    ins.forEach((i,k)=>{ if(saved[k]!=null) i.value=saved[k];
+      i.addEventListener('input',()=>{saved[k]=i.value; try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){} sum();});});
+    sum();
+  });
+
+  /* ---------- Versuche-Protokoll ---------- */
+  const LOGK='mathe-lp-log';
+  let LOG=[]; try{LOG=JSON.parse(localStorage.getItem(LOGK)||'[]')||[]}catch(e){LOG=[]}
+  if(!Array.isArray(LOG)) LOG=[];
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const clean=s=>String(s).replace(/[⁡-⁤]/g,'').replace(/\s+/g,' ').trim();
+  const PANEL={'p-ps':'Probe 1','p-p2':'Probe 2','p-p3':'Probe 3'};
+  const SUP={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻','+':'⁺'};
+  const sup=e=>[...e].every(c=>SUP[c])?[...e].map(c=>SUP[c]).join(''):'^('+e+')';
+  const texPlain=s=>clean(String(s).replace(/\\\(|\\\)/g,'')
+    .replace(/\\frac\{([^{}]*)\}\{([^{}]*)\}/g,'$1/$2').replace(/\\frac(\w)(\w)/g,'$1/$2')
+    .replace(/\\sqrt\[(\d)\]\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g,(m,n,a)=>(n==='3'?'∛':n+'√')+'('+a+')')
+    .replace(/\\sqrt\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g,'√($1)')
+    .replace(/\^\{([^{}]*)\}/g,(m,e)=>sup(e)).replace(/\^(\w)/g,(m,e)=>sup(e))
+    .replace(/\\sin/g,'sin').replace(/\\pi/g,'π').replace(/\\cdot/g,'·').replace(/\\infty/g,'∞').replace(/\\pm/g,'±')
+    .replace(/\\gt/g,'>').replace(/\\lt/g,'<').replace(/\\[a-zA-Z]+/g,'').replace(/[{}]/g,''));
+  function logAdd(entries){const t=Date.now(); entries.forEach(e=>{e.t=t; LOG.push(e);});
+    try{localStorage.setItem(LOGK,JSON.stringify(LOG))}catch(err){} renderLog(); refreshHist();}
+  function histOf(id){return LOG.filter(e=>e.id===id&&e.ok!==null);}
+  function marks(h){return h.map(e=>`<span class="${e.ok?'y':'n'}">${e.ok?'✓':'✗'}</span>`).join('');}
+  function mixed(h){return h.some(e=>e.ok)&&h.some(e=>!e.ok);}
+  function refreshHist(){
+    document.querySelectorAll('[data-hid]').forEach(el=>{const h=histOf(el.dataset.hid);
+      el.innerHTML=h.length?`Bisher: ${marks(h)}${mixed(h)?' <span class="warn">· vielleicht geraten</span>':''}`:'';});
+  }
+  const fmtT=t=>new Date(t).toLocaleString('de-AT',{weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  let filter='all', clearArm=false;
+  function renderLog(){
+    const scored=LOG.filter(e=>e.ok!==null), bad=scored.filter(e=>!e.ok);
+    const ids=[...new Set(scored.map(e=>e.id))], guess=ids.filter(id=>mixed(histOf(id)));
+    document.getElementById('ls-n').textContent=scored.length;
+    document.getElementById('ls-f').textContent=bad.length;
+    document.getElementById('ls-g').textContent=guess.length;
+    const badge=document.getElementById('log-badge'); badge.textContent=bad.length; badge.hidden=!bad.length;
+    document.getElementById('log-guess').innerHTML=guess.length?guess.map(id=>{const h=histOf(id); return `<div class="gi"><b>${esc(h[h.length-1].label)}</b><span class="hist">${marks(h)}</span></div>`;}).join('')
+      :'<p class="empty">Noch nichts. Hier landen Aufgaben, die du mal richtig und mal falsch hattest.</p>';
+    const list=LOG.slice().reverse().filter(e=>filter==='all'||e.ok===false);
+    document.getElementById('log-list').innerHTML=list.length?list.map(e=>`<li class="${e.ok===null?'info':e.ok?'good':'bad'}"><span class="mk">${e.ok===null?'Σ':e.ok?'✓':'✗'}</span><div><b>${esc(e.label)}</b><small>${esc(e.detail||'')}${e.detail?' · ':''}${fmtT(e.t)}</small></div></li>`).join('')
+      :`<li class="empty">${filter==='all'?'Noch keine Versuche gespeichert.':'Keine Fehlschläge. Stark!'}</li>`;
+  }
+  document.querySelectorAll('#log-filter button').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.f;
+    document.querySelectorAll('#log-filter button').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderLog();}));
+  const clr=document.getElementById('log-clear');
+  clr.addEventListener('click',()=>{ if(!clearArm){clearArm=true; clr.textContent='Wirklich alles löschen?'; setTimeout(()=>{clearArm=false; clr.textContent='Protokoll löschen';},4000); return;}
+    LOG=[]; try{localStorage.removeItem(LOGK)}catch(e){} clearArm=false; clr.textContent='Protokoll löschen'; renderLog(); refreshHist();});
+
+  /* Selbstkontrolle bei jeder Lösung */
+  Object.keys(PANEL).forEach(pid=>{
+    document.querySelectorAll('#'+pid+' .task').forEach((task,k)=>{
+      const d=task.querySelector('details.loes'); if(!d) return;
+      const h3=task.querySelector('h3'), an=h3.querySelector('.an'), title=clean(h3.textContent.replace(an.textContent,''));
+      const id=pid+'-a'+(k+1), label=`${PANEL[pid]} · ${clean(an.textContent)} ${title}`;
+      d.querySelector('.in').insertAdjacentHTML('beforeend',`<div class="self"><span>Hattest du die Aufgabe richtig?</span><button class="mini y" type="button" data-ok="1">✓ richtig</button><button class="mini n" type="button" data-ok="0">✗ falsch</button><span class="hist" data-hid="${id}"></span></div>`);
+      d.querySelectorAll('.self .mini').forEach(b=>b.addEventListener('click',()=>{
+        logAdd([{src:'Lösung',id,label,ok:b.dataset.ok==='1',detail:'selbst kontrolliert'}]);
+        b.classList.add('flash'); setTimeout(()=>b.classList.remove('flash'),700);}));
+    });
+  });
+
+  /* Graphen zuordnen prüfen */
+  const ANS={'p-p2':['B','D','A','C'],'p-p3':['B','D','C','A']};
+  Object.keys(ANS).forEach(pid=>{
+    const box=document.querySelector('#'+pid+' .assign'); if(!box) return;
+    const labels=[...box.querySelectorAll('label')], task=box.closest('.task'), an=clean(task.querySelector('.an').textContent);
+    box.insertAdjacentHTML('afterend',`<div class="chk"><button class="btn" type="button">Prüfen</button><span class="res"></span><span class="hist" data-hid="${pid}-zu"></span></div>`);
+    const chk=box.nextElementSibling, res=chk.querySelector('.res');
+    labels.forEach(l=>l.querySelector('select').addEventListener('change',()=>{labels.forEach(x=>x.classList.remove('ok','bad')); res.textContent='';}));
+    chk.querySelector('button').addEventListener('click',()=>{
+      const sel=labels.map(l=>l.querySelector('select').value);
+      if(sel.some(v=>v==='–')){res.textContent='Wähle zuerst bei allen vier einen Graphen.'; return;}
+      let n=0; const parts=[];
+      labels.forEach((l,i)=>{const ok=sel[i]===ANS[pid][i]; if(ok) n++; l.classList.toggle('ok',ok); l.classList.toggle('bad',!ok); parts.push(`f${i+1}→${sel[i]}${ok?'':' (richtig '+ANS[pid][i]+')'}`);});
+      res.textContent=`${n} von 4 richtig`;
+      logAdd([{src:'Zuordnen',id:pid+'-zu',label:`${PANEL[pid]} · ${an} Graphen zuordnen`,ok:n===4,detail:`${n}/4 · ${parts.join(', ')}`}]);
+    });
+  });
+
+  /* Punkte als Versuch speichern */
+  document.querySelectorAll('.sa-panel').forEach(panel=>{
+    const head=panel.querySelector('.sa-head'), pid=panel.id;
+    head.insertAdjacentHTML('beforeend','<button class="mini" type="button">Ergebnis speichern</button>');
+    const b=head.querySelector('button');
+    b.addEventListener('click',()=>{
+      const rows=[]; let tot=0;
+      panel.querySelectorAll('.task').forEach((task,k)=>{const i=task.querySelector('.pts input'); if(!i) return;
+        const v=parseFloat(String(i.value).replace(',','.')); if(isNaN(v)) return;
+        const full=parseFloat(i.parentElement.querySelector('span').textContent.replace('/','')), got=Math.max(0,Math.min(v,+i.max)); tot+=got;
+        const an=clean(task.querySelector('.an').textContent), title=clean(task.querySelector('h3').textContent.replace(task.querySelector('.an').textContent,''));
+        rows.push({src:'Punkte',id:pid+'-a'+(k+1),label:`${PANEL[pid]} · ${an} ${title}`,ok:got>=full,detail:`${String(got).replace('.',',')} von ${String(full).replace('.',',')} Punkten`});});
+      if(!rows.length){b.textContent='Erst Punkte eintragen'; setTimeout(()=>b.textContent='Ergebnis speichern',1800); return;}
+      const total=+panel.dataset.total;
+      rows.push({src:'Punkte',id:pid+'-sum',label:`${PANEL[pid]} gesamt`,ok:null,detail:`${String(Math.round(tot*10)/10).replace('.',',')} / ${total} Punkte (${Math.round(tot/total*100)} %), ${rows.length} Aufgaben eingetragen`});
+      logAdd(rows); b.textContent='Gespeichert ✓'; setTimeout(()=>b.textContent='Ergebnis speichern',1800);
+    });
+  });
+
+  /* ---------- Wissenscheck ---------- */
+  const items=[...document.querySelectorAll('.quiz li')], score=document.getElementById('qscore');
+  function upd(){const done=items.filter(li=>li.classList.contains('done')), ok=done.filter(li=>li.dataset.ok==='1').length;
+    score.textContent=done.length===items.length?`${ok} von ${items.length} richtig`:`${done.length} von ${items.length} beantwortet · ${ok} richtig`;}
+  items.forEach((li,k)=>{
+    const id='quiz-'+(k+1), qtext=texPlain(li.firstElementChild.textContent);
+    li.insertAdjacentHTML('beforeend',`<span class="hist" data-hid="${id}"></span>`);
+    li.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+      if(li.classList.contains('done')) return;
+      li.classList.add('done'); const ok=b.dataset.v===li.dataset.a; li.dataset.ok=ok?'1':'0';
+      b.classList.add(ok?'right':'wrong'); if(!ok) li.querySelector(`button[data-v="${li.dataset.a}"]`).classList.add('right');
+      logAdd([{src:'Wissenscheck',id,label:'Wissenscheck '+(k+1)+': '+qtext,ok,detail:'deine Antwort: '+b.textContent}]);
+      upd();}));
+  });
+  document.getElementById('qreset').addEventListener('click',()=>{items.forEach(li=>{li.classList.remove('done');delete li.dataset.ok;li.querySelectorAll('.bt button').forEach(b=>b.classList.remove('right','wrong'));}); upd();});
+  upd(); renderLog(); refreshHist();
+})();
+</script>
+</body>
+</html>

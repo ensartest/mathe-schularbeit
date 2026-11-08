@@ -209,8 +209,12 @@ figure.cap-top .gl{font:600 15px/1 var(--serif);color:var(--text);text-align:cen
 .btn.danger{border-color:var(--red);color:var(--red)}
 .btn.danger:hover{background:var(--red-soft)}
 @media (max-width:600px){
-  .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
-  .tab{padding:12px 4px 10px;text-align:center;font-size:14.5px}
+  .tabs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0}
+  .tab{grid-column:span 3;padding:12px 2px 10px;text-align:center;font-size:14px}
+  .tab:nth-child(n+5){grid-column:span 4}
+  .tab .n{margin-left:4px}
+  .tab .xs{display:none}
+  .task.ub{scroll-margin-top:100px}
   .topic{scroll-margin-top:100px}
 }
 
@@ -246,10 +250,50 @@ svg.pl circle{stroke:var(--surface);stroke-width:1.5}
 .pl-c1{stroke:var(--ink)} .pl-c2{stroke:var(--red)} .pl-c3{stroke:var(--green)} .pl-c4{stroke:var(--amber)} .pl-c5{stroke:var(--violet)} .pl-aux{stroke:var(--muted)}
 .pf-c1{fill:var(--ink)} .pf-c2{fill:var(--red)} .pf-c3{fill:var(--green)} .pf-c4{fill:var(--amber)} .pf-c5{fill:var(--violet)} .pf-aux{fill:var(--muted)}
 
+/* Übungen */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ub-search{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 10px}
+.ub-in{position:relative;flex:1 1 260px;min-width:0;display:block}
+.ub-in svg{position:absolute;left:12px;top:50%;width:18px;height:18px;transform:translateY(-50%);fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.ub-in input{width:100%;font:500 16px/1.2 var(--sans);color:var(--text);background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:11px 12px 11px 38px;-webkit-appearance:none;appearance:none}
+.ub-in input::placeholder{color:var(--muted);opacity:.85}
+.ub-in input:focus{border-color:var(--ink);outline:none}
+.fchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.fchips button{font:600 13.5px/1 var(--sans);border:1.5px solid var(--line);background:var(--surface);color:var(--muted);border-radius:99px;padding:7px 11px;cursor:pointer}
+.fchips button:hover{color:var(--text);border-color:var(--muted)}
+.fchips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.fchips button small{font:500 11.5px/1 var(--mono);margin-left:5px;opacity:.75}
+.ub-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin:0 0 4px}
+.ub-count{font:500 13.5px/1.2 var(--mono);color:var(--muted)}
+.ub-none{padding:18px 0}
+.ub-g>.grp{margin-top:34px}
+.srcl{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 12px}
+.sb{font:600 11.5px/1.25 var(--mono);letter-spacing:.02em;padding:4px 8px;border-radius:5px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.sb.b{color:var(--ink);border-color:var(--ink)}
+.sb.m{color:var(--violet);border-color:var(--violet)}
+.sb.mk{color:var(--red);background:var(--red-soft);border-color:transparent}
+.task.ub{scroll-margin-top:64px}
+.task.ub.jump{animation:ubjump 1.8s ease-out}
+@keyframes ubjump{0%,35%{background:var(--ink-soft);box-shadow:-10px 0 0 var(--ink-soft),10px 0 0 var(--ink-soft)}100%{background:transparent;box-shadow:none}}
+@media (prefers-reduced-motion:reduce){.task.ub.jump{animation:none}}
+ol.sub.n>li::before{content:counter(s) ")"}
+ol.sub.cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:2px 18px}
+ol.sub.cols>li{margin:5px 0}
+ol.sub>li.hit{background:var(--ink-soft);border-radius:6px;box-shadow:0 0 0 5px var(--ink-soft)}
+ul.abc{list-style:none;padding-left:0}
+.fnl{font-size:15.5px;line-height:2.1}
+figure.plot.wide svg.pl{max-width:600px}
+.ref{font:600 11.5px/1.3 var(--mono);color:var(--muted);background:var(--surface-2);padding:2px 6px;border-radius:5px;white-space:nowrap;text-decoration:none;vertical-align:1px}
+a.ref{color:var(--ink);background:var(--ink-soft)}
+a.ref:hover{text-decoration:underline}
+.box .ref{margin-left:4px}
+
 mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:2px 0}
+.nw{white-space:nowrap}
+mjx-container.mwide{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;padding-bottom:8px;scrollbar-width:thin}
 </style>
 <script>
-window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},options:{enableMenu:false}};
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},options:{enableMenu:false},startup:{pageReady(){return MathJax.startup.defaultPageReady().then(()=>{if(window.fitMath) fitMath(document);});}}};
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
@@ -258,26 +302,29 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 <header class="hero">
   <p class="kicker">Mathematik · AM 2bHBG · Schularbeit</p>
   <h1>Funktionen, Potenzen &amp; Polynome</h1>
-  <p class="lede">Alles aus deinen 58 Fotos an einem Ort: der Stoff kurz zusammengefasst, deine Fehler aus SÜ, HÜ und Übungsblättern mit Korrektur, und drei Probeschularbeiten mit Lösungen zum Aufklappen. Probe 2 und 3 sind wie eure echte Schularbeit aufgebaut.</p>
+  <p class="lede">Alles aus deinen Fotos an einem Ort: der Stoff kurz erklärt, alle markierten Buchaufgaben und alle Beispiele aus der Mitschrift mit Lösungsweg (nach Nummer suchbar), deine Fehler mit Korrektur und drei Probeschularbeiten. Probe 2 und 3 sind wie eure echte Schularbeit aufgebaut.</p>
   <ul class="meta">
     <li><b>Buch 2</b> S. 5–40, 43–46</li>
     <li><b>Wissenscheck</b> S. 47</li>
     <li><b>Polynome</b> wie 2.76–2.79</li>
+    <li><b>Übungen</b> 57 Aufgaben mit Lösungsweg</li>
   </ul>
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Bereiche">
   <button class="tab" role="tab" id="t-lz" data-tab="lz" aria-controls="p-lz" aria-selected="true">Lernzettel</button>
+  <button class="tab" role="tab" id="t-ub" data-tab="ub" aria-controls="p-ub" aria-selected="false" tabindex="-1">Übungen</button>
   <button class="tab" role="tab" id="t-fl" data-tab="fl" aria-controls="p-fl" aria-selected="false" tabindex="-1">Fehler<span class="n">18</span></button>
   <button class="tab" role="tab" id="t-ps" data-tab="ps" aria-controls="p-ps" aria-selected="false" tabindex="-1">Probe 1</button>
   <button class="tab" role="tab" id="t-p2" data-tab="p2" aria-controls="p-p2" aria-selected="false" tabindex="-1">Probe 2</button>
-  <button class="tab" role="tab" id="t-p3" data-tab="p3" aria-controls="p-p3" aria-selected="false" tabindex="-1">Probe 3 · 1:1</button>
+  <button class="tab" role="tab" id="t-p3" data-tab="p3" aria-controls="p-p3" aria-selected="false" tabindex="-1">Probe 3<span class="xs"> · 1:1</span></button>
   <button class="tab" role="tab" id="t-log" data-tab="log" aria-controls="p-log" aria-selected="false" tabindex="-1">Protokoll<span class="n" id="log-badge" hidden>0</span></button>
 </nav>
 
 <!-- ===================== LERNZETTEL ===================== -->
 <section id="p-lz" role="tabpanel" aria-labelledby="t-lz">
 <div class="progress"><span><b id="lz-n">0</b> von 7 Kapiteln sitzen</span><div class="bar"><i id="lz-bar"></i></div></div>
+<p class="note">Die grauen bzw. blauen Kästchen wie <span class="ref" data-q="2.48">Buch 2.48</span> zeigen, woher ein Beispiel stammt. Blaue kannst du antippen, dann springst du zur Übung mit Lösungsweg.</p>
 <ul class="toc">
   <li><a href="#k1">1 Eigenschaften</a></li><li><a href="#k2">2 Umkehrfunktion</a></li><li><a href="#k3">3 Potenzen</a></li><li><a href="#k4">4 Wurzeln</a></li><li><a href="#k5">5 Potenzfunktionen</a></li><li><a href="#k6">6 Wurzelfunktionen</a></li><li><a href="#k7">7 Polynomfunktionen</a></li>
 </ul>
@@ -286,21 +333,21 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <div class="th"><span class="num">1</span><h2>Funktionen und ihre Eigenschaften</h2><label class="sitzt"><input type="checkbox" data-k="k1">sitzt</label></div>
   <dl class="defs">
     <dt>Funktion</dt><dd>Jedem \(x\) aus der Definitionsmenge wird <b>genau ein</b> \(y\) zugeordnet. Test: Jede senkrechte Gerade schneidet den Graphen höchstens einmal.</dd>
-    <dt>Definitionsmenge D</dt><dd>Alle \(x\), die man einsetzen darf. Raus muss, was den <b>Nenner null</b> macht oder unter einer <b>geraden Wurzel negativ</b> wird: \(f(x)=\frac{1}{x-2}\Rightarrow D=\mathbb R\setminus\{2\}\), &nbsp;\(g(x)=\sqrt{x+4}\Rightarrow D=[-4;\infty[\).</dd>
+    <dt>Definitionsmenge D</dt><dd>Alle \(x\), die man einsetzen darf. Raus muss, was den <b>Nenner null</b> macht oder unter einer <b>geraden Wurzel negativ</b> wird: \(f(x)=\frac{1}{x-2}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(D=\mathbb R\setminus\{2\}\), &nbsp;\(g(x)=\sqrt{x+4}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(D=[-4;\infty[\).</dd>
     <dt>Wertemenge W</dt><dd>Alle \(y\)-Werte, die wirklich herauskommen.</dd>
     <dt>Nullstelle</dt><dd>\(f(x)=0\): Schnittpunkt mit der x-Achse. Der Graph kann die Achse <b>schneiden</b> oder nur <b>berühren</b> (doppelte Nullstelle).</dd>
     <dt>Extremstelle</dt><dd>Hochpunkt H, Tiefpunkt T: Dort wechselt die Monotonie. Immer als Punkt angeben, z. B. H(0|2).</dd>
-    <dt>Monotonie</dt><dd><b>streng monoton steigend</b>: \(x_1\lt x_2\Rightarrow f(x_1)\lt f(x_2)\). Bei „monoton steigend“ (ohne „streng“) sind auch waagrechte Stücke erlaubt. Die Intervalle reichen von Extremstelle zu Extremstelle, z. B. fallend in \(]-\infty;-2]\), steigend in \([-2;0]\).</dd>
-    <dt>Fixpunkt</dt><dd>\(f(x)=x\): Dort schneidet der Graph die Gerade \(y=x\).</dd>
+    <dt>Monotonie</dt><dd><b>streng monoton steigend</b>: \(x_1\lt x_2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(f(x_1)\lt f(x_2)\). Bei „monoton steigend“ (ohne „streng“) sind auch waagrechte Stücke erlaubt. Die Intervalle reichen von Extremstelle zu Extremstelle, z. B. fallend in \(]-\infty;-2]\), steigend in \([-2;0]\).</dd>
+    <dt>Fixpunkt</dt><dd>\(f(x)=x\): Dort schneidet der Graph die Gerade \(y=x\). Beispiel: Der Hochpunkt (3|3) ist zugleich Fixpunkt <span class="ref" data-q="1.9">Buch 1.9</span>.</dd>
     <dt>Symmetrie</dt><dd><b>gerade</b>: \(f(-x)=f(x)\) → achsensymmetrisch zur y-Achse.<br><b>ungerade</b>: \(f(-x)=-f(x)\) → punktsymmetrisch zum Ursprung.</dd>
     <dt>Periodizität</dt><dd>\(f(x+p)=f(x)\) für alle \(x\): Der Graph wiederholt sich alle \(p\) Einheiten (z. B. \(\sin x\) mit \(p=2\pi\)). Polynome und Potenzfunktionen sind <b>nie</b> periodisch.</dd>
-    <dt>Polstelle</dt><dd>Nenner \(=0\), Zähler \(\ne0\): Der Graph schießt nach \(\pm\infty\). Ungerade Hochzahl im Nenner → Vorzeichenwechsel (ein Ast oben, einer unten), gerade Hochzahl → beide Äste auf derselben Seite.</dd>
+    <dt>Polstelle</dt><dd>Nenner \(=0\), Zähler \(\ne0\): Der Graph schießt nach \(\pm\infty\). Beispiel \(\frac{1}{x+2}\): Pol bei \(-2\) <span class="ref" data-q="1.17">Buch 1.17</span>. Ungerade Hochzahl im Nenner → Vorzeichenwechsel (ein Ast oben, einer unten), gerade Hochzahl → beide Äste auf derselben Seite.</dd>
     <dt>Asymptote</dt><dd>Gerade, an die sich der Graph beliebig nahe anschmiegt: <b>senkrecht</b> bei Polstellen, <b>waagrecht</b> für \(x\to\pm\infty\).</dd>
   </dl>
-  <div class="box merke"><span class="lbl">Merke · Symmetrie rechnerisch</span>\(-x\) einsetzen und vereinfachen:
-  \[\begin{aligned}f(x)&=0{,}25x^4-2x^2\\ f(-x)&=0{,}25(-x)^4-2(-x)^2\\&=0{,}25x^4-2x^2=f(x)\end{aligned}\]
+  <div class="box merke"><span class="lbl">Merke · Symmetrie rechnerisch</span>\(-x\) einsetzen und vereinfachen <span class="ref" data-q="1.29c">Buch 1.29c</span>:
+  \[\begin{aligned}f(x)&=-x^4+5x^2+1\\ f(-x)&=-(-x)^4+5(-x)^2+1\\&=-x^4+5x^2+1=f(x)\end{aligned}\]
   → gerade, achsensymmetrisch. Nur gerade Hochzahlen → gerade, nur ungerade → ungerade, gemischt (z. B. \(x^3+x^2\)) → keine Symmetrie. Achtung: Eine Zahl allein zählt als \(x^0\), also gerade. \(x^3+1\) ist deshalb <b>nicht</b> ungerade.</div>
-  <div class="box falle"><span class="lbl">Falle · deine 1.28c und 1.28e</span>Hat der Graph keinen Hoch- oder Tiefpunkt, gibt es auch keine Extrema: nichts erfinden. Bei W-förmigen Graphen alle drei Extrema angeben, z. B. H(0|2), T₁(−1,5|−2), T₂(1,5|−2).</div>
+  <div class="box falle"><span class="lbl">Falle · deine 1.28c und 1.28e</span><span class="ref" data-q="1.28">Buch 1.28</span> Hat der Graph keinen Hoch- oder Tiefpunkt, gibt es auch keine Extrema: nichts erfinden. Bei W-förmigen Graphen alle drei Extrema angeben, z. B. H(0|2), T₁(−1,5|−2), T₂(1,5|−2).</div>
   <div class="box tipp"><span class="lbl">Tipp · Wertetabelle</span>Mit der Tabellenfunktion am Taschenrechner arbeiten und auf zwei Kommastellen runden (\(\frac13+3=3{,}33\), nicht 3,3). Bei Polstellen Werte knapp links und rechts davon nehmen, z. B. 0,9 und 1,1.</div>
 </article>
 
@@ -315,20 +362,22 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
         <li>nach \(x\) auflösen</li>
         <li>\(x\) und \(y\) vertauschen → \(u(x)\), auch \(f^{-1}(x)\)</li>
       </ol>
-      \[\begin{aligned}y&=2x-2\\ x&=\tfrac{y+2}{2}=\tfrac y2+1\\ u(x)&=\tfrac x2+1\end{aligned}\]
+      <p>Beispiel Taxifahrt <span class="ref" data-q="Taxifahrt">Heft · Taxi</span>: 4 € Grundgebühr, 2 € pro km.</p>
+      \[\begin{aligned}p&=2s+4\\ s&=\tfrac{p-4}{2}=\tfrac12p-2\end{aligned}\]
+      <p>Als Funktion in \(x\): \(f(x)=2x+4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\tfrac x2-2\).</p>
       <p class="h4">Graphisch</p>
       <p>Den Graphen an der Geraden \(y=x\) spiegeln: aus \((a|b)\) wird \((b|a)\). Fixpunkte liegen auf \(y=x\) und bleiben, wo sie sind. Außerdem gilt \(D_u=W_f\) und \(W_u=D_f\).</p>
     </div>
-    <figure class="plot" data-plot="lz-umk"><figcaption><span class="c-ink">blau</span>: \(f(x)=2x-2\), <span class="c-red">rot</span>: \(u(x)=\frac x2+1\), gestrichelt: \(y=x\)</figcaption></figure>
+    <figure class="plot" data-plot="lz-umk"><figcaption><span class="c-ink">blau</span>: \(f(x)=2x+4\), <span class="c-red">rot</span>: \(u(x)=\frac x2-2\), gestrichelt: \(y=x\)</figcaption></figure>
   </div>
   <div class="scroll"><table class="tbl">
     <tr><th>Funktion</th><th>Umkehrfunktion</th><th>Hinweis</th></tr>
-    <tr><td>\(f(x)=x^3+1\)</td><td>\(u(x)=\sqrt[3]{x-1}\)</td><td>hattest du richtig</td></tr>
-    <tr><td>\(f(x)=x^2-3,\ x\ge0\)</td><td>\(u(x)=\sqrt{x+3}\)</td><td>nur mit \(x\ge0\) umkehrbar</td></tr>
-    <tr><td>\(f(x)=\frac1x+2\)</td><td>\(u(x)=\frac{1}{x-2}\)</td><td>Asymptoten tauschen mit</td></tr>
-    <tr><td>\(K(t)=0{,}05t+8\)</td><td>\(t(K)=20K-160\)</td><td>Sachaufgabe</td></tr>
+    <tr><td>\(f(x)=x^3+1\)</td><td>\(u(x)=\sqrt[3]{x-1}\)</td><td>hattest du richtig <span class="ref" data-q="Heft 19.10 Umkehrfunktion">Heft 19.10.</span></td></tr>
+    <tr><td>\(f(x)=2x^2+1,\ x\ge0\)</td><td>\(u(x)=\sqrt{\frac{x-1}{2}}\)</td><td>nur mit \(x\ge0\) umkehrbar <span class="ref" data-q="2.97b">Buch 2.97b</span></td></tr>
+    <tr><td>\(f(x)=\frac1x+3\)</td><td>\(u(x)=\frac{1}{x-3}\)</td><td>Asymptoten tauschen mit <span class="ref" data-q="1.34b">Buch 1.34b</span></td></tr>
+    <tr><td>\(V(t)=300-15t\)</td><td>\(t(V)=20-\frac{V}{15}\)</td><td>Sachaufgabe Öltank <span class="ref" data-q="1.35">Buch 1.35</span></td></tr>
   </table></div>
-  <div class="box falle"><span class="lbl">Falle · deine 2.97b</span>Bei Quadratfunktionen immer dazuschreiben: <b>nur für \(x\ge0\) umkehrbar</b>. Sonst gehören zu einem \(y\) zwei \(x\)-Werte, z. B. \(f(1)=f(-1)\).</div>
+  <div class="box falle"><span class="lbl">Falle · deine 2.97b</span><span class="ref" data-q="2.97b">Buch 2.97b</span> Bei Quadratfunktionen immer dazuschreiben: <b>nur für \(x\ge0\) umkehrbar</b>. Sonst gehören zu einem \(y\) zwei \(x\)-Werte, z. B. \(f(1)=f(-1)\).</div>
 </article>
 
 <article class="topic" id="k3">
@@ -341,7 +390,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <div>\(\dfrac{a^n}{b^n}=\left(\dfrac ab\right)^n\)</div>
     <div>\(a^0=1\)</div>
     <div>\(a^{-n}=\dfrac1{a^n}\)</div>
-    <div>\(\left(\dfrac ab\right)^{-n}=\left(\dfrac ba\right)^n\)</div>
+    <div>\(\left(\dfrac ab\right)^{-n}\)<span class="nw">\(=\)&nbsp;</span>\(\left(\dfrac ba\right)^n\)</div>
     <div>\(a^{\frac mn}=\sqrt[n]{a^m}\)</div>
     <div>\(a^{-\frac mn}=\dfrac1{\sqrt[n]{a^m}}\)</div>
   </div>
@@ -351,10 +400,11 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <li>Gleiche Basen zusammenfassen (Hochzahlen addieren bzw. subtrahieren).</li>
     <li>Zum Schluss negative Hochzahlen in den Nenner bringen.</li>
   </ol>
-  \[(2a^{-3}b^2)^{-2}=2^{-2}a^{6}b^{-4}=\frac{a^6}{4b^4}\]
-  <div class="box falle"><span class="lbl">Fallen · deine 2.16f und 2.50d</span>
+  <p>Beispiel <span class="ref" data-q="2.4b">Buch 2.4b</span>:</p>
+  \[\left(4^{-2}c^4d^{-3}k^7\right)^{-2}=4^{4}c^{-8}d^{6}k^{-14}=\frac{256\,d^6}{c^8k^{14}}\]
+  <div class="box falle"><span class="lbl">Fallen · deine 2.16f und 2.50d</span><span class="ref" data-q="2.16f">Buch 2.16f</span><span class="ref" data-q="2.50d">Buch 2.50d</span>
     <ul class="plain">
-      <li>\(-2^4=-16\), aber \((-2)^4=16\) und \((-2)^3=-8\).</li>
+      <li>\(-2^4=-16\), aber \((-2)^4=16\) und \((-2)^3=-8\). Siehe <span class="ref" data-q="2.3c">Buch 2.3c</span>.</li>
       <li>Klammer um die Basis: \((r+s)^{-\frac12}=\frac{1}{\sqrt{r+s}}\). Ohne Klammer gilt die Hochzahl nur für \(s\).</li>
       <li>\(\left(\frac1x\right)^2=x^{-2}\), nicht \(x^{-1}\).</li>
       <li>\((a+b)^2\ne a^2+b^2\): Summen darf man nicht einzeln potenzieren.</li>
@@ -366,18 +416,21 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <div class="th"><span class="num">4</span><h2>Wurzeln: Regeln, partiell Wurzelziehen, Rationalmachen</h2><label class="sitzt"><input type="checkbox" data-k="k4">sitzt</label></div>
   <div class="rules">
     <div>\(\sqrt[n]a\cdot\sqrt[n]b=\sqrt[n]{ab}\)</div>
-    <div>\(\dfrac{\sqrt[n]a}{\sqrt[n]b}=\sqrt[n]{\dfrac ab}\)</div>
+    <div>\(\dfrac{\sqrt[n]a}{\sqrt[n]b}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[n]{\dfrac ab}\)</div>
     <div>\(\sqrt[m]{\sqrt[n]a}=\sqrt[m\cdot n]{a}\)</div>
     <div>\(\sqrt[n]{a^m}=\sqrt[n\cdot k]{a^{m\cdot k}}\)</div>
   </div>
   <p><b>Verschiedene Wurzelexponenten</b> → in Potenzschreibweise umwandeln und auf gleichen Nenner bringen:
   \[\sqrt[3]{x^2}\cdot\sqrt{x}=x^{\frac23+\frac12}=x^{\frac76}=\sqrt[6]{x^7}=x\,\sqrt[6]{x}\]</p>
+  <p class="note">Beispiel aus <span class="ref" data-q="2.37a">Buch 2.37a</span>, mehr in <span class="ref" data-q="2.34">Buch 2.34</span>.</p>
   <p class="h4">Partiell (teilweise) Wurzelziehen</p>
   <p>Hochzahl durch den Wurzelexponenten teilen: Das Ergebnis kommt vor die Wurzel, der Rest bleibt drin. Bei Zahlen die größte Quadrat- bzw. Kubikzahl suchen.</p>
-  \[\sqrt[3]{x^7}=x^2\sqrt[3]{x}\quad(7:3=2\text{ Rest }1)\]
-  \[\sqrt{72}=\sqrt{36\cdot2}=6\sqrt2\]
+  \[\sqrt[3]{p^4}=p\sqrt[3]{p}\quad(4:3=1\text{ Rest }1)\]
+  \[\sqrt[3]{54p^4q^5r^6}=3pqr^2\sqrt[3]{2pq^2}\]
+  \[\sqrt{63}=\sqrt{9\cdot7}=3\sqrt7\]
+  <p class="note">Beispiele aus <span class="ref" data-q="2.48b">Buch 2.48b</span> und <span class="ref" data-q="2.46g">Buch 2.46g</span>.</p>
   <p class="h4">Faktor unter die Wurzel</p>
-  <p>Umgekehrt: Der Faktor kommt mit dem Wurzelexponenten als Hochzahl hinein (für \(a\ge0\)): \(a\sqrt[n]{b}=\sqrt[n]{a^n\,b}\), z. B. \(2\sqrt3=\sqrt{12}\).</p>
+  <p>Umgekehrt: Der Faktor kommt mit dem Wurzelexponenten als Hochzahl hinein (für \(a\ge0\)): \(a\sqrt[n]{b}=\sqrt[n]{a^n\,b}\), z. B. \(x\sqrt x\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{x^2\cdot x}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{x^3}\) <span class="ref" data-q="2.50a">Buch 2.50a</span>.</p>
   <p class="h4">Nenner rational machen</p>
   <div class="scroll"><table class="tbl">
     <tr><th>Im Nenner steht</th><th>erweitern mit</th><th>Nenner danach</th></tr>
@@ -388,11 +441,12 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <tr><td>\(\sqrt a-b\)</td><td>\(\sqrt a+b\)</td><td>\(a-b^2\)</td></tr>
   </table></div>
   <p>Die letzten zwei Zeilen funktionieren mit der 3. binomischen Formel \((x+y)(x-y)=x^2-y^2\).</p>
-  <div class="box falle"><span class="lbl">Fallen · deine 2.51a, 2.51c, 2.58f</span>
+  <p>Beispiele: \(\frac{1}{\sqrt[3]4}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt[3]2}{\sqrt[3]8}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt[3]2}{2}\) <span class="ref" data-q="2.54b">Buch 2.54b</span> und \(\frac{a-b}{\sqrt a-\sqrt b}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{(a-b)(\sqrt a+\sqrt b)}{a-b}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt a+\sqrt b\) <span class="ref" data-q="2.58a">Buch 2.58a</span>.</p>
+  <div class="box falle"><span class="lbl">Fallen · deine 2.51a, 2.51c, 2.58f</span><span class="ref" data-q="2.51">Buch 2.51</span><span class="ref" data-q="2.58f">Buch 2.58f</span>
     <ul class="plain">
       <li>Den <b>Wurzelexponenten mitschreiben</b>: \(\sqrt[3]{\frac{m^4}{n^2}}\) ist etwas anderes als \(\sqrt{\frac{m^4}{n^2}}\).</li>
       <li>\(\sqrt{a^2+b^2}\ne a+b\).</li>
-      <li>Beim Erweitern mit \((\sqrt a-b)\) den ganzen Zähler mitmultiplizieren: \(\frac{a+b}{\sqrt a+b}=\frac{(a+b)(\sqrt a-b)}{a-b^2}\).</li>
+      <li>Beim Erweitern mit \((\sqrt a-b)\) den ganzen Zähler mitmultiplizieren: \(\frac{a+b}{\sqrt a+b}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{(a+b)(\sqrt a-b)}{a-b^2}\).</li>
     </ul>
   </div>
 </article>
@@ -421,7 +475,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
         <li>Grundform erkennen → \(n\).</li>
         <li>Einen gut ablesbaren Punkt einsetzen → \(a\).</li>
       </ol>
-      <p>Beispiel \(f_1\): S(3|4), nach unten offen, also \(n=2\). Punkt P(5|2):</p>
+      <p>Beispiel \(f_1\) <span class="ref" data-q="ÜB Potenzfunktion 1">ÜB Potenzfkt. 1</span>: S(3|4), nach unten offen, also \(n=2\). Punkt P(5|2):</p>
       \[2=a\,(5-3)^2+4\;\Rightarrow\;4a=-2\;\Rightarrow\;a=-\tfrac12\]
       \[f_1(x)=-\tfrac12(x-3)^2+4\]
       <p class="h4">Skizzieren</p>
@@ -429,7 +483,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     </div>
     <figure class="plot" data-plot="lz-f1"><figcaption>\(f_1(x)=-\frac12(x-3)^2+4\): von S zwei nach rechts, zwei nach unten</figcaption></figure>
   </div>
-  <div class="box falle"><span class="lbl">Fallen · deine 2.68b und 2.68d</span>
+  <div class="box falle"><span class="lbl">Fallen · deine 2.68b und 2.68d</span><span class="ref" data-q="2.68">Buch 2.68</span>
     <ul class="plain">
       <li><b>Nur n &lt; 0 hat Asymptoten.</b> \((x+1)^3-6\) hat keine, nur einen Symmetriepunkt S(−1|−6).</li>
       <li>Bei \(n\lt0\) laufen die Äste gegen \(y=c\), <b>nicht</b> gegen die x-Achse: \((x+4)^{-3}-3\) nähert sich \(y=-3\).</li>
@@ -439,13 +493,13 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 
 <article class="topic" id="k6">
   <div class="th"><span class="num">6</span><h2>Wurzelfunktionen</h2><label class="sitzt"><input type="checkbox" data-k="k6">sitzt</label></div>
-  <p>\(f(x)=\sqrt[n]{x}=x^{\frac1n}\) ist die Umkehrfunktion von \(x^n\) (bei geradem \(n\) nur für \(x\ge0\)). Darum ist ihr Graph das Spiegelbild an \(y=x\).</p>
+  <p>\(f(x)\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[n]{x}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac1n}\) ist die Umkehrfunktion von \(x^n\) (bei geradem \(n\) nur für \(x\ge0\)). Darum ist ihr Graph das Spiegelbild an \(y=x\).</p>
   <div class="figs big">
-    <figure class="plot" data-plot="lz-w2"><figcaption><span class="c-ink">\(\sqrt x\)</span> und <span class="c-red">\(x^2\ (x\ge0)\)</span>. \(D=[0;\infty[\), streng steigend, Punkte (0|0), (1|1), (4|2), (9|3)</figcaption></figure>
+    <figure class="plot" data-plot="lz-w2"><figcaption><span class="c-ink">\(\sqrt x\)</span> und <span class="c-red">\(x^2\ (x\ge0)\)</span>. \(D=[0;\infty[\), streng steigend, Punkte (0|0), (1|1), (4|2), (9|3) <span class="ref" data-q="Umkehrung von y = x²">Heft</span></figcaption></figure>
     <figure class="plot" data-plot="lz-w3"><figcaption><span class="c-ink">\(\sqrt[3]x\)</span> und <span class="c-red">\(x^3\)</span>. Punkte (−8|−2), (−1|−1), (0|0), (1|1), (8|2); bei ungeradem \(n\) gilt \(D=\mathbb R\)</figcaption></figure>
   </div>
-  <p><b>Verschoben:</b> \(a\sqrt{x-b}+c\) startet im Punkt \((b|c)\). Beispiel: \(\sqrt{x+4}-1\) startet bei (−4|−1).</p>
-  <div class="box falle"><span class="lbl">Falle · deine 2.98e</span>\(\sqrt[3]{x}-4\) heißt: 4 nach <b>unten</b>. Nur \(\sqrt[3]{x-4}\) (mit dem −4 unter der Wurzel) wäre 4 nach rechts. Genau hinschauen, wie weit der Wurzelstrich reicht.</div>
+  <p><b>Verschoben:</b> \(a\sqrt{x-b}+c\) startet im Punkt \((b|c)\). Beispiel <span class="ref" data-q="2.96">Buch 2.96</span>: \(\sqrt{x+2}\) und \(2\sqrt{x+2}\) starten beide bei (−2|0), der zweite Graph steigt doppelt so steil.</p>
+  <div class="box falle"><span class="lbl">Falle · deine 2.98e</span><span class="ref" data-q="2.98e">Buch 2.98e</span> \(\sqrt[3]{x}-4\) heißt: 4 nach <b>unten</b>. Nur \(\sqrt[3]{x-4}\) (mit dem −4 unter der Wurzel) wäre 4 nach rechts. Genau hinschauen, wie weit der Wurzelstrich reicht.</div>
 </article>
 
 <article class="topic" id="k7">
@@ -453,7 +507,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   \[f(x)=a_nx^n+\dots+a_1x+a_0\]
   <p>mit \(n\in\mathbb N\) und \(a_n\ne0\).</p>
   <p><b>Grad</b> \(n\) = höchste Hochzahl, <b>Leitkoeffizient</b> \(a_n\) = Zahl davor, \(a_0\) = Schnittpunkt mit der y-Achse.</p>
-  <p><b>Kein Polynom</b>, sobald \(x\) eine negative oder gebrochene Hochzahl hat, im Nenner oder unter einer Wurzel steht: \(\frac2x\), \(x^{-1}\), \(\sqrt x\), \(x\sqrt x=x^{1{,}5}\). Irrationale Koeffizienten wie \(\sqrt3\,x^3-\pi x\) sind erlaubt.</p>
+  <p><b>Kein Polynom</b>, sobald \(x\) eine negative oder gebrochene Hochzahl hat, im Nenner oder unter einer Wurzel steht: \(x(2x^2+4)\sqrt x\) enthält \(x^{3{,}5}\), bei \(\frac{x^2-1}{1+x^2}\) steht \(x\) im Nenner. Irrationale Koeffizienten wie \(\sqrt2\,x^3\) sind erlaubt. <span class="ref" data-q="ÜB Polynom 1">ÜB Polynom 1</span></p>
   <div class="scroll"><table class="tbl">
     <tr><th>Grad n</th><th>Nullstellen</th><th>Extremstellen</th></tr>
     <tr><td>1</td><td>genau 1</td><td>keine</td></tr>
@@ -476,14 +530,1123 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
       <li>Extremstellen zählen → Grad ≥ Extrema + 1.</li>
       <li>Endverlauf prüfen: Enden gleich (beide oben/unten) → gerader Grad, Enden verschieden → ungerader Grad. Passt die Zahl nicht, eins dazu.</li>
     </ol>
-    Beispiel: 4 Nullstellen, 3 Extrema, beide Enden oben → mindestens Grad 4. &nbsp;1 Nullstelle, 2 Extrema, links unten → rechts oben → mindestens Grad 3.
+    Beispiel <span class="ref" data-q="ÜB Polynom 3">ÜB Polynom 3</span>: 3 Extrema, beide Enden oben → mindestens Grad 4. &nbsp;4 Extrema, Enden gegenüber → mindestens Grad 5.
   </div>
   <p class="h4">Produktform</p>
   <p>\(f(x)=a(x-x_1)(x-x_2)\cdots\) → Nullstellen direkt ablesen. Grad = Summe der höchsten Hochzahlen der Klammern, Leitkoeffizient = Produkt der Zahlen vor den höchsten Potenzen. Eine quadrierte Klammer wie \((x-2)^2\) bedeutet: Bei 2 wird die Achse nur berührt.</p>
-  <p>Beispiel \((1-x)(x+3)(2x^2+1)\):</p>
-  \[\begin{aligned}\text{Grad}&=1+1+2=4\\ a_n&=(-1)\cdot1\cdot2=-2\end{aligned}\]
-  <div class="box falle"><span class="lbl">Falle · dein Übungsblatt 3</span>Beim Mindestgrad den Endverlauf nicht vergessen. Er kann den Grad um eins erhöhen.</div>
+  <p>Beispiel \((x+1)(2-x)(1+x^2)\) <span class="ref" data-q="ÜB Polynom 4">ÜB Polynom 4d</span>:</p>
+  \[\begin{aligned}\text{Grad}&=1+1+2=4\\ a_n&=1\cdot(-1)\cdot1=-1\end{aligned}\]
+  <p>Nullstellen: \(-1\) und \(2\). \(1+x^2\) wird nie 0. Beide Enden gehen nach unten.</p>
+  <div class="box falle"><span class="lbl">Falle · dein Übungsblatt 3</span><span class="ref" data-q="ÜB Polynom 3">ÜB Polynom 3</span> Beim Mindestgrad den Endverlauf nicht vergessen. Er kann den Grad um eins erhöhen.</div>
 </article>
+</section>
+
+<!-- ===================== ÜBUNGEN ===================== -->
+<section id="p-ub" role="tabpanel" aria-labelledby="t-ub" hidden>
+<p class="intro">Alle markierten Aufgaben aus dem Buch und alle Beispiele aus deiner Mitschrift, sortiert nach Thema. Suche nach der Nummer wie im Buch oder im Heft, zum Beispiel <b>2.48</b>, <b>1.34b</b>, <b>ÜB 5</b> oder <b>Heft 19.10</b>. Die Angaben sind kurz zusammengefasst, die Graphen sind nachgezeichnet. Die genaue Angabe steht im Buch auf der angegebenen Seite.</p>
+<div class="ub-search">
+  <label class="ub-in"><span class="vh">Nummer oder Stichwort suchen</span>
+    <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.6 12.6 17 17"/></svg>
+    <input type="search" id="ub-q" placeholder="Nummer suchen: 2.48, 1.34b, ÜB 5 …" autocomplete="off" spellcheck="false" enterkeyhint="search">
+  </label>
+  <button class="btn all-loes" type="button">Alle Lösungen zeigen</button>
+</div>
+<div class="fchips" id="ub-topic" role="group" aria-label="Thema">
+  <button type="button" data-t="all" aria-pressed="true">Alle</button>
+  <button type="button" data-t="eig" aria-pressed="false">Eigenschaften</button>
+  <button type="button" data-t="umk" aria-pressed="false">Umkehrfunktion</button>
+  <button type="button" data-t="pot" aria-pressed="false">Potenzen</button>
+  <button type="button" data-t="wz" aria-pressed="false">Wurzeln</button>
+  <button type="button" data-t="rat" aria-pressed="false">Rationalmachen</button>
+  <button type="button" data-t="pf" aria-pressed="false">Potenzfunktionen</button>
+  <button type="button" data-t="wf" aria-pressed="false">Wurzelfunktionen</button>
+  <button type="button" data-t="poly" aria-pressed="false">Polynomfunktionen</button>
+</div>
+<div class="ub-bar">
+  <div class="seg" id="ub-src" role="group" aria-label="Quelle"><button type="button" data-s="all" aria-pressed="true">Alle</button><button type="button" data-s="buch" aria-pressed="false">Buch</button><button type="button" data-s="heft" aria-pressed="false">Mitschrift</button></div>
+  <span class="ub-count" id="ub-count" aria-live="polite"></span>
+</div>
+<p class="empty ub-none" id="ub-none" hidden>Keine Übung gefunden. Probier die Nummer ohne Buchstaben (z. B. <b>2.48</b> statt 2.48x) oder setz Thema und Quelle auf „Alle“.</p>
+
+<!-- ============ Eigenschaften ============ -->
+<div class="ub-g" data-topic="eig">
+<h2 class="grp">Eigenschaften von Funktionen</h2>
+
+<div class="task ub" id="ub-1-9" data-nr="1.9" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.9</span>Eigenschaften am Graphen ablesen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 11</span><span class="sb mk">markiert</span><span class="sb m">auch in deiner Mitschrift</span></p>
+  <div class="split"><div>
+    <p>Lies am Graphen von \(f\) ab:</p>
+    <ol class="sub n">
+      <li>Wie verläuft \(f\) im Intervall \([1;2]\)?</li>
+      <li>In welchem Intervall ist \(f\) streng monoton steigend?</li>
+      <li>Was liegt an der Stelle \(x=-2\) vor?</li>
+      <li>Was liegt an der Stelle \(x=6\) vor?</li>
+      <li>Was für ein Punkt ist \(P(3|3)\)?</li>
+      <li>Welche besondere Eigenschaft hat \(P(3|3)\) noch?</li>
+    </ol>
+  </div><figure class="plot" data-plot="ub-19"></figure></div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub n">
+      <li>Streng monoton steigend: Von links nach rechts geht der Graph dort nach oben.</li>
+      <li>In \([-2;3]\), also vom Tiefpunkt bis zum Hochpunkt.</li>
+      <li>Ein lokales Minimum, der Tiefpunkt \(T(-2|1)\).</li>
+      <li>Eine Nullstelle: Der Graph schneidet die x-Achse, \(f(6)\approx0\).</li>
+      <li>Ein Hochpunkt (lokales Maximum) \(H(3|3)\).</li>
+      <li>Ein Fixpunkt, weil \(f(3)=3\). Der Punkt liegt auf der Geraden \(y=x\).</li>
+    </ol>
+    </div><figure class="plot" data-plot="ub-19l"><figcaption>strichliert: \(y=x\)</figcaption></figure></div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-11" data-nr="1.11" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.11</span>Eigenschaften beschreiben</h3>
+  <p class="srcl"><span class="sb b">Buch S. 11</span><span class="sb mk">markiert: a</span><span class="sb m">a und b in deiner Mitschrift</span></p>
+  <p>Beschreibe Symmetrie, Periodizität, Nullstellen, Hoch- und Tiefpunkte und Monotonie.</p>
+  <div class="figs big">
+    <figure class="plot" data-plot="ub-111a"><figcaption><b>a)</b> \(y=2\cdot\sin x\)</figcaption></figure>
+    <figure class="plot" data-plot="ub-111b"><figcaption><b>b)</b> Graph wie im Buch</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li><b>ungerade</b>, also punktsymmetrisch zum Ursprung, weil \(2\sin(-x)=-2\sin x\). <b>Periodisch</b> mit \(p=2\pi\).<br>
+        Nullstellen: \(x=-\pi,\ 0,\ \pi,\ 2\pi,\ 3\pi\) (allgemein \(k\cdot\pi\)).<br>
+        Hochpunkte \(H(\tfrac{\pi}{2}|2)\), \(H(\tfrac{5\pi}{2}|2)\); Tiefpunkte \(T(-\tfrac{\pi}{2}|-2)\), \(T(\tfrac{3\pi}{2}|-2)\).<br>
+        Steigend in \([-\tfrac{\pi}{2};\tfrac{\pi}{2}]\) und \([\tfrac{3\pi}{2};\tfrac{5\pi}{2}]\), fallend in \([\tfrac{\pi}{2};\tfrac{3\pi}{2}]\).</li>
+      <li><b>gerade</b>, also symmetrisch zur y-Achse. <b>Nicht periodisch</b>, weil die Enden immer weiter steigen.<br>
+        Nullstellen \(x=\pm3\); Tiefpunkte \(T_1(-2|-2)\), \(T_2(2|-2)\); Hochpunkt \(H(0|-1)\).<br>
+        Fallend in \(]-\infty;-2]\) und \([0;2]\), steigend in \([-2;0]\) und \([2;\infty[\).</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-15" data-nr="1.15" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.15</span>Gerade oder ungerade ergänzen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 12</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Eine Funktion \(f\) hat die Nullstelle \(x=4\) und den Hochpunkt \(H(3|2)\). Welche Nullstellen und Extrempunkte muss \(f\) noch haben, wenn \(f\)</p>
+  <ol class="sub"><li>gerade ist,</li><li>ungerade ist?</li></ol>
+  <p>Skizziere jeweils einen passenden Graphen.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li><b>gerade</b> heißt: an der y-Achse spiegeln, \((x|y)\to(-x|y)\). Dazu kommen die Nullstelle \(x=-4\) und der Hochpunkt \(H(-3|2)\).</li>
+      <li><b>ungerade</b> heißt: am Ursprung spiegeln, \((x|y)\to(-x|-y)\). Dazu kommen die Nullstelle \(x=-4\) und der Tiefpunkt \(T(-3|-2)\). Außerdem geht eine ungerade Funktion durch \((0|0)\), also ist auch \(x=0\) Nullstelle.</li>
+    </ol>
+    <div class="figs big">
+      <figure class="plot" data-plot="ub-115g"><figcaption><b>a)</b> gerade, Beispiel</figcaption></figure>
+      <figure class="plot" data-plot="ub-115u"><figcaption><b>b)</b> ungerade, Beispiel</figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-17" data-nr="1.17" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.17</span>Polstellen und Asymptoten</h3>
+  <p class="srcl"><span class="sb b">Buch S. 12</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Gib die Polstellen und die Asymptoten an.</p>
+  <ol class="sub n">
+    <li>\(f(x)=\dfrac{1}{x+2}\)</li><li>\(g(x)=\dfrac{x-3}{2}\)</li><li>\(h(x)=\dfrac{1}{(x-2)^2}\)</li><li>\(k(x)=\dfrac{x-3}{x-6}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Polstelle = dort, wo der <b>Nenner 0</b> wird (und der Zähler nicht).</p>
+    <ol class="sub n">
+      <li>\(x+2=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=-2\). Senkrechte Asymptote \(x=-2\), waagrechte Asymptote \(y=0\).</li>
+      <li>Keine Polstelle: Im Nenner steht nur die Zahl 2. Das ist eine lineare Funktion, also gibt es keine Asymptoten.</li>
+      <li>\(x=2\). Asymptoten \(x=2\) und \(y=0\). Wegen des Quadrats gehen beide Äste nach oben.</li>
+      <li>\(x=6\). Umformen: \(k(x)\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{(x-6)+3}{x-6}\)<span class="nw">\(=\)&nbsp;</span>\(1+\dfrac{3}{x-6}\). Asymptoten \(x=6\) und \(y=1\).</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-18" data-nr="1.18" data-topic="eig" data-src="buch">
+  <h3><span class="an">Buch 1.18</span>Gewinnfunktion lesen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 12</span><span class="sb mk">markiert</span></p>
+  <div class="split"><div>
+    <p>Der Graph zeigt den Gewinn \(G\) (in GE) eines Betriebs in Abhängigkeit von der verkauften Stückzahl. Fragen sinngemäß:</p>
+    <ol class="sub n">
+      <li>Bei welcher Stückzahl ist der Gewinn (lokal) am größten? Wie groß ist er?</li>
+      <li>Ab welcher Stückzahl macht der Betrieb Gewinn?</li>
+      <li>In welchem Bereich nimmt der Gewinn ab?</li>
+      <li>In welchen Bereichen nimmt der Gewinn zu?</li>
+      <li>Wie groß ist der Gewinn im lokalen Minimum?</li>
+      <li>Bei welchen Stückzahlen beträgt der Gewinn 100 GE?</li>
+    </ol>
+  </div><figure class="plot" data-plot="ub-118"></figure></div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ol class="sub n">
+      <li>Bei 300 Stück: Hochpunkt \(H(300|150)\), also 150 GE.</li>
+      <li>Ab 100 Stück (Nullstelle). Davor ist \(G\) negativ, das ist Verlust.</li>
+      <li>Fallend in \([300;600]\).</li>
+      <li>Steigend in \([0;300]\) und \([600;700]\).</li>
+      <li>50 GE, Tiefpunkt \(T(600|50)\).</li>
+      <li>Waagrechte Linie bei \(G=100\) einzeichnen: bei ca. 180 Stück und bei 700 Stück.</li>
+    </ol>
+    </div><figure class="plot" data-plot="ub-118l"><figcaption>strichliert: \(G=100\)</figcaption></figure></div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-28" data-nr="1.28" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.28</span>Sechs Graphen untersuchen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 17</span><span class="sb mk">markiert: a, d</span><span class="sb m">b, c, e in deiner Mitschrift (dort als „1.18“ beschriftet)</span></p>
+  <p>Gib für jeden Graphen an: 1) Symmetrie, 2) periodisch ja/nein, 3) lokale Maxima und Minima, 4) Nullstellen (ungefähr), 5) Monotonie.</p>
+  <div class="figs">
+    <figure class="plot" data-plot="ub-128a"><figcaption><b>a)</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-128b"><figcaption><b>b)</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-128c"><figcaption><b>c)</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-128e"><figcaption><b>e)</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-128f"><figcaption><b>f)</b></figcaption></figure>
+  </div>
+  <figure class="plot wide" data-plot="ub-128d"><figcaption><b>d)</b></figcaption></figure>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>gerade (symmetrisch zur y-Achse); nicht periodisch; \(H(0|2)\); NS \(\approx\pm1{,}41\); steigend in \(]-\infty;0]\), fallend in \([0;\infty[\).</li>
+      <li>weder gerade noch ungerade; nicht periodisch; keine Extrema; NS \(\approx-1{,}26\); streng monoton steigend auf ganz \(\mathbb R\).</li>
+      <li>ungerade (punktsymmetrisch zum Ursprung); nicht periodisch; keine Extrema; NS \(x=0\); streng monoton fallend.</li>
+      <li>gerade; periodisch mit \(p=4\); Hochpunkte bei \(x=0,\pm4\) (y = 1), Tiefpunkte bei \(x=\pm2,\pm6\) (y = −1); NS \(x=\pm1,\pm3,\pm5\); steigend z. B. in \([-2;0]\) und \([2;4]\), fallend in \([0;2]\) und \([4;6]\).</li>
+      <li>gerade; nicht periodisch; \(H(0|2)\), \(T_1(-1{,}5|-2)\), \(T_2(1{,}5|-2)\); 4 NS \(\approx\pm0{,}81\) und \(\pm1{,}96\); fallend in \(]-\infty;-1{,}5]\) und \([0;1{,}5]\), steigend in \([-1{,}5;0]\) und \([1{,}5;\infty[\).</li>
+      <li>weder gerade noch ungerade (aber symmetrisch zur Geraden \(x=2\)); nicht periodisch; \(H_1(1|1)\), \(H_2(3|1)\), \(T(2|0)\); NS \(\approx0{,}59\), \(2\), \(3{,}41\); steigend in \(]-\infty;1]\) und \([2;3]\), fallend in \([1;2]\) und \([3;\infty[\).</li>
+    </ol>
+    <p class="note">Gerade/ungerade bezieht sich immer auf die y-Achse bzw. den Ursprung. Bei f) ist der Graph zwar symmetrisch, aber zu \(x=2\). Das zählt nicht als „gerade“.</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-30" data-nr="1.30" data-topic="eig" data-src="buch heft">
+  <h3><span class="an">Buch 1.30</span>Wasserstand im Schwimmbecken</h3>
+  <p class="srcl"><span class="sb b">Buch S. 17</span><span class="sb mk">markiert</span><span class="sb m">auch in deiner Mitschrift</span></p>
+  <div class="split"><div>
+    <p>Der Graph zeigt die Wasserhöhe (in cm) eines Beckens abhängig von der Zeit (in h). Welche Aussagen sind <b>falsch</b>? Begründe.</p>
+    <ul class="plain abc">
+      <li><b>A</b> Wo die Funktion streng monoton steigt, wird das Becken gefüllt.</li>
+      <li><b>B</b> In der ganzen zweiten Stunde ist kein Wasser im Becken.</li>
+      <li><b>C</b> Das Wasser wird schneller abgelassen als eingefüllt.</li>
+      <li><b>D</b> Die maximale Höhe wird erst nach 5,5 Stunden erreicht.</li>
+      <li><b>E</b> Von 0 h bis 2 h ist die Funktion monoton steigend.</li>
+    </ul>
+  </div><figure class="plot" data-plot="ub-130"></figure></div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p class="ans">Falsch sind B, C und D.</p>
+    <ul class="plain abc">
+      <li><b>A</b> richtig: Steigen heißt, die Wasserhöhe nimmt zu.</li>
+      <li><b>B</b> falsch: Von 1 h bis 2 h bleibt das Wasser konstant bei 50 cm.</li>
+      <li><b>C</b> falsch: Ablassen: 50 cm in 1,5 h, also etwa 33 cm pro Stunde. Füllen: 50 cm/h (0–1 h) bzw. 150 cm/h (4–5 h). Das Ablassen ist langsamer.</li>
+      <li><b>D</b> falsch: Die 150 cm sind schon nach 5 Stunden erreicht.</li>
+      <li><b>E</b> richtig: Der Graph steigt (0–1 h) und bleibt dann gleich (1–2 h), er fällt nie. Das ist monoton steigend, aber nicht streng.</li>
+    </ul>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-32" data-nr="1.32" data-topic="eig" data-src="buch">
+  <h3><span class="an">Buch 1.32</span>Wahr oder falsch?</h3>
+  <p class="srcl"><span class="sb b">Buch S. 18</span><span class="sb mk">markiert</span></p>
+  <p>Welche Aussagen sind wahr? Begründe.</p>
+  <ol class="sub n">
+    <li>\(y=\frac1x\) hat bei \(x=0\) eine Nullstelle.</li>
+    <li>\(y=x\) hat ausschließlich Fixpunkte.</li>
+    <li>Ist \(f\) periodisch mit der Periode \(p\), dann gilt \(f(x)=f(x+2p)\).</li>
+    <li>Es gibt eine lineare Funktion mit mehr als einer Nullstelle.</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub n">
+      <li><b>Falsch.</b> \(x=0\) gehört nicht zur Definitionsmenge, dort ist eine Polstelle. \(\frac1x\) wird nie 0.</li>
+      <li><b>Wahr.</b> \(f(x)=x\) für jedes \(x\), also ist jeder Punkt ein Fixpunkt.</li>
+      <li><b>Wahr.</b> \(f(x+2p)\)<span class="nw">\(=\)&nbsp;</span>\(f\big((x+p)+p\big)\)<span class="nw">\(=\)&nbsp;</span>\(f(x+p)\)<span class="nw">\(=\)&nbsp;</span>\(f(x)\). Mit \(p\) ist auch \(2p, 3p, …\) eine Periode.</li>
+      <li><b>Nur im Sonderfall</b> \(y=0\) (also \(k=0\), \(d=0\)): Dann ist jede Zahl eine Nullstelle. Jede andere lineare Funktion hat höchstens eine Nullstelle.</li>
+    </ol>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Umkehrfunktion ============ -->
+<div class="ub-g" data-topic="umk">
+<h2 class="grp">Umkehrfunktion</h2>
+
+<div class="task ub" id="ub-1-24" data-nr="1.24" data-topic="umk" data-src="buch heft">
+  <h3><span class="an">Buch 1.24</span>An y = x spiegeln</h3>
+  <p class="srcl"><span class="sb b">Buch S. 16</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Spiegle den Graphen an der 1. Mediane \(y=x\). Ist die Umkehrrelation eine Funktion?</p>
+  <div class="figs four">
+    <figure class="plot" data-plot="ub-124a"><figcaption><b>1)</b> \(y=1\)</figcaption></figure>
+    <figure class="plot" data-plot="ub-124b"><figcaption><b>2)</b> \(y=x+1\)</figcaption></figure>
+    <figure class="plot" data-plot="ub-124c"><figcaption><b>3)</b> \(y=-x^2\)</figcaption></figure>
+    <figure class="plot" data-plot="ub-124d"><figcaption><b>4)</b> Graph für \(x\gt0\)</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Regel: Die Umkehrrelation ist nur dann eine Funktion, wenn der ursprüngliche Graph jeden y-Wert <b>höchstens einmal</b> annimmt (waagrechter Linientest).</p>
+    <div class="figs four">
+      <figure class="plot" data-plot="ub-124al"><figcaption><b>1)</b> \(x=1\): senkrechte Gerade, <b>keine</b> Funktion</figcaption></figure>
+      <figure class="plot" data-plot="ub-124bl"><figcaption><b>2)</b> \(y=x-1\): Funktion</figcaption></figure>
+      <figure class="plot" data-plot="ub-124cl"><figcaption><b>3)</b> \(x=-y^2\): zu \(x=-1\) gehören \(y=1\) und \(y=-1\), <b>keine</b> Funktion</figcaption></figure>
+      <figure class="plot" data-plot="ub-124dl"><figcaption><b>4)</b> sieht gespiegelt gleich aus: Funktion</figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-1-34" data-nr="1.34" data-topic="umk" data-src="buch heft">
+  <h3><span class="an">Buch 1.34</span>Umkehrfunktion berechnen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 18</span><span class="sb mk">markiert: b</span><span class="sb m">b in deiner Mitschrift</span></p>
+  <p>Zeichne die Funktion und ihre Umkehrrelation. Ist die Umkehrrelation eine Funktion? Gib gegebenenfalls ihre Gleichung an.</p>
+  <ol class="sub">
+    <li>\(y=\dfrac{x+1}{2x-4}\)</li><li>\(y=\dfrac1x+3\)</li><li>\(y=\dfrac{3x-2}{x+2}\)</li><li>\(y=x^2-1\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Immer gleich: <b>x und y tauschen, dann nach y umformen.</b></p>
+    <ol class="sub">
+      <li>\(x=\dfrac{y+1}{2y-4}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(2xy-4x=y+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(2xy-y=4x+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y(2x-1)=4x+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\dfrac{4x+1}{2x-1}\)</li>
+      <li>\(x=\dfrac1y+3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x-3=\dfrac1y\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\dfrac{1}{x-3}\). Funktion, weil jeder y-Wert von \(f\) nur einmal vorkommt. \(D_u=\mathbb R\setminus\{3\}\).</li>
+      <li>\(x=\dfrac{3y-2}{y+2}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(xy+2x=3y-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(xy-3y=-2x-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{-2x-2}{x-3}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{2x+2}{3-x}\)</li>
+      <li>\(x=y^2-1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y=\pm\sqrt{x+1}\): zwei y-Werte, also <b>keine</b> Funktion. Schränkt man auf \(x\ge0\) ein, ist \(u(x)=\sqrt{x+1}\).</li>
+    </ol>
+    <figure class="plot" data-plot="ub-134b"><figcaption><b>b)</b> \(f\) blau, \(u\) rot, gespiegelt an \(y=x\). Die Asymptoten werden mitgespiegelt: \(y=3\to x=3\).</figcaption></figure>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-taxi" data-topic="umk" data-src="heft" data-k="taxi taxifahrt">
+  <h3><span class="an">Heft · Beispiel</span>Taxifahrt</h3>
+  <p class="srcl"><span class="sb m">Mitschrift (Heft)</span></p>
+  <p>Ein Taxi kostet 4 € Grundgebühr und 2 € pro Kilometer. Stelle die Kosten \(p(s)\) für \(s\) km auf und berechne die Umkehrfunktion. Was bedeutet sie?</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>\(p(s)=2s+4\). Nach \(s\) umformen: \(p=2s+4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(2s=p-4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(s(p)=\tfrac12p-2\).</p>
+    <p>\(s(p)\) sagt, wie viele Kilometer man für \(p\) Euro fahren kann. Beispiel: \(s(20)=10-2=8\) km.</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-quad" data-topic="umk wf" data-src="heft" data-k="x² wurzel umkehrrelation">
+  <h3><span class="an">Heft · Beispiel</span>Umkehrung von y = x²</h3>
+  <p class="srcl"><span class="sb m">Mitschrift (Heft)</span></p>
+  <p>Bilde die Umkehrrelation von \(y=x^2\). Warum ist sie keine Funktion, und wie bekommt man trotzdem eine Umkehrfunktion?</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Tauschen: \(x=y^2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y=\pm\sqrt x\). Zu jedem \(x\gt0\) gehören zwei y-Werte, also keine Funktion.</p>
+    <p>Man teilt in zwei Äste: \(u_1(x)=\sqrt x\) (für \(x\ge0\) der Parabel) und \(u_2(x)=-\sqrt x\) (für \(x\le0\)).</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-kub" data-topic="umk wf" data-src="heft" data-k="heft 19.10 x³ kubikwurzel">
+  <h3><span class="an">Heft 19.10.</span>Umkehrfunktion von x³ und x³ + 1</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Heft 19.10.</span></p>
+  <p>Bestimme die Umkehrfunktionen von \(f(x)=x^3\) und \(g(x)=x^3+1\).</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <p>\(f\): \(x=y^3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt[3]{x}\). Bei ungeraden Hochzahlen geht das auf ganz \(\mathbb R\), ohne Einschränkung.</p>
+    <p>\(g\): \(x=y^3+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y^3=x-1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt[3]{x-1}\).</p>
+    <p class="note">Aus „+1 nach oben“ wird beim Spiegeln „1 nach rechts“.</p>
+    </div><figure class="plot" data-plot="ub-hk"></figure></div>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Potenzen ============ -->
+<div class="ub-g" data-topic="pot">
+<h2 class="grp">Potenzen</h2>
+
+<div class="task ub" id="ub-2-3" data-nr="2.3" data-topic="pot" data-src="buch heft">
+  <h3><span class="an">Buch 2.3c</span>Ergebnis als Potenz</h3>
+  <p class="srcl"><span class="sb b">Buch S. 21</span><span class="sb mk">markiert: c</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Gib das Ergebnis als Potenz an: \((-4)^{-4}\cdot(-4^{-4}):(-4^4)\cdot(-4)^{-3}\)</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="steps">
+      <li>Vorzeichen jedes Faktors: \((-4)^{-4}\) ist <b>positiv</b> (gerade Hochzahl). \(-4^{-4}\) und \(-4^4\) sind negativ (das Minus steht vor der Potenz). \((-4)^{-3}\) ist negativ (ungerade Hochzahl).</li>
+      <li>Drei Minus ergeben insgesamt Minus.</li>
+      <li>Hochzahlen: Mal heißt plus, durch heißt minus: \(-4+(-4)-4+(-3)=-15\).</li>
+    </ol>
+    <p class="ans">\(=-4^{-15}\)</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-4" data-nr="2.4" data-topic="pot" data-src="buch heft">
+  <h3><span class="an">Buch 2.4b</span>Positive Exponenten</h3>
+  <p class="srcl"><span class="sb b">Buch S. 21</span><span class="sb mk">markiert: b</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Gib das Ergebnis mit positiven Exponenten an: \(\left(4^{-2}c^4d^{-3}k^7\right)^{-2}\)</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Jede Hochzahl mal \(-2\): \(4^{4}c^{-8}d^{6}k^{-14}\). Negative Hochzahlen kommen in den Nenner:</p>
+    <p class="ans">\(=\dfrac{256\,d^6}{c^8k^{14}}\)</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-5" data-nr="2.5" data-topic="pot" data-src="buch heft">
+  <h3><span class="an">Buch 2.5</span>Zusammenfassen, bruchfrei</h3>
+  <p class="srcl"><span class="sb b">Buch S. 21</span><span class="sb mk">markiert</span><span class="sb m">b und c in deiner Mitschrift</span></p>
+  <p>Fasse so weit wie möglich zusammen und gib das Ergebnis <b>bruchfrei</b> an (ohne Bruchstrich, mit negativen Hochzahlen).</p>
+  <ol class="sub">
+    <li>\(\left(-\dfrac{9z^{-1}}{16y}\right)^2\cdot\left(-\dfrac{3y^3}{4z^{-2}}\right)^{-3}\)</li>
+    <li>\(\left(-\dfrac{2p^{-1}}{3q^3}\right)^{-5}\cdot\left(-\dfrac{3q}{2p^{-2}}\right)^{-4}\)</li>
+    <li>\(-\dfrac{2x^{-4}}{27c^{-6}}\cdot\left(-\dfrac{8c^{-2}}{3^{-1}x}\right)^{-3}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Tipp: Bei negativer Hochzahl außen zuerst den Bruch umdrehen, dann ist die Hochzahl positiv.</p>
+    <ol class="sub">
+      <li>\(\left(-\frac{9z^{-1}}{16y}\right)^2\)<span class="nw">\(=\)&nbsp;</span>\(\frac{81\,z^{-2}}{256\,y^2}\) und \(\left(-\frac{3y^3}{4z^{-2}}\right)^{-3}\)<span class="nw">\(=\)&nbsp;</span>\(\left(-\frac{4z^{-2}}{3y^3}\right)^{3}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac{64\,z^{-6}}{27\,y^9}\).<br>
+        Malnehmen: \(-\frac{81\cdot64}{256\cdot27}\,y^{-11}z^{-8}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac34\,y^{-11}z^{-8}\). <span class="ans">\(=-3\cdot4^{-1}\,y^{-11}z^{-8}\)</span></li>
+      <li>\(\left(-\frac{2p^{-1}}{3q^3}\right)^{-5}\)<span class="nw">\(=\)&nbsp;</span>\(\left(-\frac{3pq^3}{2}\right)^{5}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac{243\,p^5q^{15}}{32}\) und \(\left(-\frac{3q}{2p^{-2}}\right)^{-4}\)<span class="nw">\(=\)&nbsp;</span>\(\left(\frac{2p^{-2}}{3q}\right)^{4}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{16\,p^{-8}}{81\,q^4}\) (gerade Hochzahl, Minus fällt weg).<br>
+        Malnehmen: \(-\frac{243\cdot16}{32\cdot81}\,p^{-3}q^{11}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac32\,p^{-3}q^{11}\). <span class="ans">\(=-3\cdot2^{-1}\,p^{-3}q^{11}\)</span></li>
+      <li>\(-\frac{2x^{-4}}{27c^{-6}}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac{2c^6x^{-4}}{27}\) und \(\left(-\frac{8c^{-2}}{3^{-1}x}\right)^{-3}\)<span class="nw">\(=\)&nbsp;</span>\(\left(-24\,c^{-2}x^{-1}\right)^{-3}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac{c^6x^3}{13\,824}\).<br>
+        Minus mal Minus ist Plus: \(\frac{2\,c^{12}x^{-1}}{27\cdot13\,824}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{c^{12}}{186\,624\,x}\). <span class="ans">\(=2^{-8}\cdot3^{-6}\cdot c^{12}x^{-1}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-7" data-nr="2.7" data-topic="pot" data-src="buch heft">
+  <h3><span class="an">Buch 2.7a</span>Eckige Klammern</h3>
+  <p class="srcl"><span class="sb b">Buch S. 21</span><span class="sb m">in deiner Mitschrift</span></p>
+  <p>Fasse zusammen, Ergebnis bruchfrei: \(\left[-5^{-2}\cdot(u^{-2})^{-6}\right]^{-1}:\left[(-5u^{-4})^{3}\right]^{-2}\)</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="steps">
+      <li>Erste Klammer: \((u^{-2})^{-6}=u^{12}\), also \(\left[-5^{-2}u^{12}\right]^{-1}\)<span class="nw">\(=\)&nbsp;</span>\(-5^{2}u^{-12}\).</li>
+      <li>Zweite Klammer: \((-5u^{-4})^3=-5^3u^{-12}\), hoch \(-2\): \(5^{-6}u^{24}\) (gerade Hochzahl, also positiv).</li>
+      <li>Dividieren, Hochzahlen abziehen: \(-5^{2-(-6)}\,u^{-12-24}\).</li>
+    </ol>
+    <p class="ans">\(=-5^{8}\,u^{-36}\)</p>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Wurzeln ============ -->
+<div class="ub-g" data-topic="wz">
+<h2 class="grp">Wurzeln</h2>
+
+<div class="task ub" id="ub-2-16" data-nr="2.16" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.16</span>Wurzel als Potenz</h3>
+  <p class="srcl"><span class="sb b">Buch S. 22</span><span class="sb mk">markiert: d, e, f</span><span class="sb m">d, e, f in deiner Mitschrift</span></p>
+  <p>Schreibe die Wurzel als Potenz an.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt[4]{f^3}\)</li><li>\(\sqrt[5]{a-b}\)</li><li>\(\sqrt[3]{(x+y)^4}\)</li><li>\(\dfrac{1}{\sqrt[3]{x}}\)</li><li>\(\dfrac{1}{\sqrt[7]{a^3}}\)</li><li>\(\dfrac{1}{\sqrt{r+s}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Regel: \(\sqrt[n]{a^m}=a^{\frac mn}\) und \(\frac{1}{a^k}=a^{-k}\).</p>
+    <ol class="sub cols">
+      <li>\(f^{\frac34}\)</li><li>\((a-b)^{\frac15}\)</li><li>\((x+y)^{\frac43}\)</li><li>\(x^{-\frac13}\)</li><li>\(a^{-\frac37}\)</li><li>\((r+s)^{-\frac12}\)</li>
+    </ol>
+    <div class="box falle"><span class="lbl">Falle · deine 2.16f</span>Klammer um \(r+s\) nicht vergessen. Ohne Klammer gehört die Hochzahl nur zu \(s\).</div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-19" data-nr="2.19" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.19</span>Exponent kürzen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 22</span><span class="sb mk">markiert: c</span><span class="sb m">c in deiner Mitschrift</span></p>
+  <p>Schreibe als Potenz, kürze den Exponenten und schreibe das Ergebnis wieder mit Wurzelzeichen.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt{x^4}\)</li><li>\(\sqrt[3]{a^{15}}\)</li><li>\(\dfrac{1}{\sqrt[4]{y^{12}}}\)</li><li>\(\dfrac{1}{\sqrt[6]{y^{28}}}\)</li><li>\(\sqrt{\dfrac{1}{x^8}}\)</li><li>\(\sqrt[4]{\dfrac{1}{a^6}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(x^{\frac42}=x^2\)</li>
+      <li>\(a^{\frac{15}{3}}=a^5\)</li>
+      <li>\(y^{-\frac{12}{4}}\)<span class="nw">\(=\)&nbsp;</span>\(y^{-3}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{y^3}\)</li>
+      <li>\(y^{-\frac{28}{6}}\)<span class="nw">\(=\)&nbsp;</span>\(y^{-\frac{14}{3}}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt[3]{y^{14}}}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{y^4\sqrt[3]{y^2}}\)</li>
+      <li>\(x^{-\frac82}\)<span class="nw">\(=\)&nbsp;</span>\(x^{-4}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{x^4}\)</li>
+      <li>\(a^{-\frac64}\)<span class="nw">\(=\)&nbsp;</span>\(a^{-\frac32}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt{a^3}}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{a\sqrt a}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-29" data-nr="2.29" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.29</span>Gleiche Wurzeln zusammenfassen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 27</span><span class="sb mk">markiert</span><span class="sb m">b in deiner Mitschrift</span></p>
+  <p>Vereinfache so weit wie möglich oder begründe, warum es nicht geht.</p>
+  <ol class="sub">
+    <li>\(\sqrt7+\sqrt7-\sqrt5-\sqrt5\)</li><li>\(5\sqrt3+4\sqrt2-2\sqrt3-5\sqrt2\)</li><li>\(6\sqrt2+2\sqrt5+\sqrt2-3\sqrt5\)</li><li>\(10\sqrt{11}+10\sqrt7-10\sqrt{15}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Nur <b>gleiche</b> Wurzeln darf man addieren, wie bei \(3a+2a=5a\).</p>
+    <ol class="sub">
+      <li>\(2\sqrt7-2\sqrt5\)</li>
+      <li>\((5-2)\sqrt3+(4-5)\sqrt2=3\sqrt3-\sqrt2\)</li>
+      <li>\(7\sqrt2-\sqrt5\)</li>
+      <li>Geht nicht weiter: drei verschiedene Wurzeln. Höchstens \(10(\sqrt{11}+\sqrt7-\sqrt{15})\) herausheben.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-32" data-nr="2.32" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.32</span>Wurzeln mit gleichem Exponenten</h3>
+  <p class="srcl"><span class="sb b">Buch S. 27</span><span class="sb mk">markiert: d</span><span class="sb m">d in deiner Mitschrift</span></p>
+  <p>Fasse zusammen und vereinfache.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt[4]5\cdot\sqrt[4]2\)</li><li>\(\sqrt[3]2\cdot\sqrt[3]3\)</li><li>\(\sqrt8\cdot\sqrt2\)</li><li>\(\sqrt[5]{64}:\sqrt[5]2\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Gleicher Wurzelexponent: unter eine Wurzel schreiben, \(\sqrt[n]a\cdot\sqrt[n]b=\sqrt[n]{ab}\).</p>
+    <ol class="sub cols">
+      <li>\(\sqrt[4]{10}\)</li><li>\(\sqrt[3]6\)</li><li>\(\sqrt{16}=4\)</li><li>\(\sqrt[5]{32}=2\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-34" data-nr="2.34" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.34</span>Verschiedene Wurzelexponenten dividieren</h3>
+  <p class="srcl"><span class="sb b">Buch S. 27</span><span class="sb mk">markiert: d</span><span class="sb m">d in deiner Mitschrift</span></p>
+  <p>Fasse zusammen und vereinfache.</p>
+  <ol class="sub">
+    <li>\(\sqrt[8]{18}:\sqrt[6]{18}\)</li><li>\(\sqrt[10]{2}:\sqrt[17]{2}\)</li><li>\(\sqrt[4]{b^2c}:\sqrt[3]{b^2c}\)</li><li>\(\sqrt[3]{u^4v^5}:\sqrt{u^4v^5}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Gleiche Basis: als Potenz schreiben und die Hochzahlen abziehen.</p>
+    <ol class="sub">
+      <li>\(18^{\frac18-\frac16}\)<span class="nw">\(=\)&nbsp;</span>\(18^{\frac{3-4}{24}}\)<span class="nw">\(=\)&nbsp;</span>\(18^{-\frac1{24}}\)</li>
+      <li>\(2^{\frac1{10}-\frac1{17}}\)<span class="nw">\(=\)&nbsp;</span>\(2^{\frac{17-10}{170}}\)<span class="nw">\(=\)&nbsp;</span>\(2^{\frac{7}{170}}\)</li>
+      <li>\((b^2c)^{\frac14-\frac13}\)<span class="nw">\(=\)&nbsp;</span>\((b^2c)^{-\frac1{12}}\)</li>
+      <li>\((u^4v^5)^{\frac13-\frac12}\)<span class="nw">\(=\)&nbsp;</span>\((u^4v^5)^{-\frac16}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt[6]{u^4v^5}}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-37" data-nr="2.37" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.37</span>Ein gemeinsames Wurzelzeichen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 27</span><span class="sb mk">markiert: b, e</span><span class="sb m">b, e in deiner Mitschrift</span></p>
+  <p>Vereinfache und gib das Ergebnis mit einem gemeinsamen Wurzelzeichen an.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt[3]{x^2}\cdot\sqrt x\)</li><li>\(\dfrac{\sqrt[4]{x^3}}{\sqrt x}\)</li><li>\(\sqrt[3]{x^2}\cdot\sqrt{x^3}\)</li><li>\(\dfrac{\sqrt x}{\sqrt[3]{x^2}}\)</li><li>\(\sqrt[3]{x^5}\cdot\sqrt[5]{x^3}\)</li><li>\(\dfrac{\sqrt[4]{x^3}}{\sqrt[3]{x}}\)</li><li>\(\sqrt[6]{x^5}\cdot\sqrt[3]{x^2}\)</li><li>\(\dfrac{\sqrt[5]{x}}{\sqrt[3]{x^4}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Als Potenz schreiben, Brüche auf gleichen Nenner bringen, addieren bzw. subtrahieren.</p>
+    <ol class="sub">
+      <li>\(x^{\frac23+\frac12}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac76}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[6]{x^7}\)</li>
+      <li>\(x^{\frac34-\frac12}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac14}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[4]{x}\)</li>
+      <li>\(x^{\frac23+\frac32}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac{13}6}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[6]{x^{13}}\)</li>
+      <li>\(x^{\frac12-\frac23}\)<span class="nw">\(=\)&nbsp;</span>\(x^{-\frac16}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt[6]{x}}\)</li>
+      <li>\(x^{\frac53+\frac35}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac{25+9}{15}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[15]{x^{34}}\)</li>
+      <li>\(x^{\frac34-\frac13}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac5{12}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[12]{x^5}\)</li>
+      <li>\(x^{\frac56+\frac46}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac96}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac32}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{x^3}\)</li>
+      <li>\(x^{\frac15-\frac43}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac{3-20}{15}}\)<span class="nw">\(=\)&nbsp;</span>\(x^{-\frac{17}{15}}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt[15]{x^{17}}}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-38" data-nr="2.38" data-topic="wz" data-src="buch">
+  <h3><span class="an">Buch 2.38</span>Wurzel potenzieren</h3>
+  <p class="srcl"><span class="sb b">Buch S. 28</span><span class="sb mk">markiert</span></p>
+  <p>Vereinfache und ordne dem gleichwertigen Term zu.</p>
+  <ol class="sub">
+    <li>\(\left(\sqrt[3]a\right)^3\) und \(\left(\sqrt[6]a\right)^2\) (Kärtchen im Buch)</li>
+    <li>\(\left(\sqrt5\right)^3\) und \(\left(\sqrt[3]5\right)^2\) mit A \(\sqrt[3]{125}\), B \(\sqrt[9]{25}\), C \(\sqrt{125}\), D \(\sqrt[3]{25}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Regel: \(\left(\sqrt[n]a\right)^m\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[n]{a^m}\)<span class="nw">\(=\)&nbsp;</span>\(a^{\frac mn}\).</p>
+    <ol class="sub">
+      <li>\(\left(\sqrt[3]a\right)^3\)<span class="nw">\(=\)&nbsp;</span>\(a^{\frac33}\)<span class="nw">\(=\)&nbsp;</span>\(a\) (Kärtchen B); \(\left(\sqrt[6]a\right)^2\)<span class="nw">\(=\)&nbsp;</span>\(a^{\frac26}\)<span class="nw">\(=\)&nbsp;</span>\(a^{\frac13}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]a\) (Kärtchen A).</li>
+      <li>\(\left(\sqrt5\right)^3\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{5^3}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{125}\) → <b>C</b>; \(\left(\sqrt[3]5\right)^2=\sqrt[3]{25}\) → <b>D</b>.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-45" data-nr="2.45" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.45</span>Verschachtelte Wurzeln</h3>
+  <p class="srcl"><span class="sb b">Buch S. 28</span><span class="sb mk">markiert: c, d</span><span class="sb m">a, c, d in deiner Mitschrift</span></p>
+  <p>Vereinfache so weit wie möglich.</p>
+  <ol class="sub">
+    <li>\(\sqrt{a\sqrt{\tfrac1a}}\)</li><li>\(\sqrt[4]{\dfrac{8a^3}{\sqrt{2a^5}}}\)</li><li>\(\sqrt{\dfrac{x^2}{\sqrt[3]{x^2}}}\)</li><li>\(\sqrt[3]{\dfrac{x^2}{y}\sqrt{\dfrac{y}{x^3}}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Von innen nach außen als Potenz schreiben.</p>
+    <ol class="sub">
+      <li>\(a\cdot a^{-\frac12}=a^{\frac12}\); dann \(\left(a^{\frac12}\right)^{\frac12}\)<span class="nw">\(=\)&nbsp;</span>\(a^{\frac14}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[4]a\)</li>
+      <li>\(\frac{8a^3}{2^{\frac12}a^{\frac52}}\)<span class="nw">\(=\)&nbsp;</span>\(2^{\frac52}a^{\frac12}\); dann hoch \(\frac14\): \(2^{\frac58}a^{\frac18}=\sqrt[8]{32a}\)</li>
+      <li>\(\frac{x^2}{x^{\frac23}}=x^{\frac43}\); dann hoch \(\frac12\): \(x^{\frac23}=\sqrt[3]{x^2}\)</li>
+      <li>\(x^2y^{-1}\cdot y^{\frac12}x^{-\frac32}\)<span class="nw">\(=\)&nbsp;</span>\(x^{\frac12}y^{-\frac12}\); dann hoch \(\frac13\): \(x^{\frac16}y^{-\frac16}=\sqrt[6]{\dfrac xy}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-46" data-nr="2.46" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.46</span>Teilweise Wurzelziehen (Zahlen)</h3>
+  <p class="srcl"><span class="sb b">Buch S. 28</span><span class="sb mk">markiert</span><span class="sb m">g, i, j in deiner Mitschrift</span></p>
+  <p>Ziehe teilweise die Wurzel.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt{90}\)</li><li>\(\sqrt[3]{54}\)</li><li>\(\sqrt{112}\)</li><li>\(\sqrt[4]{648}\)</li><li>\(\sqrt{1458}\)</li><li>\(\sqrt[5]{4374}\)</li><li>\(\sqrt{63}\)</li><li>\(\sqrt[3]{224}\)</li><li>\(\sqrt{150}\)</li><li>\(\sqrt[5]{384}\)</li><li>\(\sqrt{147}\)</li><li>\(\sqrt[4]{192}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Zerlege in „größte n-te Potenz mal Rest“: \(\sqrt[n]{a^n\cdot b}=a\sqrt[n]b\).</p>
+    <ol class="sub cols">
+      <li>\(\sqrt{9\cdot10}=3\sqrt{10}\)</li><li>\(\sqrt[3]{27\cdot2}=3\sqrt[3]2\)</li><li>\(\sqrt{16\cdot7}=4\sqrt7\)</li><li>\(\sqrt[4]{81\cdot8}=3\sqrt[4]8\)</li><li>\(\sqrt{729\cdot2}=27\sqrt2\)</li><li>\(\sqrt[5]{243\cdot18}=3\sqrt[5]{18}\)</li><li>\(\sqrt{9\cdot7}=3\sqrt7\)</li><li>\(\sqrt[3]{8\cdot28}=2\sqrt[3]{28}\)</li><li>\(\sqrt{25\cdot6}=5\sqrt6\)</li><li>\(\sqrt[5]{32\cdot12}=2\sqrt[5]{12}\)</li><li>\(\sqrt{49\cdot3}=7\sqrt3\)</li><li>\(\sqrt[4]{16\cdot12}=2\sqrt[4]{12}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-48" data-nr="2.48" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.48</span>Teilweise Wurzelziehen (Variablen)</h3>
+  <p class="srcl"><span class="sb b">Buch S. 28</span><span class="sb mk">markiert: b, c, e, f</span><span class="sb m">b, c, e, f in deiner Mitschrift</span></p>
+  <p>Ziehe teilweise die Wurzel (alle Variablen \(\ge0\)).</p>
+  <ol class="sub">
+    <li>\(\sqrt{n^2r^3s^4t}\)</li><li>\(\sqrt[3]{54p^4q^5r^6}\)</li><li>\(\sqrt{20c^7d^{21}}\)</li><li>\(\sqrt[4]{64a^4b^9c^{27}}\)</li><li>\(\sqrt[3]{16xy^{27}z^{17}}\)</li><li>\(\sqrt{27u^2v^{17}w^8}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Bei jeder Hochzahl: so oft wie möglich den Wurzelexponenten abziehen. Was „durchgeht“, kommt vor die Wurzel, der Rest bleibt drin. Beispiel \(\sqrt[3]{p^4}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]{p^3\cdot p}\)<span class="nw">\(=\)&nbsp;</span>\(p\sqrt[3]{p}\).</p>
+    <ol class="sub">
+      <li>\(n\,r\,s^2\sqrt{rt}\)</li>
+      <li>\(\sqrt[3]{27\cdot2\cdot p^3p\cdot q^3q^2\cdot r^6}\)<span class="nw">\(=\)&nbsp;</span>\(3pqr^2\sqrt[3]{2pq^2}\)</li>
+      <li>\(\sqrt{4\cdot5\cdot c^6c\cdot d^{20}d}\)<span class="nw">\(=\)&nbsp;</span>\(2c^3d^{10}\sqrt{5cd}\)</li>
+      <li>\(\sqrt[4]{16\cdot4\cdot a^4\cdot b^8b\cdot c^{24}c^3}\)<span class="nw">\(=\)&nbsp;</span>\(2ab^2c^6\sqrt[4]{4bc^3}\)</li>
+      <li>\(\sqrt[3]{8\cdot2\cdot x\cdot y^{27}\cdot z^{15}z^2}\)<span class="nw">\(=\)&nbsp;</span>\(2y^9z^5\sqrt[3]{2xz^2}\)</li>
+      <li>\(\sqrt{9\cdot3\cdot u^2\cdot v^{16}v\cdot w^8}\)<span class="nw">\(=\)&nbsp;</span>\(3uv^8w^4\sqrt{3v}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-50" data-nr="2.50" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.50</span>Faktor unter die Wurzel</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: d, e</span><span class="sb m">a, d, e in deiner Mitschrift</span></p>
+  <p>Bringe den Faktor vor der Wurzel unter die Wurzel und vereinfache.</p>
+  <ol class="sub cols">
+    <li>\(x\sqrt x\)</li><li>\(x\sqrt{\tfrac1x}\)</li><li>\(\tfrac1x\sqrt x\)</li><li>\(\tfrac1x\sqrt{x^3}\)</li><li>\(x^2\sqrt[4]{\tfrac{1}{x^3}}\)</li><li>\(\tfrac{1}{x^3}\sqrt[3]{x}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Der Faktor kommt mit der Hochzahl des Wurzelexponenten hinein: \(a\sqrt[n]b=\sqrt[n]{a^n b}\).</p>
+    <ol class="sub">
+      <li>\(\sqrt{x^2\cdot x}=\sqrt{x^3}\)</li>
+      <li>\(\sqrt{x^2\cdot\frac1x}=\sqrt x\)</li>
+      <li>\(\sqrt{\frac1{x^2}\cdot x}=\sqrt{\frac1x}\)</li>
+      <li>\(\sqrt{\frac1{x^2}\cdot x^3}=\sqrt x\). Achtung: \(\left(\frac1x\right)^2=x^{-2}\), nicht \(x^2\).</li>
+      <li>\(\sqrt[4]{x^8\cdot\frac{1}{x^3}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[4]{x^5}\)</li>
+      <li>\(\sqrt[3]{\frac{1}{x^9}\cdot x}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]{\frac{1}{x^8}}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-51" data-nr="2.51" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.51</span>Faktor unter die Wurzel (Brüche)</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: ganze Zeile</span><span class="sb m">a, c, d, e in deiner Mitschrift</span></p>
+  <p>Bringe den Faktor unter die Wurzel und vereinfache.</p>
+  <ol class="sub">
+    <li>\(\dfrac{1}{c^2}\sqrt[3]{c^2}\)</li><li>\(\dfrac{w}{v^3}\sqrt{\dfrac{1}{vw}}\)</li><li>\(\dfrac{m^2}{n}\sqrt[3]{n\cdot\dfrac{1}{m^2}}\)</li><li>\(a\sqrt[5]{\dfrac{a^2}{b^3}}\)</li><li>\(\dfrac{2b^2}{f}\sqrt{\dfrac{f}{4b}}\)</li><li>\(\dfrac{s^2}{r^3}\sqrt[4]{\dfrac1s\cdot r^3}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(\sqrt[3]{\frac{c^2}{c^6}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]{\frac{1}{c^4}}\)</li>
+      <li>\(\sqrt{\frac{w^2}{v^6}\cdot\frac{1}{vw}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{\frac{w}{v^7}}\)</li>
+      <li>\(\sqrt[3]{\frac{m^6}{n^3}\cdot\frac{n}{m^2}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]{\frac{m^4}{n^2}}\)</li>
+      <li>\(\sqrt[5]{a^5\cdot\frac{a^2}{b^3}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[5]{\frac{a^7}{b^3}}\)</li>
+      <li>\(\sqrt{\frac{4b^4}{f^2}\cdot\frac{f}{4b}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{\frac{b^3}{f}}\)</li>
+      <li>\(\sqrt[4]{\frac{s^8}{r^{12}}\cdot\frac{r^3}{s}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[4]{\frac{s^7}{r^9}}\)</li>
+    </ol>
+    <div class="box falle"><span class="lbl">Falle · deine 2.51a und c</span>Der Wurzelexponent 3 bleibt bis zum Ende stehen.</div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-52" data-nr="2.52" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.52</span>Faktor unter die Wurzel (Summen)</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: ganze Zeile</span><span class="sb m">c, e in deiner Mitschrift</span></p>
+  <p>Bringe den Faktor unter die Wurzel und vereinfache.</p>
+  <ol class="sub">
+    <li>\(x\sqrt{x+y}\)</li><li>\((x+y)\sqrt x\)</li><li>\((x^2-x)\sqrt[3]{\tfrac1x}\)</li><li>\(8(a^2-1)\sqrt{\dfrac{4a-4}{2a+2}}\)</li><li>\((x+y)\sqrt{\dfrac{x-y}{x+y}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(\sqrt{x^2(x+y)}=\sqrt{x^3+x^2y}\)</li>
+      <li>\(\sqrt{(x+y)^2x}\). Die Klammer bleibt als Ganzes!</li>
+      <li>\(x^2-x=x(x-1)\): \(\sqrt[3]{\frac{x^3(x-1)^3}{x}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[3]{x^2(x-1)^3}\)<span class="nw">\(=\)&nbsp;</span>\((x-1)\sqrt[3]{x^2}\)</li>
+      <li>\(\frac{4a-4}{2a+2}=\frac{2(a-1)}{a+1}\) und \(a^2-1=(a-1)(a+1)\): \(\sqrt{64(a-1)^2(a+1)^2\cdot\frac{2(a-1)}{a+1}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{128(a-1)^3(a+1)}\)</li>
+      <li>\(\sqrt{(x+y)^2\cdot\frac{x-y}{x+y}}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{(x+y)(x-y)}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt{x^2-y^2}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-121" data-nr="2.121" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.121</span>Vereinfachen durch teilweises Wurzelziehen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 44</span><span class="sb mk">markiert: b</span><span class="sb m">b in deiner Mitschrift</span></p>
+  <p>Vereinfache so weit wie möglich.</p>
+  <ol class="sub">
+    <li>\(\sqrt{252a^5x^{11}}\)</li><li>\(\sqrt[3]{6750x^{11}y^2z^7}\)</li><li>\(\sqrt{\tfrac{72}{25}a^5bc^9}\)</li><li>\(\sqrt[3]{\dfrac{54x^9y^2z^{68}}{128a^3}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(252=36\cdot7\): \(6a^2x^5\sqrt{7ax}\)</li>
+      <li>\(6750=3375\cdot2=15^3\cdot2\): \(15x^3z^2\sqrt[3]{2x^2y^2z}\)</li>
+      <li>\(\frac{72}{25}=\frac{36\cdot2}{25}\): \(\frac65a^2c^4\sqrt{2abc}\)</li>
+      <li>\(\frac{54}{128}=\frac{27}{64}\), \(z^{68}=z^{66}\cdot z^2\): \(\dfrac{3x^3z^{22}}{4a}\sqrt[3]{y^2z^2}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-124" data-nr="2.124" data-topic="wz" data-src="buch heft">
+  <h3><span class="an">Buch 2.124</span>Binomische Formeln mit Wurzeln</h3>
+  <p class="srcl"><span class="sb b">Buch S. 44</span><span class="sb mk">markiert: a</span><span class="sb m">a in deiner Mitschrift</span></p>
+  <p>Vereinfache so weit wie möglich.</p>
+  <ol class="sub">
+    <li>\(\left(\sqrt{\tfrac{2m^2}{f^3}}-\sqrt{\tfrac{2f^3}{m^2}}\right)^2-\left(f\sqrt{\tfrac{3f}{m^2}}-\tfrac1f\sqrt{\tfrac{3m^2}{f}}\right)^2\)</li>
+    <li>\(\left(2\sqrt{\tfrac ab}-\sqrt{\tfrac ba}\right)^2-\left(2\sqrt{\tfrac ab}-\sqrt{\tfrac ba}\right)\left(2\sqrt{\tfrac ab}+\sqrt{\tfrac ba}\right)\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>Erste Klammer mit \((A-B)^2=A^2-2AB+B^2\): \(\frac{2m^2}{f^3}-2\sqrt{4}+\frac{2f^3}{m^2}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{2m^2}{f^3}-4+\frac{2f^3}{m^2}\).<br>
+        Zweite Klammer: \(\frac{3f^3}{m^2}-2\sqrt{9}+\frac{3m^2}{f^3}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{3f^3}{m^2}-6+\frac{3m^2}{f^3}\).<br>
+        Differenz: \(2-\frac{m^2}{f^3}-\frac{f^3}{m^2}\) <span class="ans">\(=-\dfrac{(m^2-f^3)^2}{m^2f^3}\)</span></li>
+      <li>Erste Klammer: \(\frac{4a}{b}-4+\frac ba\). Zweite mit \((A-B)(A+B)=A^2-B^2\): \(\frac{4a}{b}-\frac ba\).<br>
+        Differenz: <span class="ans">\(\dfrac{2b}{a}-4\)</span></li>
+    </ol>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Rationalmachen ============ -->
+<div class="ub-g" data-topic="rat">
+<h2 class="grp">Nenner rational machen</h2>
+
+<div class="task ub" id="ub-2-54" data-nr="2.54" data-topic="rat" data-src="buch heft">
+  <h3><span class="an">Buch 2.54</span>Einfache Wurzel im Nenner</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: a, b</span><span class="sb m">b in deiner Mitschrift</span></p>
+  <p>Stelle den Bruch mit rationalem Nenner dar und vereinfache.</p>
+  <ol class="sub cols">
+    <li>\(\dfrac{4}{\sqrt8}\)</li><li>\(\dfrac{1}{\sqrt[3]4}\)</li><li>\(\dfrac{11}{\sqrt{11}}\)</li><li>\(\dfrac{2}{\sqrt[5]{2^3}}\)</li><li>\(\dfrac{7}{3\sqrt7}\)</li><li>\(\dfrac{3}{\sqrt[4]9}\)</li><li>\(\dfrac{25}{\sqrt5}\)</li><li>\(\dfrac{45}{2\sqrt[3]5}\)</li><li>\(\dfrac{56}{7\sqrt8}\)</li><li>\(\dfrac{24}{7\sqrt[4]8}\)</li><li>\(\dfrac{1}{\sqrt{10}}\)</li><li>\(\dfrac{72}{5\sqrt[7]{3^2}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Erweitern, bis unter der Wurzel im Nenner eine volle Potenz steht. Bei \(\sqrt[n]{a^k}\) erweitert man mit \(\sqrt[n]{a^{n-k}}\).</p>
+    <ol class="sub cols">
+      <li>\(\frac{4\sqrt8}{8}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt8}{2}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt2\)</li><li>\(\frac{\sqrt[3]2}{\sqrt[3]8}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt[3]2}{2}\)</li><li>\(\sqrt{11}\)</li><li>\(\frac{2\sqrt[5]{2^2}}{2}=\sqrt[5]4\)</li><li>\(\frac{\sqrt7}{3}\)</li><li>\(\frac{3}{\sqrt3}=\sqrt3\)</li><li>\(5\sqrt5\)</li><li>\(\frac{45\sqrt[3]{25}}{10}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{9\sqrt[3]{25}}{2}\)</li><li>\(\frac{8}{\sqrt8}=2\sqrt2\)</li><li>\(\frac{24\sqrt[4]2}{14}=\frac{12\sqrt[4]2}{7}\)</li><li>\(\frac{\sqrt{10}}{10}\)</li><li>\(\frac{72\sqrt[7]{3^5}}{15}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{24\sqrt[7]{243}}{5}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-56" data-nr="2.56" data-topic="rat" data-src="buch heft">
+  <h3><span class="an">Buch 2.56</span>Variablen im Nenner</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: c</span><span class="sb m">c in deiner Mitschrift</span></p>
+  <p>Stelle mit rationalem Nenner dar und vereinfache.</p>
+  <ol class="sub cols">
+    <li>\(\dfrac{y}{a\sqrt y}\)</li><li>\(\dfrac{r^3}{\sqrt[3]{r^2}}\)</li><li>\(\dfrac{4d^4}{\sqrt[8]{2d}}\)</li><li>\(\dfrac{15c}{2\sqrt[5]{3c^2}}\)</li><li>\(\dfrac{n^2}{m\sqrt n\sqrt[3]m}\)</li><li>\(\dfrac{vw^3}{\sqrt[7]{v^2w^3}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>mit \(\sqrt y\): \(\frac{y\sqrt y}{a\,y}=\frac{\sqrt y}{a}\)</li>
+      <li>mit \(\sqrt[3]r\): \(\frac{r^3\sqrt[3]r}{r}=r^2\sqrt[3]r\)</li>
+      <li>mit \(\sqrt[8]{2^7d^7}\): \(\frac{4d^4\sqrt[8]{128d^7}}{2d}\)<span class="nw">\(=\)&nbsp;</span>\(2d^3\sqrt[8]{128d^7}\)</li>
+      <li>mit \(\sqrt[5]{3^4c^3}\): \(\frac{15c\sqrt[5]{81c^3}}{2\cdot3c}\)<span class="nw">\(=\)&nbsp;</span>\(\frac52\sqrt[5]{81c^3}\)</li>
+      <li>mit \(\sqrt n\) und \(\sqrt[3]{m^2}\): \(\frac{n^2\sqrt n\sqrt[3]{m^2}}{m\cdot n\cdot m}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{n\sqrt n\sqrt[3]{m^2}}{m^2}\)</li>
+      <li>mit \(\sqrt[7]{v^5w^4}\): \(\frac{vw^3\sqrt[7]{v^5w^4}}{vw}\)<span class="nw">\(=\)&nbsp;</span>\(w^2\sqrt[7]{v^5w^4}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-58" data-nr="2.58" data-topic="rat" data-src="buch heft">
+  <h3><span class="an">Buch 2.58</span>Summe im Nenner</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert: a, c, e</span><span class="sb m">a, c, e, f in deiner Mitschrift</span></p>
+  <p>Stelle mit rationalem Nenner dar und vereinfache.</p>
+  <ol class="sub">
+    <li>\(\dfrac{a-b}{\sqrt a-\sqrt b}\)</li><li>\(\dfrac{b-a}{\sqrt a-\sqrt b}\)</li><li>\(\dfrac{1}{1+\sqrt{1+a}}\)</li><li>\(\dfrac{a-b}{a-\sqrt b}\)</li><li>\(\dfrac{a+b}{b\sqrt a-a\sqrt b}\)</li><li>\(\dfrac{a+b}{\sqrt a+b}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Mit dem Term mit <b>umgedrehtem Vorzeichen</b> erweitern, dann gilt \((A-B)(A+B)=A^2-B^2\) und die Wurzeln verschwinden.</p>
+    <ol class="sub">
+      <li>mit \(\sqrt a+\sqrt b\): \(\frac{(a-b)(\sqrt a+\sqrt b)}{a-b}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt a+\sqrt b\)</li>
+      <li>wie a), nur \(b-a=-(a-b)\): \(-(\sqrt a+\sqrt b)\)</li>
+      <li>mit \(\sqrt{1+a}-1\): \(\frac{\sqrt{1+a}-1}{(1+a)-1}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt{1+a}-1}{a}\)</li>
+      <li>mit \(a+\sqrt b\): \(\frac{(a-b)(a+\sqrt b)}{a^2-b}\)</li>
+      <li>mit \(b\sqrt a+a\sqrt b\): \(\frac{(a+b)(b\sqrt a+a\sqrt b)}{ab^2-a^2b}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{(a+b)(b\sqrt a+a\sqrt b)}{ab(b-a)}\)</li>
+      <li>mit \(\sqrt a-b\): \(\frac{(a+b)(\sqrt a-b)}{a-b^2}\)</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-59" data-nr="2.59" data-topic="rat" data-src="buch heft">
+  <h3><span class="an">Buch 2.59</span>Formeln aus der Elektrotechnik</h3>
+  <p class="srcl"><span class="sb b">Buch S. 29</span><span class="sb mk">markiert</span><span class="sb m">a in deiner Mitschrift</span></p>
+  <p>Stelle die Formel mit rationalem Nenner dar.</p>
+  <ol class="sub">
+    <li>Dämpfungsgrad \(D=\dfrac{R\cdot C}{2\sqrt{L\cdot C}}\)</li>
+    <li>Kennkreisfrequenz \(\omega_d\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt{L\cdot C}}\cdot\sqrt{1-\dfrac{(R\cdot C)^2}{4\cdot L\cdot C}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>Mit \(\sqrt{LC}\) erweitern: \(D\)<span class="nw">\(=\)&nbsp;</span>\(\frac{RC\sqrt{LC}}{2LC}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{R\sqrt{LC}}{2L}\)</li>
+      <li>Unter der Wurzel kürzen: \(1-\frac{R^2C^2}{4LC}\)<span class="nw">\(=\)&nbsp;</span>\(1-\frac{R^2C}{4L}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{4L-R^2C}{4L}\).<br>
+        Dann \(\omega_d\)<span class="nw">\(=\)&nbsp;</span>\(\frac{1}{\sqrt{LC}}\cdot\frac{\sqrt{4L-R^2C}}{2\sqrt L}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{\sqrt{4L-R^2C}}{2L\sqrt C}\). Mit \(\sqrt C\) erweitern:
+        <span class="ans">\(\omega_d=\dfrac{\sqrt{C(4L-R^2C)}}{2LC}\)</span></li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-128" data-nr="2.128" data-topic="rat" data-src="buch heft">
+  <h3><span class="an">Buch 2.128</span>Rationaler Nenner, gemischt</h3>
+  <p class="srcl"><span class="sb b">Buch S. 45</span><span class="sb mk">markiert</span><span class="sb m">c, d in deiner Mitschrift</span></p>
+  <p>Stelle den Term mit rationalem Nenner dar.</p>
+  <ol class="sub">
+    <li>\(\dfrac{3b}{\sqrt[5]{27b^4}}\)</li><li>\(\dfrac{xy}{\sqrt{x^2+y^2}}\)</li><li>\(\dfrac{1}{\sqrt{R^2+\omega^2L^2}}\)</li><li>\(\dfrac{m\sqrt n-n\sqrt m}{\sqrt m-\sqrt n}\)</li><li>\(\dfrac{3\sqrt{10}+10\sqrt3}{\sqrt3+\sqrt{10}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>mit \(\sqrt[5]{9b}\): \(\frac{3b\sqrt[5]{9b}}{\sqrt[5]{243b^5}}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{3b\sqrt[5]{9b}}{3b}\)<span class="nw">\(=\)&nbsp;</span>\(\sqrt[5]{9b}\)</li>
+      <li>mit der Wurzel selbst: \(\frac{xy\sqrt{x^2+y^2}}{x^2+y^2}\)</li>
+      <li>\(\frac{\sqrt{R^2+\omega^2L^2}}{R^2+\omega^2L^2}\)</li>
+      <li>Trick: \(m\sqrt n=\sqrt m\sqrt m\sqrt n\) und \(n\sqrt m=\sqrt n\sqrt n\sqrt m\). Zähler \(=\sqrt{mn}\,(\sqrt m-\sqrt n)\), kürzen: \(\sqrt{mn}\)</li>
+      <li>Genauso: Zähler \(=\sqrt{30}\,(\sqrt3+\sqrt{10})\), kürzen: \(\sqrt{30}\)</li>
+    </ol>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Potenzfunktionen ============ -->
+<div class="ub-g" data-topic="pf">
+<h2 class="grp">Potenzfunktionen</h2>
+
+<div class="task ub" id="ub-pf-1" data-topic="pf" data-src="heft" data-k="üb1 übpotenz1 übpotenzfunktion1 potenzfunktion1 15.10">
+  <h3><span class="an">ÜB Potenzfunktion · Aufgabe 1</span>Gleichungen ablesen</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt allgemeine Potenzfunktion (Heft 15.10.)</span></p>
+  <p>Gib die Gleichungen in der Form \(f(x)=a\,(x-b)^n+c\) an.</p>
+  <div class="figs">
+    <figure class="plot" data-plot="ub-pf1-1"><figcaption><b>f₁</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf1-2"><figcaption><b>f₂</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf1-3"><figcaption><b>f₃</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf1-4"><figcaption><b>f₄</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Rezept: 1) Scheitel bzw. Sattelpunkt \(S(b|c)\) ablesen. 2) Einen zweiten Punkt einsetzen und \(a\) ausrechnen.</p>
+    <ul class="plain">
+      <li>\(f_1\): \(S(3|4)\), \(P(5|2)\): \(2=a\cdot2^2+4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac12\). <span class="ans">\(f_1(x)=-\frac12(x-3)^2+4\)</span></li>
+      <li>\(f_2\): \(S(-3|5)\), \(P(-2|2)\): \(2=a\cdot1+5\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-3\). <span class="ans">\(f_2(x)=-3(x+3)^2+5\)</span></li>
+      <li>\(f_3\): \(S(-1|-2)\), \(P(1|-1)\): \(-1=a\cdot4-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=\frac14\). <span class="ans">\(f_3(x)=\frac14(x+1)^2-2\)</span></li>
+      <li>\(f_4\): Sattelpunkt \(S(5|1)\), \(P(6|3)\): \(3=a\cdot1+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=2\). <span class="ans">\(f_4(x)=2(x-5)^3+1\)</span></li>
+    </ul>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-pf-2" data-topic="pf" data-src="heft" data-k="üb2 übpotenz2 übpotenzfunktion2 potenzfunktion2 15.10">
+  <h3><span class="an">ÜB Potenzfunktion · Aufgabe 2</span>Welches n?</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt allgemeine Potenzfunktion (Heft 15.10.)</span></p>
+  <p>Gib die Gleichungen an. Es gilt \(n\in\{-2,-1,2,3\}\).</p>
+  <div class="figs">
+    <figure class="plot" data-plot="ub-pf2-g1"><figcaption><b>g₁</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf2-g2"><figcaption><b>g₂</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf2-h1"><figcaption><b>h₁</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf2-h2"><figcaption><b>h₂</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-pf2-h3"><figcaption><b>h₃</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Form erkennen: Parabel → \(n=2\); Sattelpunkt → \(n=3\); zwei Äste, einer oben, einer unten → \(n=-1\); zwei Äste auf derselben Seite → \(n=-2\).</p>
+    <ul class="plain">
+      <li>\(g_1\): \(n=-1\), Asymptoten \(x=-4\), \(y=-2\), rechter Ast unten, also \(a\lt0\). Punkt \((-3|-4)\): \(-4=\frac{a}{1}-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-2\). <span class="ans">\(g_1(x)=-2(x+4)^{-1}-2\)</span><br><small class="note">Auf dem Foto war g₁ unscharf. Vergleich das mit deinem Heft.</small></li>
+      <li>\(g_2\): \(n=2\), \(S(3|3)\), \(P(5|2)\): \(2=4a+3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac14\). <span class="ans">\(g_2(x)=-\frac14(x-3)^2+3\)</span></li>
+      <li>\(h_1\): \(n=-2\), Asymptoten \(x=-5\), \(y=3\), Äste unten, \(P(-4|2)\): \(2=a+3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-1\). <span class="ans">\(h_1(x)=-(x+5)^{-2}+3\)</span></li>
+      <li>\(h_2\): \(n=3\), \(S(-1|2)\), \(P(1|-2)\): \(-2=8a+2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac12\). <span class="ans">\(h_2(x)=-\frac12(x+1)^3+2\)</span></li>
+      <li>\(h_3\): \(n=-2\), Asymptoten \(x=3\), \(y=-4\), Äste oben, \(P(4|-3)\): \(a=1\). <span class="ans">\(h_3(x)=(x-3)^{-2}-4\)</span></li>
+    </ul>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-pf-3" data-topic="pf" data-src="heft" data-k="üb3 übpotenz3 übpotenzfunktion3 potenzfunktion3 15.10 skizzieren">
+  <h3><span class="an">ÜB Potenzfunktion · Aufgabe 3</span>Graphen skizzieren</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt allgemeine Potenzfunktion (Heft 15.10.)</span></p>
+  <p>Skizziere die Graphen. Gib Scheitel/Sattelpunkt bzw. Asymptoten an.</p>
+  <ol class="sub">
+    <li>\(f(x)=2(x+2)^2-3\)</li><li>\(f(x)=\frac12(x-3)^3+1\)</li><li>\(f(x)=-3x^2+4\)</li><li>\(f(x)=-\frac14(x-2)^2+5\)</li><li>\(f(x)=(x+4)^{-1}+2\)</li><li>\(f(x)=-x^{-2}+1\)</li><li>\(f(x)=-3(x+1)^3+5\)</li><li>\(f(x)=-(x-2)^{-1}+5\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Rezept: \(b\) = Verschiebung nach rechts (Vorzeichen umdrehen!), \(c\) = nach oben. Dann von \(S\) aus wie bei \(a\cdot x^n\) weitergehen: 1 nach rechts → \(a\) nach oben.</p>
+    <div class="figs">
+      <figure class="plot" data-plot="ub-pf3a"><figcaption><b>a)</b> \(S(-2|-3)\); \((-1|-1)\), \((0|5)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3b"><figcaption><b>b)</b> \(S(3|1)\); \((4|1{,}5)\), \((5|5)\), \((1|-3)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3c"><figcaption><b>c)</b> \(S(0|4)\); \((\pm1|1)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3d"><figcaption><b>d)</b> \(S(2|5)\); \((0|4)\), \((4|4)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3e"><figcaption><b>e)</b> \(x=-4\), \(y=2\); \((-3|3)\), \((-5|1)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3f"><figcaption><b>f)</b> \(x=0\), \(y=1\); \((\pm1|0)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3g"><figcaption><b>g)</b> \(S(-1|5)\); \((0|2)\), \((-2|8)\)</figcaption></figure>
+      <figure class="plot" data-plot="ub-pf3h"><figcaption><b>h)</b> \(x=2\), \(y=5\); \((3|4)\), \((1|6)\)</figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-68" data-nr="2.68" data-topic="pf" data-src="buch heft">
+  <h3><span class="an">Buch 2.68b, d</span>Verschobene Potenzfunktionen zeichnen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 33</span><span class="sb m">b, d in deiner Mitschrift</span></p>
+  <p>Stelle grafisch dar: <b>b)</b> \(y=(x+1)^3-6\) &nbsp; <b>d)</b> \(y=(x+4)^{-3}-3\)</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ul class="plain">
+      <li><b>b)</b> Sattelpunkt \(S(-1|-6)\), <b>keine</b> Asymptote. Werte: \((-3|-14)\), \((-2|-7)\), \((0|-5)\), \((1|2)\).</li>
+      <li><b>d)</b> Asymptoten \(x=-4\) und \(y=-3\). Bei \(n=-3\) (ungerade) liegen die Äste <b>gegenüber</b>: rechts oben, links unten.</li>
+    </ul>
+    <div class="figs big">
+      <figure class="plot" data-plot="fl-268b"><figcaption><b>b)</b></figcaption></figure>
+      <figure class="plot" data-plot="fl-268d"><figcaption><b>d)</b></figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-69" data-nr="2.69" data-topic="pf" data-src="buch">
+  <h3><span class="an">Buch 2.69</span>Gleichungen der Graphen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 33</span><span class="sb mk">markiert</span></p>
+  <p>Gib die Funktionsgleichungen der Graphen \(y_1\) und \(y_2\) an.</p>
+  <div class="figs big">
+    <figure class="plot" data-plot="ub-269a"><figcaption><b>a)</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-269b"><figcaption><b>b)</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(y_1\): Parabel nach unten, \(S(-5|4)\), Öffnung wie \(x^2\): \(y_1=-(x+5)^2+4\).<br>\(y_2\): Form wie \(x^5\), um 2 nach oben: \(y_2=x^5+2\).</li>
+      <li>\(y_1\): Äste gegenüber (ungerade), Asymptoten \(x=2\), \(y=2\), \((3|3)\): \(y_1=(x-2)^{-3}+2\).<br>\(y_2\): beide Äste oben (gerade), Asymptoten \(x=0\), \(y=1\): \(y_2=x^{-2}+1\).</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-133" data-nr="2.133" data-topic="pf" data-src="buch heft">
+  <h3><span class="an">Buch 2.133</span>b, c und a ermitteln</h3>
+  <p class="srcl"><span class="sb b">Buch S. 45</span><span class="sb mk">markiert</span><span class="sb m">a, b in deiner Mitschrift</span></p>
+  <p>Ermittle \(b\) und \(c\) und entscheide, ob \(a=1\) oder \(a=-1\) ist. Gib die Gleichungen an.</p>
+  <div class="figs big">
+    <figure class="plot" data-plot="ub-2133a"><figcaption><b>a)</b> \(y=a(x-b)^2+c\)</figcaption></figure>
+    <figure class="plot" data-plot="ub-2133b"><figcaption><b>b)</b> \(y=a(x-b)^{-2}+c\)</figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(y_1=(x-3)^2+1\) (S(3|1), nach oben); \(y_2=-(x+3)^2+5\) (S(−3|5), nach unten); \(y_3=x^2+2\) (S(0|2)).</li>
+      <li>Senkrechte Asymptote \(x=b\), waagrechte \(y=c\). Äste oben → \(a=1\), unten → \(a=-1\).<br>
+        \(y_1=-(x-4)^{-2}\) (\(b=4\), \(c=0\), Äste unten); \(y_2=(x+2)^{-2}+2\); \(y_3=x^{-2}-2\) (beide Äste gehen am Pol nach oben, also \(a=+1\)).</li>
+    </ol>
+    <div class="box falle"><span class="lbl">Achtung · y₃</span>Im Heft steht bei y₃ \(a=-1\). Am Graphen gehen aber beide Äste beim Pol nach oben, also ist \(a=+1\): \(y_3=x^{-2}-2\).</div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-pf" data-topic="pf" data-src="heft" data-k="wertetabelle streckung parabel">
+  <h3><span class="an">Heft · Beispiel</span>Parabeln strecken, spiegeln, verschieben</h3>
+  <p class="srcl"><span class="sb m">Mitschrift (Heft)</span></p>
+  <p>Erstelle eine Wertetabelle und zeichne: \(f_1=x^2\), \(f_2=\frac12x^2\), \(f_3=2x^2\), \(f_4=-\frac14x^2\), \(f_5=x^2+1\), \(f_6=(x-1)^2\).</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="scroll"><table class="vt">
+      <tr><th>x</th><th>−2</th><th>−1</th><th>0</th><th>1</th><th>2</th></tr>
+      <tr><th>\(x^2\)</th><td>4</td><td>1</td><td>0</td><td>1</td><td>4</td></tr>
+      <tr><th>\(\frac12x^2\)</th><td>2</td><td>0,5</td><td>0</td><td>0,5</td><td>2</td></tr>
+      <tr><th>\(2x^2\)</th><td>8</td><td>2</td><td>0</td><td>2</td><td>8</td></tr>
+      <tr><th>\(-\frac14x^2\)</th><td>−1</td><td>−0,25</td><td>0</td><td>−0,25</td><td>−1</td></tr>
+      <tr><th>\(x^2+1\)</th><td>5</td><td>2</td><td>1</td><td>2</td><td>5</td></tr>
+      <tr><th>\((x-1)^2\)</th><td>9</td><td>4</td><td>1</td><td>0</td><td>1</td></tr>
+    </table></div>
+    <p>\(a\gt1\): schmaler; \(0\lt a\lt1\): breiter; \(a\lt0\): nach unten gespiegelt. \(+1\) hinten: 1 nach oben. \((x-1)\): 1 nach <b>rechts</b>.</p>
+    <div class="figs big">
+      <figure class="plot" data-plot="ub-hpf-a"><figcaption>\(x^2\) blau, \(\frac12x^2\) rot, \(2x^2\) grün</figcaption></figure>
+      <figure class="plot" data-plot="ub-hpf-b"><figcaption>\(x^2\) blau, \(-\frac14x^2\) rot, \(x^2+1\) grün, \((x-1)^2\) gelb</figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-asy" data-topic="pf" data-src="heft" data-k="asymptote hyperbel n=-2">
+  <h3><span class="an">Heft · Beispiel</span>Asymptoten von (x+1)⁻² − 3</h3>
+  <p class="srcl"><span class="sb m">Mitschrift (Heft)</span></p>
+  <p>Gib die Asymptoten von \(f(x)=(x+1)^{-2}-3\) an und zeichne den Graphen.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <p>Senkrecht: \(x=-1\) (dort wird der Nenner 0). Waagrecht: \(y=-3\).</p>
+    <p>\(n=-2\) ist gerade und \(a=1\gt0\), also gehen beide Äste nach oben. Punkte: \((0|-2)\), \((-2|-2)\), \((-0{,}5|1)\), \((-1{,}5|1)\).</p>
+    </div><figure class="plot" data-plot="ub-hasy"></figure></div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-1910" data-topic="pf" data-src="heft" data-k="heft 19.10 sattelpunkt kubisch">
+  <h3><span class="an">Heft 19.10.</span>Kubische Funktionen vergleichen</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Heft 19.10.</span></p>
+  <p>Zeichne \(f_2(x)=\frac12(x+3)^3-3\), \(f_3(x)=\frac14(x+3)^3-3\) und \(f_4(x)=2(x+2)^3-1\). Gib jeweils den Sattelpunkt an.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <ul class="plain">
+      <li>\(f_2\): \(S(-3|-3)\); \((-1|1)\), \((-5|-7)\)</li>
+      <li>\(f_3\): \(S(-3|-3)\); \((-1|-1)\), \((-5|-5)\). Flacher als \(f_2\), weil \(a\) kleiner ist.</li>
+      <li>\(f_4\): \(S(-2|-1)\); \((-1|1)\), \((-3|-3)\). Steiler, weil \(a=2\).</li>
+    </ul>
+    </div><figure class="plot" data-plot="ub-h1910"><figcaption>\(f_2\) blau, \(f_3\) rot, \(f_4\) grün</figcaption></figure></div>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Wurzelfunktionen ============ -->
+<div class="ub-g" data-topic="wf">
+<h2 class="grp">Wurzelfunktionen</h2>
+
+<div class="task ub" id="ub-2-97" data-nr="2.97" data-topic="wf umk" data-src="buch heft">
+  <h3><span class="an">Buch 2.97</span>Umkehrfunktion von Quadratfunktionen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 38</span><span class="sb m">b in deiner Mitschrift</span></p>
+  <p>Bestimme die Umkehrfunktion (Definitionsmenge passend einschränken).</p>
+  <ol class="sub cols">
+    <li>\(f(x)=2x^2\)</li><li>\(f(x)=2x^2+1\)</li><li>\(f(x)=-2x^2\)</li><li>\(f(x)=\frac12x^2\)</li><li>\(f(x)=(x-2)^2\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Quadratfunktionen sind nur auf einem Ast umkehrbar, hier \(x\ge0\) (bei e: \(x\ge2\)).</p>
+    <ol class="sub">
+      <li>\(x=2y^2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt{\frac x2}\)</li>
+      <li>\(x=2y^2+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y^2=\frac{x-1}{2}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt{\frac{x-1}{2}}\), \(D_u=[1;\infty[\)</li>
+      <li>\(x=-2y^2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt{-\frac x2}\), \(D_u=\,]-\infty;0]\)</li>
+      <li>\(u(x)=\sqrt{2x}\)</li>
+      <li>\(x=(y-2)^2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y-2=\sqrt x\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt x+2\)</li>
+    </ol>
+    <figure class="plot" data-plot="ub-297b"><figcaption><b>b)</b> \(f\) blau (nur \(x\ge0\)), \(u\) rot</figcaption></figure>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-2-98" data-nr="2.98" data-topic="wf umk" data-src="buch heft">
+  <h3><span class="an">Buch 2.98</span>Umkehrfunktion von kubischen Funktionen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 38</span><span class="sb m">e in deiner Mitschrift</span></p>
+  <p>Bestimme die Umkehrfunktion.</p>
+  <ol class="sub cols">
+    <li>\(f(x)=4x^3\)</li><li>\(f(x)=\frac12x^3-2\)</li><li>\(f(x)=-3x^3\)</li><li>\(f(x)=\frac14x^3\)</li><li>\(f(x)=(x+4)^3\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(u(x)=\sqrt[3]{\frac x4}\)</li>
+      <li>\(x=\frac12y^3-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y^3=2x+4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt[3]{2x+4}\)</li>
+      <li>\(y^3=-\frac x3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=-\sqrt[3]{\frac x3}\)</li>
+      <li>\(u(x)=\sqrt[3]{4x}\)</li>
+      <li>\(x=(y+4)^3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(y+4=\sqrt[3]x\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(u(x)=\sqrt[3]x-4\). Das ist 4 nach <b>unten</b> verschoben, nicht nach rechts.</li>
+    </ol>
+    <figure class="plot" data-plot="fl-298e"><figcaption><b>e)</b> \(u(x)=\sqrt[3]x-4\)</figcaption></figure>
+  </div></details>
+</div>
+</div>
+
+<!-- ============ Polynomfunktionen ============ -->
+<div class="ub-g" data-topic="poly">
+<h2 class="grp">Polynomfunktionen</h2>
+
+<div class="task ub" id="ub-po-1" data-topic="poly" data-src="heft" data-k="üb1 übpolynom1 polynom1 05.11">
+  <h3><span class="an">ÜB Polynom · Aufgabe 1</span>Polynom oder nicht?</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen</span></p>
+  <p>Ist das eine Polynomfunktion? Wenn ja: Gib Grad und Leitkoeffizient an.</p>
+  <ol class="sub">
+    <li>\(\frac14x^4+\sqrt2x^3-3{,}125x^2-13x\)</li><li>\((2-x)^2(5+3x)\)</li><li>\(\dfrac{-4x^2+48x+98}{24}\)</li><li>\(x(2x^2+4)\sqrt x\)</li><li>\(\dfrac{x^2-1}{1+x^2}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Polynom = nur Potenzen von \(x\) mit Hochzahlen \(0,1,2,…\) (keine Wurzel von \(x\), kein \(x\) im Nenner). Die Koeffizienten dürfen beliebige Zahlen sein, auch \(\sqrt2\).</p>
+    <ol class="sub">
+      <li>Ja. Grad 4, Leitkoeffizient \(\frac14\).</li>
+      <li>Ja. Höchste Potenz: \(x^2\cdot3x=3x^3\), also Grad 3, LK 3.</li>
+      <li>Ja. \(-\frac{4}{24}x^2+…\), also Grad 2, LK \(-\frac16\).</li>
+      <li>Nein: \(\sqrt x=x^{0{,}5}\), es entstehen \(x^{3{,}5}\) und \(x^{1{,}5}\).</li>
+      <li>Nein: \(x\) steht im Nenner.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-2" data-nr="2.75" data-topic="poly" data-src="heft" data-k="üb2 übpolynom2 polynom2">
+  <h3><span class="an">ÜB Polynom · Aufgabe 2</span>Wie viele Nullstellen?</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen</span><span class="sb b">wie Buch 2.75</span></p>
+  <p>Wie viele Nullstellen sind möglich? Zeichne den Graphen (Wertetabelle) und lies die Nullstellen ab.</p>
+  <ol class="sub">
+    <li>\(f(x)=x^3-1{,}5x^2+6\)</li><li>\(f(x)=-x^2-x+3\)</li><li>\(f(x)=0{,}1x^4-x^2\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Grad \(n\): höchstens \(n\) Nullstellen. Ungerader Grad: mindestens eine.</p>
+    <ol class="sub">
+      <li>Grad 3: 1 bis 3 möglich. Hier nur <b>eine</b>: \(x\approx-1{,}43\). \(H(0|6)\), \(T(1|5{,}5)\) liegen beide über der x-Achse.</li>
+      <li>Grad 2: 0 bis 2 möglich. \(x\approx-2{,}30\) und \(x\approx1{,}30\). Scheitel \(H(-0{,}5|3{,}25)\).</li>
+      <li>Grad 4: 0 bis 4 möglich. \(x=0\) (berührt) und \(x=\pm\sqrt{10}\approx\pm3{,}16\). \(H(0|0)\), \(T(\pm\sqrt5|-2{,}5)\).</li>
+    </ol>
+    <div class="figs">
+      <figure class="plot" data-plot="ub-po2a"><figcaption><b>a)</b></figcaption></figure>
+      <figure class="plot" data-plot="ub-po2b"><figcaption><b>b)</b></figcaption></figure>
+      <figure class="plot" data-plot="fl-2c"><figcaption><b>c)</b></figcaption></figure>
+    </div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-3" data-nr="2.77" data-topic="poly" data-src="heft" data-k="üb3 übpolynom3 polynom3 mindestgrad">
+  <h3><span class="an">ÜB Polynom · Aufgabe 3</span>Mindestgrad ablesen</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen</span><span class="sb b">wie Buch 2.77</span></p>
+  <p>Welchen Grad hat die Funktion mindestens? Begründe mit dem Graphen.</p>
+  <div class="figs">
+    <figure class="plot" data-plot="ub-po3b"><figcaption><b>blau</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po3g"><figcaption><b>grün</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po3r"><figcaption><b>rot</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Grad \(n\) hat höchstens \(n-1\) Extremstellen, also: <b>Grad ≥ Anzahl Extrema + 1</b>. Dann mit den Enden prüfen: Enden gegenüber → ungerade, Enden auf einer Seite → gerade.</p>
+    <ul class="plain">
+      <li><b>blau</b>: 4 Extrema → mindestens Grad 5. Enden gegenüber, ungerade passt: <b>Grad ≥ 5</b>.</li>
+      <li><b>grün</b>: 3 Extrema → mindestens Grad 4. Beide Enden oben, gerade passt: <b>Grad ≥ 4</b>.</li>
+      <li><b>rot</b>: 2 Extrema → mindestens Grad 3. Enden gegenüber: <b>Grad ≥ 3</b>.</li>
+    </ul>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-4" data-topic="poly" data-src="heft" data-k="üb4 übpolynom4 polynom4 globalverlauf">
+  <h3><span class="an">ÜB Polynom · Aufgabe 4</span>Verlauf der Enden</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen</span></p>
+  <p>Gib Grad und Leitkoeffizient an. Wie verlaufen die Enden des Graphen?</p>
+  <ol class="sub">
+    <li>\(-9x^2+7x-3\)</li><li>\(3x^6+2x^2+1\)</li><li>\((x-3)(x+4)\)</li><li>\((x+1)(2-x)(1+x^2)\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Nur der Term mit der höchsten Potenz zählt. Bei Produkten: die höchsten Potenzen aus jeder Klammer malnehmen.</p>
+    <ol class="sub">
+      <li>Grad 2, LK −9: links unten, rechts unten.</li>
+      <li>Grad 6, LK 3: links oben, rechts oben.</li>
+      <li>\(x^2+x-12\): Grad 2, LK 1: oben, oben.</li>
+      <li>\(x\cdot(-x)\cdot x^2=-x^4\): Grad 4, LK −1: unten, unten.</li>
+    </ol>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-5" data-topic="poly" data-src="heft" data-k="üb5 übpolynom5 polynom5 zuordnen">
+  <h3><span class="an">ÜB Polynom · Aufgabe 5</span>Graphen zuordnen</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen (Seite 2)</span></p>
+  <p>Ordne die Graphen A bis F zu. Zwei Funktionen haben keinen Graphen.</p>
+  <p class="fnl">\(f(x)=-0{,}5x+1\) · \(g(x)=-2x^2\) · \(h(x)=x^2-x-1\) · \(i(x)=x^6+x^4\) · \(k(x)=-3x^6+6x^5-2x^2+1\) · \(l(x)=x^3-x^2+2{,}5\) · \(m(x)=1\) · \(n(x)=-x^5+2x^2\)</p>
+  <div class="figs">
+    <figure class="plot" data-plot="ub-po5A"><figcaption><b>A</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po5B"><figcaption><b>B</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po5C"><figcaption><b>C</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po5D"><figcaption><b>D</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po5E"><figcaption><b>E</b></figcaption></figure>
+    <figure class="plot" data-plot="ub-po5F"><figcaption><b>F</b></figcaption></figure>
+  </div>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Prüfen: Enden (Grad, LK), y-Achsenabschnitt (Wert bei \(x=0\)), Scheitel.</p>
+    <ul class="plain">
+      <li><b>A = k</b>: Grad 6, LK negativ → beide Enden unten; \(k(0)=1\).</li>
+      <li><b>B = h</b>: Parabel nach oben, \(h(0)=-1\), Scheitel \(S(0{,}5|-1{,}25)\).</li>
+      <li><b>C = l</b>: Grad 3, LK positiv (links unten, rechts oben), \(l(0)=2{,}5\).</li>
+      <li><b>D = m</b>: waagrechte Gerade \(y=1\).</li>
+      <li><b>E = n</b>: Grad 5, LK negativ (links oben, rechts unten), berührt bei \(x=0\), Nullstelle \(\approx1{,}26\).</li>
+      <li><b>F = f</b>: fallende Gerade, \(f(0)=1\), Nullstelle 2.</li>
+      <li>Ohne Graph: \(g(x)=-2x^2\) und \(i(x)=x^6+x^4\).</li>
+    </ul>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-6" data-nr="2.80" data-topic="poly" data-src="heft" data-k="üb6 übpolynom6 polynom6">
+  <h3><span class="an">ÜB Polynom · Aufgabe 6</span>Mindestens eine Nullstelle</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen (Seite 2)</span><span class="sb b">Buch 2.80</span></p>
+  <p>Begründe, dass \(f(x)=x^3-3x^2+5\) mindestens eine Nullstelle hat.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Der Grad ist 3 (ungerade) und der LK positiv: Links geht der Graph nach unten (\(f\to-\infty\)), rechts nach oben (\(f\to+\infty\)). Dazwischen muss er die x-Achse mindestens einmal schneiden.</p>
+    <p>Mit Zahlen: \(f(-2)=-15\lt0\) und \(f(0)=5\gt0\), also liegt eine Nullstelle zwischen −2 und 0 (\(\approx-1{,}1\)).</p>
+    <div class="box falle"><span class="lbl">Falle</span>„Grad = maximale Anzahl Nullstellen“ stimmt zwar, beweist aber nicht, dass es <b>mindestens eine</b> gibt.</div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-7" data-nr="2.81" data-topic="poly" data-src="heft" data-k="üb7 übpolynom7 polynom7">
+  <h3><span class="an">ÜB Polynom · Aufgabe 7</span>Keine Nullstelle</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen (Seite 2)</span><span class="sb b">Buch 2.81</span></p>
+  <p>Begründe, dass \(f(x)=x^4+x^2+1\) keine Nullstelle hat.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>\(x^4\ge0\) und \(x^2\ge0\) für jedes \(x\) (gerade Hochzahlen). Also ist \(f(x)\ge0+0+1=1\gt0\). Der Graph bleibt immer über der x-Achse.</p>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-po-8" data-topic="poly" data-src="heft" data-k="üb8 übpolynom8 polynom8 skizze">
+  <h3><span class="an">ÜB Polynom · Aufgabe 8</span>Polynom skizzieren</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Übungsblatt Polynomfunktionen (Seite 2)</span></p>
+  <p>Skizziere eine Polynomfunktion 3. Grades mit y-Achsenabschnitt 5, negativem Leitkoeffizienten und genau zwei Nullstellen.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <p>Grad 3 und nur zwei Nullstellen: Eine davon muss eine <b>Berührstelle</b> sein (doppelte Nullstelle). LK negativ: links oben, rechts unten. Der Graph muss durch \((0|5)\) gehen.</p>
+    <p>Beispiel: \(f(x)\)<span class="nw">\(=\)&nbsp;</span>\(-(x-1)^2(x-5)\)<span class="nw">\(=\)&nbsp;</span>\(-x^3+7x^2-11x+5\). Probe: \(f(0)=-(1)\cdot(-5)=5\). Berührt bei \(x=1\), schneidet bei \(x=5\), \(H(\tfrac{11}{3}|9{,}48)\).</p>
+    <div class="box falle"><span class="lbl">Falle</span>In deiner Skizze lag der y-Achsenabschnitt bei −5. Er muss bei +5 liegen.</div>
+    </div><figure class="plot" data-plot="ub-po8"></figure></div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-0511" data-topic="poly" data-src="heft" data-k="heft 05.11 grad leitkoeffizient">
+  <h3><span class="an">Heft 05.11.</span>Grad, Leitkoeffizient, Nullstellen</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Heft 05.11.</span></p>
+  <ol class="sub">
+    <li>Grad und LK von \(3x^4-2x^2+x-1\) und \(5x-4x^5+3x^2\)?</li>
+    <li>Sind \(\frac{1}{x^2}+1\) und \(\sqrt x+3\) Polynome?</li>
+    <li>Wertetabelle und Graph von \(x^3-2x^2+1\).</li>
+    <li>Nullstellen von \(x^2+x-2\).</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <ol class="sub">
+      <li>\(3x^4…\): Grad 4, LK 3. \(5x-4x^5+3x^2\): Grad 5, LK −4. Der LK ist die Zahl vor der <b>höchsten</b> Potenz, egal wo sie steht.</li>
+      <li>Nein: \(\frac1{x^2}=x^{-2}\) und \(\sqrt x=x^{\frac12}\) sind keine erlaubten Hochzahlen.</li>
+      <li><div class="scroll"><table class="vt"><tr><th>x</th><td>−1</td><td>−0,5</td><td>0</td><td>1</td><td>1,5</td><td>2</td><td>3</td></tr><tr><th>f(x)</th><td>−2</td><td>0,375</td><td>1</td><td>0</td><td>−0,125</td><td>1</td><td>10</td></tr></table></div>
+        <figure class="plot" data-plot="ub-h0511"></figure></li>
+      <li>\(x^2+x-2=(x+2)(x-1)\), also \(x=-2\) und \(x=1\). Probe mit der Formel: \(x\)<span class="nw">\(=\)&nbsp;</span>\(-\frac12\pm\sqrt{\frac14+2}\)<span class="nw">\(=\)&nbsp;</span>\(-\frac12\pm\frac32\).</li>
+    </ol>
+  </div></details>
+</div>
+</div>
 </section>
 
 <!-- ===================== FEHLER ===================== -->
@@ -588,7 +1751,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 </div>
 <div class="err">
   <div class="no">2.34d</div>
-  <div><p class="ok"><b>Richtig:</b> \(u^{-\frac23}v^{-\frac56}=\dfrac{1}{\sqrt[6]{u^4v^5}}\) (beide auf Nenner 6 bringen).</p></div>
+  <div><p class="ok"><b>Richtig:</b> \(u^{-\frac23}v^{-\frac56}\)<span class="nw">\(=\)&nbsp;</span>\(\dfrac{1}{\sqrt[6]{u^4v^5}}\) (beide auf Nenner 6 bringen).</p></div>
 </div>
 <div class="err">
   <div class="no">2.52c<small>Tipp</small></div>
@@ -601,7 +1764,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 
 <h2 class="grp">Das hattest du richtig</h2>
 <div class="chips">
-  <span>1.15</span><span>1.24</span><span>1.38b</span><span>2.3e</span><span>2.4b</span><span>2.5b</span><span>2.7a</span><span>2.37b, e</span><span>2.45a, c, d</span><span>2.46g, i, j</span><span>2.48b, c, e, f</span><span>2.51d, e</span><span>2.52e</span><span>2.54b</span><span>2.56c</span><span>2.58a, c, e</span><span>2.59a</span><span>2.97b</span><span>Umkehrfkt. x³+1</span><span>Wertetabellen Potenzfkt.</span>
+  <span>1.15</span><span>1.24</span><span>1.38b</span><span>2.3c</span><span>2.4b</span><span>2.5b</span><span>2.7a</span><span>2.37b, e</span><span>2.45a, c, d</span><span>2.46g, i, j</span><span>2.48b, c, e, f</span><span>2.51d, e</span><span>2.52e</span><span>2.54b</span><span>2.56c</span><span>2.58a, c, e</span><span>2.59a</span><span>2.97b</span><span>Umkehrfkt. x³+1</span><span>Wertetabellen Potenzfkt.</span>
 </div>
 </section>
 
@@ -633,7 +1796,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <ol class="sub">
       <li>Nullstellen: \(x=0\) (berührt), \(x=\pm\sqrt8\approx\pm2{,}83\). H(0|0), T₁(−2|−4), T₂(2|−4).</li>
       <li>streng monoton fallend in \(]-\infty;-2]\) und \([0;2]\); streng monoton steigend in \([-2;0]\) und \([2;\infty[\).</li>
-      <li>\(f(-x)=0{,}25(-x)^4-2(-x)^2=0{,}25x^4-2x^2=f(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
+      <li>\(f(-x)\)<span class="nw">\(=\)&nbsp;</span>\(0{,}25(-x)^4-2(-x)^2\)<span class="nw">\(=\)&nbsp;</span>\(0{,}25x^4-2x^2\)<span class="nw">\(=\)&nbsp;</span>\(f(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
       <li>Nein. Für \(x\to\pm\infty\) wächst \(f\) immer weiter, der Graph wiederholt sich nicht.</li>
       <li>4 Schnittpunkte mit \(y=x\): \(x\approx-2{,}5\), \(x\approx-0{,}5\), \(x=0\), \(x\approx3{,}05\).</li>
       <li>3 Extrema → mindestens Grad 4. Beide Enden oben → gerader Grad, Leitkoeffizient positiv.</li>
@@ -656,10 +1819,10 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <div class="split"><div>
     <ol class="sub">
       <li>\(D=\mathbb R\setminus\{1\}\), Polstelle \(x=1\) (mit Vorzeichenwechsel). Asymptoten \(x=1\) und \(y=3\).</li>
-      <li>\(\frac{2}{x-1}=-3\Rightarrow x-1=-\frac23\Rightarrow x=\frac13\). &nbsp;\(f(0)=-2+3=1\) → (0|1).</li>
+      <li>\(\frac{2}{x-1}=-3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x-1=-\frac23\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=\frac13\). &nbsp;\(f(0)=-2+3=1\) → (0|1).</li>
       <li>streng monoton fallend in \(]-\infty;1[\) und in \(]1;\infty[\), jeweils einzeln. Auf ganz \(D\) ist \(f\) nicht monoton, weil der Graph bei \(x=1\) springt.</li>
-      <li>\(y-3=\frac{2}{x-1}\Rightarrow x-1=\frac{2}{y-3}\Rightarrow x=\frac{2}{y-3}+1\) → \(u(x)=\dfrac{2}{x-3}+1\), \(D_u=\mathbb R\setminus\{3\}\).</li>
-      <li>\(\frac{2}{x-1}+3=x\;\big|\cdot(x-1)\Rightarrow 2+3x-3=x^2-x\Rightarrow x^2-4x+1=0\Rightarrow x=2\pm\sqrt3\), also \(x_1\approx0{,}27\), \(x_2\approx3{,}73\).</li>
+      <li>\(y-3=\frac{2}{x-1}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x-1=\frac{2}{y-3}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=\frac{2}{y-3}+1\) → \(u(x)=\dfrac{2}{x-3}+1\), \(D_u=\mathbb R\setminus\{3\}\).</li>
+      <li>\(\frac{2}{x-1}+3=x\;\big|\cdot(x-1)\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(2+3x-3=x^2-x\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x^2-4x+1=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=2\pm\sqrt3\), also \(x_1\approx0{,}27\), \(x_2\approx3{,}73\).</li>
     </ol>
     </div><figure class="plot" data-plot="ps-2l"><figcaption>Asymptoten gestrichelt, rot: Nullstelle, grün: Fixpunkte auf \(y=x\)</figcaption></figure></div>
   </div></details>
@@ -675,11 +1838,11 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   </ol>
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <ol class="sub">
-      <li>\(y-1=(x-2)^3\Rightarrow x-2=\sqrt[3]{y-1}\) → \(u(x)=\sqrt[3]{x-1}+2\)</li>
-      <li>Ohne Einschränkung gäbe es zu einem \(y\) zwei \(x\) (\(g(1)=g(-1)=-3\)), also nicht umkehrbar.<br>\(y+6=3x^2\Rightarrow x=\sqrt{\frac{y+6}{3}}\) → \(u(x)=\sqrt{\dfrac{x+6}{3}}\), \(D_u=[-6;\infty[\), \(W_u=[0;\infty[\).</li>
-      <li>\(D=[-4;\infty[\), \(W=[-1;\infty[\), Startpunkt (−4|−1). Nullstelle: \(\sqrt{x+4}=1\Rightarrow x=-3\).<br>\(y+1=\sqrt{x+4}\Rightarrow x=(y+1)^2-4\) → \(u(x)=(x+1)^2-4\) mit \(D_u=[-1;\infty[\).
+      <li>\(y-1=(x-2)^3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x-2=\sqrt[3]{y-1}\) → \(u(x)=\sqrt[3]{x-1}+2\)</li>
+      <li>Ohne Einschränkung gäbe es zu einem \(y\) zwei \(x\) (\(g(1)=g(-1)=-3\)), also nicht umkehrbar.<br>\(y+6=3x^2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=\sqrt{\frac{y+6}{3}}\) → \(u(x)=\sqrt{\dfrac{x+6}{3}}\), \(D_u=[-6;\infty[\), \(W_u=[0;\infty[\).</li>
+      <li>\(D=[-4;\infty[\), \(W=[-1;\infty[\), Startpunkt (−4|−1). Nullstelle: \(\sqrt{x+4}=1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=-3\).<br>\(y+1=\sqrt{x+4}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=(y+1)^2-4\) → \(u(x)=(x+1)^2-4\) mit \(D_u=[-1;\infty[\).
         <figure class="plot" data-plot="ps-3c" style="max-width:300px;margin-top:10px"><figcaption><span class="c-ink">blau</span>: \(h\), <span class="c-red">rot</span>: \(u\), gespiegelt an \(y=x\)</figcaption></figure></li>
-      <li>\(K(t)=0{,}05t+8\) (t in Minuten, K in €).<br>\(K-8=0{,}05t\Rightarrow t=\frac{K-8}{0{,}05}\) → \(t(K)=20K-160\). Sie gibt an, wie viele Minuten man für \(K\) Euro telefonieren kann.<br>\(t(20)=400-160=\) <span class="ans">240 min = 4 h</span></li>
+      <li>\(K(t)=0{,}05t+8\) (t in Minuten, K in €).<br>\(K-8=0{,}05t\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(t=\frac{K-8}{0{,}05}\) → \(t(K)=20K-160\). Sie gibt an, wie viele Minuten man für \(K\) Euro telefonieren kann.<br>\(t(20)=400-160=\) <span class="ans">240 min = 4 h</span></li>
     </ol>
   </div></details>
 </div>
@@ -774,10 +1937,10 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   </div>
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <ol class="sub">
-      <li>Scheitel (−2|3), nach unten offen → \(n=2\). Punkt (0|1): \(1=4a+3\Rightarrow a=-\frac12\). <span class="ans">\(f(x)=-\frac12(x+2)^2+3\)</span></li>
-      <li>Symmetriepunkt (1|−2), Form wie \(x^3\) → \(n=3\). Punkt (2|−1): \(-1=a\cdot1^3-2\Rightarrow a=1\). <span class="ans">\(f(x)=(x-1)^3-2\)</span></li>
-      <li>Asymptoten \(x=3\), \(y=1\); Äste rechts oben und links unten → \(n=-1\), \(a\gt0\). Punkt (4|2): \(2=\frac a1+1\Rightarrow a=1\). <span class="ans">\(f(x)=\frac{1}{x-3}+1\)</span></li>
-      <li>Asymptoten \(x=-1\), \(y=4\); beide Äste unter \(y=4\) → \(n=-2\), \(a\lt0\). Punkt (0|2): \(2=\frac{a}{1}+4\Rightarrow a=-2\). <span class="ans">\(f(x)=-2(x+1)^{-2}+4\)</span></li>
+      <li>Scheitel (−2|3), nach unten offen → \(n=2\). Punkt (0|1): \(1=4a+3\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac12\). <span class="ans">\(f(x)=-\frac12(x+2)^2+3\)</span></li>
+      <li>Symmetriepunkt (1|−2), Form wie \(x^3\) → \(n=3\). Punkt (2|−1): \(-1=a\cdot1^3-2\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=1\). <span class="ans">\(f(x)=(x-1)^3-2\)</span></li>
+      <li>Asymptoten \(x=3\), \(y=1\); Äste rechts oben und links unten → \(n=-1\), \(a\gt0\). Punkt (4|2): \(2=\frac a1+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=1\). <span class="ans">\(f(x)=\frac{1}{x-3}+1\)</span></li>
+      <li>Asymptoten \(x=-1\), \(y=4\); beide Äste unter \(y=4\) → \(n=-2\), \(a\lt0\). Punkt (0|2): \(2=\frac{a}{1}+4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-2\). <span class="ans">\(f(x)=-2(x+1)^{-2}+4\)</span></li>
     </ol>
   </div></details>
 </div>
@@ -793,10 +1956,10 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <ol class="sub">
       <li>S(1|−3), nach oben offen, gestreckt (\(a=2\)). Keine Asymptoten.
         <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>\(f(x)\)</th><td>5</td><td>−1</td><td>−3</td><td>−1</td><td>5</td></tr></table></div>
-        Nullstellen: \((x-1)^2=1{,}5\Rightarrow x=1\pm\sqrt{1{,}5}\), also \(x_1\approx-0{,}22\), \(x_2\approx2{,}22\).</li>
+        Nullstellen: \((x-1)^2=1{,}5\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=1\pm\sqrt{1{,}5}\), also \(x_1\approx-0{,}22\), \(x_2\approx2{,}22\).</li>
       <li>Hyperbel (\(n=-1\)), an der x-Achse gespiegelt (\(a=-1\)): Äste links oben und rechts unten. Asymptoten \(x=-2\), \(y=1\).
         <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−4</td><td>−3</td><td>−2,5</td><td>−1,5</td><td>−1</td><td>0</td></tr><tr><th>\(g(x)\)</th><td>1,5</td><td>2</td><td>3</td><td>−1</td><td>0</td><td>0,5</td></tr></table></div>
-        Nullstelle: \(\frac{1}{x+2}=1\Rightarrow x=-1\).</li>
+        Nullstelle: \(\frac{1}{x+2}=1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=-1\).</li>
     </ol>
     <div class="figs big">
       <figure class="plot" data-plot="ps-9a"><figcaption><b>a)</b> \(f(x)=2(x-1)^2-3\)</figcaption></figure>
@@ -823,7 +1986,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
       <li>① ja, Grad 3, LK −1 (aus \(x^2\cdot(-x)\)) &nbsp;② nein, negative Hochzahl &nbsp;③ ja: \(\frac23x^4-2x\), Grad 4, LK \(\frac23\) &nbsp;④ nein: \(x^{1{,}5}\) &nbsp;⑤ ja, Grad 3, LK \(\sqrt3\)</li>
       <li>① ungerader Grad, LK \(\lt0\) → von links oben nach rechts unten.<br>② Grad \(1+1+2=4\), LK \((-1)\cdot1\cdot2=-2\) → beide Enden unten. (Nullstellen 1 und −3; \(2x^2+1\) hat keine.)</li>
       <li>Graph A: 3 Nullstellen, 2 Extrema, links unten → rechts oben → <span class="ans">mindestens Grad 3, LK &gt; 0</span>.<br>Graph B: 4 Nullstellen, 3 Extrema, beide Enden oben → <span class="ans">mindestens Grad 4, LK &gt; 0</span>.</li>
-      <li>Grad 5: höchstens 5 Nullstellen, höchstens 4 Extremstellen, mindestens 1 Nullstelle (ungerader Grad).<br>Zusatz: \(x(2x^4-3x^2+1)=0\). Mit \(z=x^2\): \(2z^2-3z+1=0\Rightarrow z=1\) oder \(z=\frac12\). Nullstellen: \(0,\ \pm1,\ \pm\sqrt{0{,}5}\approx\pm0{,}71\), also tatsächlich 5.</li>
+      <li>Grad 5: höchstens 5 Nullstellen, höchstens 4 Extremstellen, mindestens 1 Nullstelle (ungerader Grad).<br>Zusatz: \(x(2x^4-3x^2+1)=0\). Mit \(z=x^2\): \(2z^2-3z+1=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(z=1\) oder \(z=\frac12\). Nullstellen: \(0,\ \pm1,\ \pm\sqrt{0{,}5}\approx\pm0{,}71\), also tatsächlich 5.</li>
     </ol>
   </div></details>
 </div>
@@ -942,8 +2105,8 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <ol class="sub">
       <li>\(P(6)=0{,}5\cdot216=\) <span class="ans">108 W</span></li>
-      <li>\(P(2v)=0{,}5\cdot(2v)^3=0{,}5\cdot8v^3=8\cdot P(v)\) → <span class="ans">8-fache Leistung</span></li>
-      <li>\(P=0{,}5v^3\Rightarrow v^3=2P\Rightarrow\) <span class="ans">\(v(P)=\sqrt[3]{2P}\)</span>. Sie gibt an, welche Windgeschwindigkeit man für die Leistung \(P\) braucht.</li>
+      <li>\(P(2v)\)<span class="nw">\(=\)&nbsp;</span>\(0{,}5\cdot(2v)^3\)<span class="nw">\(=\)&nbsp;</span>\(0{,}5\cdot8v^3\)<span class="nw">\(=\)&nbsp;</span>\(8\cdot P(v)\) → <span class="ans">8-fache Leistung</span></li>
+      <li>\(P\)<span class="nw">\(=\)&nbsp;</span>\(0{,}5v^3\Rightarrow v^3\)<span class="nw">\(=\)&nbsp;</span>\(2P\Rightarrow\) <span class="ans">\(v(P)=\sqrt[3]{2P}\)</span>. Sie gibt an, welche Windgeschwindigkeit man für die Leistung \(P\) braucht.</li>
       <li>\(v(250)=\sqrt[3]{500}\approx\) <span class="ans">7,94 m/s</span></li>
     </ol>
   </div></details>
@@ -963,7 +2126,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <div class="split"><div>
     <ol class="sub">
-      <li>Symmetriepunkt (2|1), Form wie \(-x^3\) → \(n=3\). Punkt (0|5): \(5=a\cdot(-2)^3+1\Rightarrow-8a=4\Rightarrow a=-\frac12\).<br><span class="ans">\(f(x)=-\frac12(x-2)^3+1\)</span></li>
+      <li>Symmetriepunkt (2|1), Form wie \(-x^3\) → \(n=3\). Punkt (0|5): \(5=a\cdot(-2)^3+1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(-8a=4\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac12\).<br><span class="ans">\(f(x)=-\frac12(x-2)^3+1\)</span></li>
       <li>Asymptoten \(x=-1\) und \(y=-2\). Nullstelle bei \(x=0\).
         <div class="scroll"><table class="vt"><tr><th>\(x\)</th><td>−3</td><td>−2</td><td>−0,5</td><td>0</td><td>1</td><td>3</td></tr><tr><th>\(g(x)\)</th><td>−3</td><td>−4</td><td>2</td><td>0</td><td>−1</td><td>−1,5</td></tr></table></div></li>
     </ol>
@@ -983,12 +2146,12 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <p><b>ZP:</b> Berechne die Fixpunkte von \(f\).</p>
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <ol class="sub">
-      <li>\(f(-x)=(-x)^3-4(-x)=-x^3+4x=-(x^3-4x)=-f(x)\) → ungerade, punktsymmetrisch zum Ursprung.</li>
-      <li>\(x^2-1=0\Rightarrow x=\pm1\) → <span class="ans">\(D_g=\mathbb R\setminus\{-1;1\}\)</span></li>
+      <li>\(f(-x)\)<span class="nw">\(=\)&nbsp;</span>\((-x)^3-4(-x)\)<span class="nw">\(=\)&nbsp;</span>\(-x^3+4x\)<span class="nw">\(=\)&nbsp;</span>\(-(x^3-4x)\)<span class="nw">\(=\)&nbsp;</span>\(-f(x)\) → ungerade, punktsymmetrisch zum Ursprung.</li>
+      <li>\(x^2-1=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=\pm1\) → <span class="ans">\(D_g=\mathbb R\setminus\{-1;1\}\)</span></li>
       <li>Polstellen \(x=-1\) und \(x=1\). Asymptoten: \(x=-1\), \(x=1\) und \(y=0\) (für \(x\to\pm\infty\) wird der Nenner riesig).</li>
-      <li>\(g(-x)=\frac{4}{(-x)^2-1}=\frac{4}{x^2-1}=g(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
+      <li>\(g(-x)\)<span class="nw">\(=\)&nbsp;</span>\(\frac{4}{(-x)^2-1}\)<span class="nw">\(=\)&nbsp;</span>\(\frac{4}{x^2-1}\)<span class="nw">\(=\)&nbsp;</span>\(g(x)\) → gerade, achsensymmetrisch zur y-Achse.</li>
     </ol>
-    <p><b>ZP:</b> \(x^3-4x=x\Rightarrow x^3-5x=0\Rightarrow x(x^2-5)=0\Rightarrow\) <span class="ans">\(x=0,\ x=\pm\sqrt5\approx\pm2{,}24\)</span></p>
+    <p><b>ZP:</b> \(x^3-4x\)<span class="nw">\(=\)&nbsp;</span>\(x\Rightarrow x^3-5x\)<span class="nw">\(=\)&nbsp;</span>\(0\Rightarrow x(x^2-5)\)<span class="nw">\(=\)&nbsp;</span>\(0\Rightarrow\) <span class="ans">\(x\)<span class="nw">\(=\)&nbsp;</span>\(0,\ x\)<span class="nw">\(=\)&nbsp;</span>\(\pm\sqrt5\approx\pm2{,}24\)</span></p>
   </div></details>
 </div>
 
@@ -1024,7 +2187,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <div class="split"><div>
     <ol class="sub">
-      <li>\(y-2=\sqrt{x-1}\Rightarrow(y-2)^2=x-1\Rightarrow x=(y-2)^2+1\)<br><span class="ans">\(u(x)=(x-2)^2+1\)</span> mit \(D_u=[2;\infty[\) (das ist \(W_f\)).</li>
+      <li>\(y-2=\sqrt{x-1}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\((y-2)^2=x-1\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x=(y-2)^2+1\)<br><span class="ans">\(u(x)=(x-2)^2+1\)</span> mit \(D_u=[2;\infty[\) (das ist \(W_f\)).</li>
       <li>\(f\) durch (1|2), (2|3), (5|4); \(u\) durch (2|1), (3|2), (4|5). Die Graphen sind Spiegelbilder an \(y=x\).</li>
     </ol>
     </div><figure class="plot" data-plot="p2-9l"><figcaption><span class="c-ink">blau</span>: \(f\), <span class="c-red">rot</span>: \(u\), gestrichelt: \(y=x\)</figcaption></figure></div>
@@ -1045,7 +2208,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <p>Ermittle die Definitions- und Lösungsmenge der folgenden Gleichung in \(\mathbb R\).</p>
   \[3\cdot\sqrt{x+2}-\frac12\cdot\sqrt{4x+44}=0\]
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
-    <p>\(x+2\ge0\Rightarrow x\ge-2\) und \(4x+44\ge0\Rightarrow x\ge-11\) → <span class="ans">\(D=[-2;\infty[\)</span></p>
+    <p>\(x+2\ge0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x\ge-2\) und \(4x+44\ge0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(x\ge-11\) → <span class="ans">\(D=[-2;\infty[\)</span></p>
     \[\begin{aligned}3\sqrt{x+2}&=\tfrac12\sqrt{4x+44}\quad\big|\ (\ )^2\\ 9(x+2)&=\tfrac14(4x+44)\\ 9x+18&=x+11\\ x&=-\tfrac78\end{aligned}\]
     <p>\(-\frac78\in D\). Probe: \(3\sqrt{1{,}125}\approx3{,}18\) und \(\frac12\sqrt{40{,}5}\approx3{,}18\) ✓ → <span class="ans">\(L=\{-\frac78\}\)</span></p>
     <p class="note">Quadrieren kann falsche Lösungen erzeugen, darum immer D prüfen und die Probe machen. In der echten Schularbeit lag die Lösung außerhalb von D, dort war \(L=\{\,\}\).</p>
@@ -1089,7 +2252,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <p>Ermittle die Funktionsgleichung der Funktion \(P\), die die Leistung in Abhängigkeit von der Uhrzeit \(t\) (in Stunden) beschreibt.</p>
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <p>Scheitel (13|6): \(P(t)=a(t-13)^2+6\)</p>
-    <p>\(P(19)=0\Rightarrow a\cdot36+6=0\Rightarrow a=-\frac16\)</p>
+    <p>\(P(19)=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a\cdot36+6=0\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(a=-\frac16\)</p>
     <p><span class="ans">\(P(t)=-\frac16(t-13)^2+6\)</span> (wegen der Symmetrie ist \(P\) auch um 7 Uhr null)</p>
   </div></details>
 </div>
@@ -1146,10 +2309,10 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
   <details class="loes"><summary>Lösung zeigen</summary><div class="in">
     <div class="split"><div>
     <ol class="sub">
-      <li>\(\tau=R\cdot C=4\cdot10^3\,\Omega\cdot5\cdot10^{-6}\,F=0{,}02\,s=20\,ms\)<br><span class="ans">\(u_C(t)=12\cdot e^{-\frac{t}{20}}\)</span></li>
+      <li>\(\tau\)<span class="nw">\(=\)&nbsp;</span>\(R\cdot C\)<span class="nw">\(=\)&nbsp;</span>\(4\cdot10^3\,\Omega\cdot5\cdot10^{-6}\,F\)<span class="nw">\(=\)&nbsp;</span>\(0{,}02\,s\)<span class="nw">\(=\)&nbsp;</span>\(20\,ms\)<br><span class="ans">\(u_C(t)=12\cdot e^{-\frac{t}{20}}\)</span></li>
       <li>\(u_C(10)=12\cdot e^{-0{,}5}\approx\) <span class="ans">7,28 V</span></li>
       <li>Wertetabelle: 0 → 12; 20 → 4,41; 40 → 1,62; 60 → 0,60; 80 → 0,22 (ms → V). Nach jedem \(\tau\) bleiben ca. 37 %.</li>
-      <li>\(3=12\cdot e^{-\frac t{20}}\Rightarrow e^{-\frac t{20}}=0{,}25\Rightarrow-\frac t{20}=\ln0{,}25\Rightarrow t=20\cdot\ln4\approx\) <span class="ans">27,7 ms</span></li>
+      <li>\(3=12\cdot e^{-\frac t{20}}\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(e^{-\frac t{20}}=0{,}25\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(-\frac t{20}=\ln0{,}25\) <span class="nw">\(\Rightarrow\)&nbsp;</span>\(t=20\cdot\ln4\approx\) <span class="ans">27,7 ms</span></li>
     </ol>
     </div><figure class="plot" data-plot="p3-8l"></figure></div>
   </div></details>
@@ -1198,10 +2361,19 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 (function(){
   /* ---------- Graphen ---------- */
   const cb=Math.cbrt;
+  const herm=K=>x=>{for(let i=0;i<K.length-1;i++){const [a,ya,ma]=K[i],[b,yb,mb]=K[i+1]; if(x>=a&&x<=b){const d=b-a,t=(x-a)/d,t2=t*t,t3=t2*t; return (2*t3-3*t2+1)*ya+(t3-2*t2+t)*d*ma+(-2*t3+3*t2)*yb+(t3-t2)*d*mb;}} return NaN;};
+  const lin=P=>x=>{for(let i=0;i<P.length-1;i++){const [a,ya]=P[i],[b,yb]=P[i+1]; if(x>=a&&x<=b) return ya+(yb-ya)*(x-a)/(b-a);} return NaN;};
+  const f19=x=>-0.096*(x**3/3-x*x/2-6*x)+1.704;
+  const w111=x=>(7*x**6+169*x**4-1688*x*x)/3600-1;
+  const e115=x=>-0.00177942*x**6+0.0196838*x**4+0.0780896*x*x+1;
+  const o115=x=>-0.00831444*x**5+0.112623*x**3+0.326531*x;
+  const g118=herm([[0,-200,2.6],[100,0,1.5],[180,100,0.9],[300,150,0],[600,50,0],[700,100,0.6]]);
+  const w130=lin([[0,0],[1,50],[2,50],[3.5,0],[4,0],[5,150],[6.4,150]]);
+  const AUX={f:x=>x,c:'aux',dash:1};
   const PLOTS={
-    'lz-umk':{x:[-3,5],y:[-3,5],alt:'f(x)=2x−2 und u(x)=x/2+1, gespiegelt an y=x',
-      f:[{f:x=>x,c:'aux',dash:1},{f:x=>2*x-2,c:'c1',t:'f',at:[3.05,4.7]},{f:x=>x/2+1,c:'c2',t:'u',at:[4.3,2.55]}],
-      p:[{x:2,y:2,c:'c3',t:'Fixpunkt (2|2)',dx:8,dy:16}]},
+    'lz-umk':{x:[-6,4],y:[-6,4],alt:'f(x)=2x+4 und u(x)=x/2−2, gespiegelt an y=x',
+      f:[{f:x=>x,c:'aux',dash:1},{f:x=>2*x+4,c:'c1',t:'f',at:[-1.3,3.2]},{f:x=>x/2-2,c:'c2',t:'u',at:[3,-0.1]}],
+      p:[{x:-4,y:-4,c:'c3',t:'Fixpunkt (−4|−4)',dx:8,dy:16}]},
     'lz-p1':{w:200,x:[-2.5,2.5],y:[-1,4],alt:'x² und x⁴',f:[{f:x=>x**4,c:'c4'},{f:x=>x*x,c:'c1'}],p:[{x:1,y:1},{x:-1,y:1},{x:0,y:0}]},
     'lz-p2':{w:200,x:[-2.5,2.5],y:[-2.5,2.5],alt:'x³',f:[{f:x=>x**3,c:'c1'}],p:[{x:1,y:1},{x:-1,y:-1},{x:0,y:0}]},
     'lz-p3':{w:200,x:[-3,3],y:[-3,3],alt:'1/x',f:[{f:x=>1/x,c:'c1'}],p:[{x:1,y:1},{x:-1,y:-1}]},
@@ -1249,6 +2421,86 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
       p:[{x:-4,y:1.5,c:'c3'},{x:-3,y:2,c:'c3'},{x:-2.5,y:3,c:'c3'},{x:-1.5,y:-1,c:'c3'},{x:-1,y:0,c:'c2'},{x:0,y:0.5,c:'c3'}]},
     'ps-10a':{w:300,x:[-4,4],y:[-3,3],alt:'Graph A',f:[{f:x=>0.1*(x**3-9*x),c:'c1'}]},
     'ps-10b':{w:300,x:[-4,4],y:[-4,5],alt:'Graph B',f:[{f:x=>0.15*(x+3)*(x+1)*(x-2)*(x-3),c:'c1'}]},
+
+    /* Übungen */
+    'ub-19':{x:[-5,7],y:[-2,5],alt:'Graph zu Buch 1.9',f:[{f:f19,c:'c1',t:'f',at:[-3.4,2.7]}]},
+    'ub-19l':{x:[-5,7],y:[-2,5],alt:'Lösung 1.9',f:[AUX,{f:f19,c:'c1'}],
+      p:[{x:-2,y:1,c:'c2',t:'T(−2|1)',dx:0,dy:18,a:'middle'},{x:3,y:3,c:'c3',t:'H(3|3)',dx:0,dy:-10,a:'middle'},{x:6,y:0,c:'c2',t:'NS',dx:0,dy:18,a:'middle'}]},
+    'ub-111a':{w:340,x:[-4,10],y:[-2.6,2.6],xt:[[-Math.PI,'−π'],[Math.PI,'π'],[2*Math.PI,'2π'],[3*Math.PI,'3π']],yt:[[2,'2'],[-2,'−2']],alt:'y = 2 sin x',f:[{f:x=>2*Math.sin(x),c:'c1'}]},
+    'ub-111b':{x:[-4,4],y:[-3,3],alt:'Graph zu Buch 1.11b',f:[{f:w111,c:'c1'}]},
+    'ub-115g':{x:[-6,6],y:[-3,3],alt:'gerade Beispielfunktion',f:[{f:e115,c:'c3'}],
+      p:[{x:4,y:0,c:'c3'},{x:-4,y:0,c:'c2'},{x:3,y:2,c:'c3',t:'H(3|2)',dx:0,dy:-10,a:'middle'},{x:-3,y:2,c:'c2',t:'H(−3|2)',dx:0,dy:-10,a:'middle'}]},
+    'ub-115u':{x:[-6,6],y:[-3,3],alt:'ungerade Beispielfunktion',f:[{f:o115,c:'c3'}],
+      p:[{x:4,y:0,c:'c3'},{x:-4,y:0,c:'c2'},{x:0,y:0,c:'c2'},{x:3,y:2,c:'c3',t:'H(3|2)',dx:0,dy:-10,a:'middle'},{x:-3,y:-2,c:'c2',t:'T(−3|−2)',dx:0,dy:18,a:'middle'}]},
+    'ub-118':{w:340,x:[-40,740],y:[-230,190],xs:100,ys:50,ly:100,xn:'Stück',yn:'G',alt:'Gewinnfunktion',f:[{f:g118,c:'c1',dom:[0,700]}]},
+    'ub-118l':{w:340,x:[-40,740],y:[-230,190],xs:100,ys:50,ly:100,xn:'Stück',yn:'G',alt:'Lösung Gewinnfunktion',asy:[{y:100}],f:[{f:g118,c:'c1',dom:[0,700]}],
+      p:[{x:100,y:0,c:'c2'},{x:300,y:150,c:'c3',t:'H',dx:0,dy:-10,a:'middle'},{x:600,y:50,c:'c3',t:'T',dx:0,dy:18,a:'middle'},{x:180,y:100,c:'c4'},{x:700,y:100,c:'c4'}]},
+    'ub-124a':{w:200,x:[-3,3],y:[-3,3],alt:'y = 1',f:[{f:x=>1,c:'c1'}]},
+    'ub-124b':{w:200,x:[-3,3],y:[-3,3],alt:'y = x + 1',f:[{f:x=>x+1,c:'c1'}]},
+    'ub-124c':{w:200,x:[-3,3],y:[-3,3],alt:'y = −x²',f:[{f:x=>-x*x,c:'c1'}]},
+    'ub-124d':{w:200,x:[-0.6,6],y:[-0.6,6],alt:'Hyperbelast für x größer 0',f:[{f:x=>1/x,c:'c1',dom:[0.16,6]}]},
+    'ub-124al':{w:200,x:[-3,3],y:[-3,3],alt:'gespiegelt: x = 1',f:[AUX,{f:x=>1,c:'c1'},{f:y=>1,inv:1,c:'c2'}]},
+    'ub-124bl':{w:200,x:[-3,3],y:[-3,3],alt:'gespiegelt: y = x − 1',f:[AUX,{f:x=>x+1,c:'c1'},{f:x=>x-1,c:'c2'}]},
+    'ub-124cl':{w:200,x:[-3,3],y:[-3,3],alt:'gespiegelt: x = −y²',f:[AUX,{f:x=>-x*x,c:'c1'},{f:y=>-y*y,inv:1,c:'c2'}]},
+    'ub-124dl':{w:200,x:[-0.6,6],y:[-0.6,6],alt:'gespiegelt: gleicher Graph',f:[AUX,{f:x=>1/x,c:'c1',dom:[0.16,6]},{f:y=>1/y,inv:1,c:'c2',dash:1,dom:[0.16,6]}]},
+    'ub-128a':{w:200,x:[-3,3],y:[-3,3],alt:'Graph 1.28a',f:[{f:x=>-x*x+2,c:'c1'}]},
+    'ub-128b':{w:200,x:[-3,3],y:[-3,3],alt:'Graph 1.28b',f:[{f:x=>0.5*x**3+1,c:'c1'}]},
+    'ub-128c':{w:200,x:[-3,3],y:[-3,3],alt:'Graph 1.28c',f:[{f:x=>-0.25*x**3,c:'c1'}]},
+    'ub-128d':{w:520,x:[-7,7],y:[-1.6,1.6],alt:'Graph 1.28d',f:[{f:x=>Math.cos(Math.PI*x/2),c:'c1'}]},
+    'ub-128e':{w:200,x:[-3,3],y:[-3,3],alt:'Graph 1.28e',f:[{f:x=>0.7901*x**4-3.5556*x*x+2,c:'c1'}]},
+    'ub-128f':{w:200,x:[-0.5,4.5],y:[-3,2],alt:'Graph 1.28f',f:[{f:x=>-((x-2)**4)+2*(x-2)**2,c:'c1'}]},
+    'ub-130':{w:330,x:[-0.4,6.5],y:[-22,175],ys:50,xn:'Zeit in h',yn:'Höhe in cm',alt:'Wasserstand im Becken',f:[{f:w130,c:'c1',dom:[0,6.4]}]},
+    'ub-134b':{x:[-4,7],y:[-4,7],alt:'f(x)=1/x+3 und u(x)=1/(x−3)',asy:[{y:3},{x:3}],
+      f:[AUX,{f:x=>1/x+3,c:'c1',t:'f',at:[0.9,5.3]},{f:x=>1/(x-3),c:'c2',t:'u',at:[6.1,1]}]},
+    'ub-hk':{x:[-3,4],y:[-3,4],alt:'g(x)=x³+1 und u(x)=∛(x−1)',f:[AUX,{f:x=>x**3+1,c:'c1',t:'g',at:[0.55,2.6]},{f:x=>cb(x-1),c:'c2',t:'u',at:[3.4,1.75]}],
+      p:[{x:0,y:1,c:'c1'},{x:-1,y:0,c:'c1'},{x:1,y:0,c:'c2'},{x:0,y:-1,c:'c2'}]},
+    'ub-269a':{x:[-8,2],y:[-4,6],alt:'Graphen zu Buch 2.69a',f:[{f:x=>-((x+5)**2)+4,c:'c1',t:'y₁',at:[-5,5]},{f:x=>x**5+2,c:'c2',t:'y₂',at:[0.45,4.6]}],
+      p:[{x:-5,y:4},{x:-3,y:0},{x:-7,y:0},{x:-1,y:1,c:'c2'},{x:0,y:2,c:'c2'},{x:1,y:3,c:'c2'}]},
+    'ub-269b':{x:[-4,6],y:[-3,6],alt:'Graphen zu Buch 2.69b',asy:[{x:2},{y:2},{y:1}],f:[{f:x=>(x-2)**-3+2,c:'c1',t:'y₁',at:[4.2,3]},{f:x=>x**-2+1,c:'c2',t:'y₂',at:[-2.6,2.2]}],
+      p:[{x:3,y:3},{x:1,y:1},{x:1,y:2,c:'c2'},{x:-1,y:2,c:'c2'}]},
+    'ub-2133a':{x:[-5.5,7],y:[-2.5,6],alt:'Graphen zu Buch 2.133a',f:[{f:x=>(x-3)**2+1,c:'c2',t:'y₁',at:[3,0.25]},{f:x=>-((x+3)**2)+5,c:'c1',t:'y₂',at:[-3,5.5]},{f:x=>x*x+2,c:'c3',t:'y₃',at:[0.55,1.25]}]},
+    'ub-2133b':{x:[-5.5,7.5],y:[-5.5,5.5],alt:'Graphen zu Buch 2.133b',asy:[{x:4},{x:-2},{y:2},{y:-2}],
+      f:[{f:x=>-((x-4)**-2),c:'c2',t:'y₁',at:[6,-1.1]},{f:x=>(x+2)**-2+2,c:'c1',t:'y₂',at:[-4.3,2.8]},{f:x=>x**-2-2,c:'c3',t:'y₃',at:[2.6,-1.3]}]},
+    'ub-pf1-1':{w:220,x:[-1,7],y:[-2,6],alt:'f1',f:[{f:x=>-0.5*(x-3)**2+4,c:'c1'}],p:[{x:3,y:4},{x:5,y:2},{x:1,y:2}]},
+    'ub-pf1-2':{w:220,x:[-6,1],y:[-3,6],alt:'f2',f:[{f:x=>-3*(x+3)**2+5,c:'c1'}],p:[{x:-3,y:5},{x:-2,y:2},{x:-4,y:2}]},
+    'ub-pf1-3':{w:220,x:[-5,4],y:[-3,4],alt:'f3',f:[{f:x=>0.25*(x+1)**2-2,c:'c1'}],p:[{x:-1,y:-2},{x:1,y:-1},{x:-3,y:-1},{x:3,y:2}]},
+    'ub-pf1-4':{w:220,x:[-1,8],y:[-3,5],alt:'f4',f:[{f:x=>2*(x-5)**3+1,c:'c1'}],p:[{x:5,y:1},{x:6,y:3},{x:4,y:-1}]},
+    'ub-pf2-g1':{w:220,x:[-9,2],y:[-7,3],alt:'g1',asy:[{x:-4},{y:-2}],f:[{f:x=>-2/(x+4)-2,c:'c1'}],p:[{x:-3,y:-4},{x:-5,y:0},{x:-6,y:-1},{x:-2,y:-3}]},
+    'ub-pf2-g2':{w:220,x:[-2,8],y:[-3,4],alt:'g2',f:[{f:x=>-0.25*(x-3)**2+3,c:'c1'}],p:[{x:3,y:3},{x:5,y:2},{x:1,y:2},{x:7,y:-1}]},
+    'ub-pf2-h1':{w:220,x:[-9,1],y:[-2,5],alt:'h1',asy:[{x:-5},{y:3}],f:[{f:x=>-1/((x+5)**2)+3,c:'c1'}],p:[{x:-4,y:2},{x:-6,y:2}]},
+    'ub-pf2-h2':{w:220,x:[-4,2],y:[-3,7],alt:'h2',f:[{f:x=>-0.5*(x+1)**3+2,c:'c1'}],p:[{x:-1,y:2},{x:1,y:-2},{x:-3,y:6}]},
+    'ub-pf2-h3':{w:220,x:[-1,7],y:[-6,3],alt:'h3',asy:[{x:3},{y:-4}],f:[{f:x=>1/((x-3)**2)-4,c:'c1'}],p:[{x:4,y:-3},{x:2,y:-3}]},
+    'ub-pf3a':{w:200,x:[-5,1],y:[-4,6],alt:'Lösung 3a',f:[{f:x=>2*(x+2)**2-3,c:'c3'}],p:[{x:-2,y:-3,c:'c3'},{x:-1,y:-1,c:'c3'},{x:-3,y:-1,c:'c3'},{x:0,y:5,c:'c3'},{x:-4,y:5,c:'c3'}]},
+    'ub-pf3b':{w:200,x:[-1,6],y:[-4,6],alt:'Lösung 3b',f:[{f:x=>0.5*(x-3)**3+1,c:'c3'}],p:[{x:3,y:1,c:'c3'},{x:4,y:1.5,c:'c3'},{x:2,y:0.5,c:'c3'},{x:5,y:5,c:'c3'},{x:1,y:-3,c:'c3'}]},
+    'ub-pf3c':{w:200,x:[-3,3],y:[-5,5],alt:'Lösung 3c',f:[{f:x=>-3*x*x+4,c:'c3'}],p:[{x:0,y:4,c:'c3'},{x:1,y:1,c:'c3'},{x:-1,y:1,c:'c3'}]},
+    'ub-pf3d':{w:200,x:[-3,7],y:[-1,6],alt:'Lösung 3d',f:[{f:x=>-0.25*(x-2)**2+5,c:'c3'}],p:[{x:2,y:5,c:'c3'},{x:0,y:4,c:'c3'},{x:4,y:4,c:'c3'},{x:-2,y:1,c:'c3'},{x:6,y:1,c:'c3'}]},
+    'ub-pf3e':{w:200,x:[-9,1],y:[-2,6],alt:'Lösung 3e',asy:[{x:-4},{y:2}],f:[{f:x=>1/(x+4)+2,c:'c3'}],p:[{x:-3,y:3,c:'c3'},{x:-5,y:1,c:'c3'},{x:-2,y:2.5,c:'c3'},{x:-6,y:1.5,c:'c3'}]},
+    'ub-pf3f':{w:200,x:[-4,4],y:[-4,3],alt:'Lösung 3f',asy:[{y:1}],f:[{f:x=>-1/(x*x)+1,c:'c3'}],p:[{x:1,y:0,c:'c3'},{x:-1,y:0,c:'c3'},{x:2,y:0.75,c:'c3'},{x:-2,y:0.75,c:'c3'}]},
+    'ub-pf3g':{w:200,x:[-3,1],y:[-2,10],ys:2,alt:'Lösung 3g',f:[{f:x=>-3*(x+1)**3+5,c:'c3'}],p:[{x:-1,y:5,c:'c3'},{x:0,y:2,c:'c3'},{x:-2,y:8,c:'c3'}]},
+    'ub-pf3h':{w:200,x:[-2,6],y:[-1,9],alt:'Lösung 3h',asy:[{x:2},{y:5}],f:[{f:x=>-1/(x-2)+5,c:'c3'}],p:[{x:3,y:4,c:'c3'},{x:1,y:6,c:'c3'},{x:4,y:4.5,c:'c3'},{x:0,y:5.5,c:'c3'}]},
+    'ub-hpf-a':{x:[-3,3],y:[-1,6],alt:'x², ½x² und 2x²',f:[{f:x=>x*x,c:'c1'},{f:x=>0.5*x*x,c:'c2'},{f:x=>2*x*x,c:'c3'}]},
+    'ub-hpf-b':{x:[-3,4],y:[-3,6],alt:'x², −¼x², x²+1 und (x−1)²',f:[{f:x=>x*x,c:'c1'},{f:x=>-0.25*x*x,c:'c2'},{f:x=>x*x+1,c:'c3'},{f:x=>(x-1)**2,c:'c4'}]},
+    'ub-hasy':{x:[-5,3],y:[-6,2],alt:'(x+1) hoch −2 minus 3 mit Asymptoten',asy:[{x:-1},{y:-3}],f:[{f:x=>1/((x+1)**2)-3,c:'c3'}],
+      p:[{x:0,y:-2,c:'c3'},{x:-2,y:-2,c:'c3'},{x:-0.5,y:1,c:'c3'},{x:-1.5,y:1,c:'c3'}]},
+    'ub-h1910':{w:300,x:[-6,1],y:[-7,5],alt:'drei kubische Funktionen',f:[{f:x=>0.5*(x+3)**3-3,c:'c1'},{f:x=>0.25*(x+3)**3-3,c:'c2'},{f:x=>2*(x+2)**3-1,c:'c3'}],
+      p:[{x:-3,y:-3,c:'c1'},{x:-2,y:-1,c:'c3'}]},
+    'ub-297b':{w:280,x:[-1,6],y:[-1,6],alt:'2x²+1 und Umkehrfunktion',f:[AUX,{f:x=>2*x*x+1,c:'c1',dom:[0,6],t:'f',at:[0.6,3.3]},{f:x=>Math.sqrt((x-1)/2),c:'c2',dom:[1,6],t:'u',at:[4.8,2]}],
+      p:[{x:0,y:1,c:'c1'},{x:1,y:0,c:'c2'},{x:1,y:3,c:'c1'},{x:3,y:1,c:'c2'}]},
+    'ub-po2a':{w:220,x:[-3,3],y:[-4,10],ys:2,alt:'x³ − 1,5x² + 6',f:[{f:x=>x**3-1.5*x*x+6,c:'c3'}],p:[{x:0,y:6,c:'c3'},{x:1,y:5.5,c:'c3'},{x:-1.43,y:0,c:'c2'}]},
+    'ub-po2b':{w:220,x:[-4,3],y:[-4,4],alt:'−x² − x + 3',f:[{f:x=>-x*x-x+3,c:'c3'}],p:[{x:-0.5,y:3.25,c:'c3'},{x:-2.303,y:0,c:'c2'},{x:1.303,y:0,c:'c2'}]},
+    'ub-po3b':{w:220,x:[-4,4],y:[-3,3],ticks:false,alt:'blauer Graph mit 4 Extrema',f:[{f:x=>0.035*x*(x*x-4)*(x*x-12.25),c:'c1'}]},
+    'ub-po3g':{w:220,x:[-4,4],y:[-2,4],ticks:false,alt:'grüner Graph mit 3 Extrema',f:[{f:x=>0.08*(x*x-1)*(x*x-6)-0.5,c:'c3'}]},
+    'ub-po3r':{w:220,x:[-4,4],y:[-4,5],ticks:false,alt:'roter Graph mit 2 Extrema',f:[{f:x=>-0.15*(x+3)*(x-0.5)*(x-3),c:'c2'}]},
+    'ub-po5A':{w:200,x:[-1,2.2],y:[-8,10],xs:0.5,lx:1,ys:2,ly:4,alt:'Graph A',f:[{f:x=>-3*x**6+6*x**5-2*x*x+1,c:'c1'}]},
+    'ub-po5B':{w:200,x:[-2,3],y:[-2,4],alt:'Graph B',f:[{f:x=>x*x-x-1,c:'c1'}]},
+    'ub-po5C':{w:200,x:[-2,2.5],y:[-2,6],alt:'Graph C',f:[{f:x=>x**3-x*x+2.5,c:'c1'}]},
+    'ub-po5D':{w:200,x:[-3,3],y:[-2,3],alt:'Graph D',f:[{f:x=>1,c:'c1'}]},
+    'ub-po5E':{w:200,x:[-1.5,2],y:[-3,4],xs:0.5,lx:1,alt:'Graph E',f:[{f:x=>-(x**5)+2*x*x,c:'c1'}]},
+    'ub-po5F':{w:200,x:[-2,4],y:[-2,3],alt:'Graph F',f:[{f:x=>-0.5*x+1,c:'c1'}]},
+    'ub-po8':{w:300,x:[-1.5,6.5],y:[-4,12],ys:2,alt:'Beispiel −(x−1)²(x−5)',f:[{f:x=>-((x-1)**2)*(x-5),c:'c3'}],
+      p:[{x:0,y:5,c:'c3',t:'(0|5)',dx:8,dy:4},{x:1,y:0,c:'c2',t:'berührt',dx:0,dy:18,a:'middle'},{x:5,y:0,c:'c2',t:'schneidet',dx:-6,dy:-8,a:'end'},{x:11/3,y:256/27,c:'c3',t:'H',dx:0,dy:-10,a:'middle'}]},
+    'ub-h0511':{w:240,x:[-1.5,3],y:[-3,4],xs:0.5,lx:1,alt:'x³ − 2x² + 1',f:[{f:x=>x**3-2*x*x+1,c:'c3'}],
+      p:[{x:-1,y:-2,c:'c3'},{x:-0.5,y:0.375,c:'c3'},{x:0,y:1,c:'c3'},{x:1,y:0,c:'c3'},{x:1.5,y:-0.125,c:'c3'},{x:2,y:1,c:'c3'}]},
 
     /* Probe 2 */
     'p2-3a':{w:240,x:[-4,4],y:[-4,4],alt:'Graph A',asy:[{x:-1},{y:-1}],f:[{f:x=>1/((x+1)**2)-1,c:'c1'}]},
@@ -1310,14 +2562,15 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     }
     s+=`<g clip-path="url(#${id})">`;
     (o.asy||[]).forEach(a=>{ s+= a.x!==undefined?`<line class="asy" x1="${X(a.x)}" y1="0" x2="${X(a.x)}" y2="${H}"/>`:`<line class="asy" x1="0" y1="${Y(a.y)}" x2="${W}" y2="${Y(a.y)}"/>`; });
-    const span=y1-y0, lim=span*3;
     (o.f||[]).forEach(c=>{
-      const a=Math.max(x0,(c.dom||[x0])[0]), b=Math.min(x1,(c.dom||[x0,x1])[1]), N=900;
+      /* inv: Kurve x = f(y), z. B. gespiegelte Graphen */
+      const inv=!!c.inv, lo=inv?y0:x0, hi=inv?y1:x1, vlo=inv?x0:y0, vhi=inv?x1:y1, span=vhi-vlo, lim=span*3;
+      const a=Math.max(lo,(c.dom||[lo])[0]), b=Math.min(hi,(c.dom||[lo,hi])[1]), N=900;
       let d='',pen=false,prev=null;
-      for(let i=0;i<=N;i++){const x=a+(b-a)*i/N, y=c.f(x);
-        if(!isFinite(y)||y>y1+lim||y<y0-lim){pen=false;prev=null;continue;}
-        if(prev!==null&&Math.abs(y-prev)>span*1.2) pen=false;
-        d+=(pen?'L':'M')+X(x)+' '+Y(y); pen=true; prev=y;}
+      for(let i=0;i<=N;i++){const u=a+(b-a)*i/N, v=c.f(u);
+        if(!isFinite(v)||v>vhi+lim||v<vlo-lim){pen=false;prev=null;continue;}
+        if(prev!==null&&Math.abs(v-prev)>span*1.2) pen=false;
+        d+=(pen?'L':'M')+(inv?X(v)+' '+Y(u):X(u)+' '+Y(v)); pen=true; prev=v;}
       s+=`<path class="cv pl-${c.c||'c1'}${c.dash?' dash':''}" d="${d}"/>`;
     });
     s+='</g>';
@@ -1332,10 +2585,26 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 
   /* ---------- Tabs ---------- */
   const tabs=[...document.querySelectorAll('[role=tab]')], bar=document.querySelector('.tabs');
+  window.fitMath=function(root){
+    (root||document).querySelectorAll('ol.sub.cols').forEach(ol=>{
+      if(!ol.offsetParent) return; let need=0, tight=false;
+      ol.querySelectorAll(':scope>li').forEach(li=>{ need=Math.max(need,li.scrollWidth); if(li.scrollWidth>li.clientWidth+1) tight=true; });
+      if(tight) ol.style.gridTemplateColumns=`repeat(auto-fill,minmax(${Math.min(need+4,ol.clientWidth)}px,1fr))`;
+    });
+    (root||document).querySelectorAll('mjx-container:not([display="true"]):not(.mwide)').forEach(e=>{
+      if(!e.offsetParent) return;
+      let b=e.parentElement; while(b&&getComputedStyle(b).display==='inline') b=b.parentElement;
+      if(!b) return; const cs=getComputedStyle(b), w=b.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+      if(e.getBoundingClientRect().width>w+1) e.classList.add('mwide');
+    });
+  };
+  document.addEventListener('toggle',e=>{ if(e.target.open) fitMath(e.target); },true);
+  let fitT; window.addEventListener('resize',()=>{clearTimeout(fitT); fitT=setTimeout(()=>fitMath(document),200);});
   function show(id,focus){
     tabs.forEach(t=>{const on=t.dataset.tab===id; t.setAttribute('aria-selected',on); t.tabIndex=on?0:-1;
       document.getElementById(t.getAttribute('aria-controls')).hidden=!on; if(on&&focus) t.focus();});
     try{localStorage.setItem('mathe-lp-tab',id)}catch(e){}
+    if(window.MathJax&&MathJax.startup&&MathJax.startup.document) fitMath(document.getElementById('p-'+id));
   }
   tabs.forEach((t,i)=>{
     t.addEventListener('click',()=>{show(t.dataset.tab); const top=bar.offsetTop; if(window.scrollY>top) window.scrollTo(0,top);});
@@ -1434,6 +2703,64 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
         b.classList.add('flash'); setTimeout(()=>b.classList.remove('flash'),700);}));
     });
   });
+
+  /* ---------- Übungen: Suche, Filter, Selbstkontrolle ---------- */
+  const UB=document.getElementById('p-ub');
+  if(UB){
+    const ubT=[...UB.querySelectorAll('.task.ub')], ubG=[...UB.querySelectorAll('.ub-g')];
+    const qIn=document.getElementById('ub-q'), ubCnt=document.getElementById('ub-count'), ubNone=document.getElementById('ub-none');
+    const tBtns=[...document.querySelectorAll('#ub-topic button')], sBtns=[...document.querySelectorAll('#ub-src button')];
+    const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    const squash=s=>norm(s).replace(/[\s.·,:;()=\-–]/g,'');
+    const TN={}; tBtns.forEach(b=>TN[b.dataset.t]=b.textContent);
+    ubT.forEach(t=>{
+      const an=t.querySelector('.an'), h3=t.querySelector('h3'), srcl=t.querySelector('.srcl');
+      t._top=t.dataset.topic.split(' '); t._src=t.dataset.src.split(' ');
+      t._nr=(t.dataset.nr||'').split(' ').filter(Boolean);
+      t._c=squash([h3.textContent, srcl?srcl.textContent:'', t.dataset.k||'', t._nr.join(' '), t._top.map(k=>TN[k]).join(' ')].join(' '));
+      const d=t.querySelector('details.loes'); if(!d) return;
+      const id='ub-'+t.id.slice(3), label=`Übungen · ${clean(an.textContent)} ${clean(h3.textContent.replace(an.textContent,''))}`;
+      d.querySelector('.in').insertAdjacentHTML('beforeend',`<div class="self"><span>Hattest du die Aufgabe richtig?</span><button class="mini y" type="button" data-ok="1">✓ richtig</button><button class="mini n" type="button" data-ok="0">✗ falsch</button><span class="hist" data-hid="${id}"></span></div>`);
+      d.querySelectorAll('.self .mini').forEach(b=>b.addEventListener('click',()=>{
+        logAdd([{src:'Lösung',id,label,ok:b.dataset.ok==='1',detail:'selbst kontrolliert'}]);
+        b.classList.add('flash'); setTimeout(()=>b.classList.remove('flash'),700);}));
+    });
+    tBtns.forEach(b=>{const k=b.dataset.t, n=k==='all'?ubT.length:ubT.filter(t=>t._top.includes(k)).length; b.insertAdjacentHTML('beforeend',`<small>${n}</small>`);});
+    let ubTopic='all', ubSrc='all';
+    function ubApply(){
+      const raw=norm(qIn.value).replace(/\s+/g,''), q=squash(qIn.value);
+      UB.querySelectorAll('li.hit').forEach(li=>li.classList.remove('hit'));
+      let exact=null, letter='';
+      const m=raw.match(/^(?:buch|nr\.?|aufgabe)?(\d)[.,](\d{1,3})([a-l]?)\)?$/);
+      if(m){const base=m[1]+'.'+m[2], ex=ubT.filter(t=>t._nr.includes(base)); if(ex.length){exact=ex; letter=m[3];}}
+      let n=0;
+      ubT.forEach(t=>{
+        const okQ=!q||(exact?exact.includes(t):t._c.includes(q));
+        const vis=okQ&&(ubTopic==='all'||t._top.includes(ubTopic))&&(ubSrc==='all'||t._src.includes(ubSrc));
+        t.hidden=!vis; if(!vis) return; n++;
+        if(exact&&letter){const ol=[...t.querySelectorAll('ol.sub:not(.n)')].find(o=>!o.closest('details')); const li=ol&&ol.children[letter.charCodeAt(0)-97]; if(li) li.classList.add('hit');}
+      });
+      ubG.forEach(g=>g.hidden=!g.querySelector('.task.ub:not([hidden])'));
+      ubCnt.textContent=n===ubT.length?`${n} Übungen`:`${n} von ${ubT.length} Übungen`;
+      ubNone.hidden=n>0;
+    }
+    function ubReset(){ubTopic='all'; ubSrc='all'; tBtns.forEach(x=>x.setAttribute('aria-pressed',x.dataset.t==='all')); sBtns.forEach(x=>x.setAttribute('aria-pressed',x.dataset.s==='all'));}
+    function ubJump(t){ requestAnimationFrame(()=>{ t.scrollIntoView({block:'start'}); t.classList.remove('jump'); void t.offsetWidth; t.classList.add('jump'); }); }
+    qIn.addEventListener('input',ubApply);
+    qIn.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); const f=ubT.find(t=>!t.hidden); if(f){ qIn.blur(); ubJump(f);} } });
+    tBtns.forEach(b=>b.addEventListener('click',()=>{ubTopic=b.dataset.t; tBtns.forEach(x=>x.setAttribute('aria-pressed',x===b)); ubApply();}));
+    sBtns.forEach(b=>b.addEventListener('click',()=>{ubSrc=b.dataset.s; sBtns.forEach(x=>x.setAttribute('aria-pressed',x===b)); ubApply();}));
+    ubApply();
+    /* Quellen-Verweise (Lernzettel, Fehler) springen zur Übung */
+    document.querySelectorAll('span.ref[data-q]').forEach(r=>{
+      const q=r.dataset.q, m=q.match(/^(\d)\.(\d{1,3})/);
+      const hit=m?ubT.some(t=>t._nr.includes(m[1]+'.'+m[2])):ubT.some(t=>t._c.includes(squash(q)));
+      if(!hit) return;
+      const a=document.createElement('a'); a.className='ref'; a.href='#p-ub'; a.dataset.q=q; a.innerHTML=r.innerHTML; a.title='In „Übungen“ öffnen';
+      a.addEventListener('click',e=>{ e.preventDefault(); ubReset(); qIn.value=q; ubApply(); show('ub'); const f=ubT.find(t=>!t.hidden); if(f) ubJump(f); });
+      r.replaceWith(a);
+    });
+  }
 
   /* Graphen zuordnen prüfen */
   const ANS={'p-p2':['B','D','A','C'],'p-p3':['B','D','C','A']};

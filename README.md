@@ -9,6 +9,7 @@ Sie funktioniert auf Handy, Tablet und PC und braucht keinen Login.
 ## Inhalt
 
 - **Lernzettel:** 7 Kapitel (Eigenschaften, Umkehrfunktion, Potenzen, Wurzeln, Potenz-, Wurzel- und Polynomfunktionen) zum Abhaken.
+- **Übungen:** 57 Aufgaben aus dem Buch (alle markierten) und der Mitschrift, nach Thema sortiert, mit aufklappbarem Lösungsweg. Suche nach Nummer wie im Buch (z. B. „2.48b“) oder Heft-Datum (z. B. „Heft 19.10“). Die Beispiele im Lernzettel zeigen ihre Quelle und springen direkt zur Übung.
 - **Fehler:** 18 Korrekturen aus SÜ, HÜ und Übungsblättern.
 - **Probe 1:** Übungsaufgaben mit Lösungen und ein Richtig/Falsch-Wissenscheck.
 - **Probe 2:** im Format der echten Schularbeit, mit dem aktuellen Stoff, mit Punkten.

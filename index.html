@@ -307,7 +307,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <li><b>Buch 2</b> S. 5–40, 43–46</li>
     <li><b>Wissenscheck</b> S. 47</li>
     <li><b>Polynome</b> wie 2.76–2.79</li>
-    <li><b>Übungen</b> 57 Aufgaben mit Lösungsweg</li>
+    <li><b>Übungen</b> 59 Aufgaben mit Lösungsweg</li>
   </ul>
 </header>
 
@@ -903,6 +903,21 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
 <div class="ub-g" data-topic="wz">
 <h2 class="grp">Wurzeln</h2>
 
+<div class="task ub" id="ub-2-13" data-nr="2.13" data-topic="wz" data-src="buch heft" data-k="wurzel im kopf heft 05.10">
+  <h3><span class="an">Buch 2.13</span>Wurzel im Kopf ziehen</h3>
+  <p class="srcl"><span class="sb b">Buch S. 22</span><span class="sb m">d in deiner Mitschrift (Heft 05.10.)</span></p>
+  <p>Ziehe die Wurzel im Kopf und mach die Probe durch Potenzieren.</p>
+  <ol class="sub cols">
+    <li>\(\sqrt[5]{100\,000}\)</li><li>\(\sqrt[3]{343}\)</li><li>\(\sqrt[8]{256}\)</li><li>\(\sqrt{\tfrac{1}{144}}\)</li><li>\(\sqrt[6]{\tfrac{1}{64}}\)</li><li>\(\sqrt[3]{\tfrac{27}{8}}\)</li>
+  </ol>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <p>Frag dich: welche Zahl hoch \(n\) ergibt den Radikanden? Bei Brüchen Zähler und Nenner getrennt.</p>
+    <ol class="sub cols">
+      <li>\(10\), weil \(10^5=100\,000\)</li><li>\(7\), weil \(7^3=343\)</li><li>\(2\), weil \(2^8=256\)</li><li>\(\tfrac{1}{12}\), weil \(12^2=144\)</li><li>\(\tfrac12\), weil \(2^6=64\)</li><li>\(\tfrac32\), weil \(3^3=27\) und \(2^3=8\)</li>
+    </ol>
+  </div></details>
+</div>
+
 <div class="task ub" id="ub-2-16" data-nr="2.16" data-topic="wz" data-src="buch heft">
   <h3><span class="an">Buch 2.16</span>Wurzel als Potenz</h3>
   <p class="srcl"><span class="sb b">Buch S. 22</span><span class="sb mk">markiert: d, e, f</span><span class="sb m">d, e, f in deiner Mitschrift</span></p>
@@ -1422,6 +1437,19 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     <p>Senkrecht: \(x=-1\) (dort wird der Nenner 0). Waagrecht: \(y=-3\).</p>
     <p>\(n=-2\) ist gerade und \(a=1\gt0\), also gehen beide Äste nach oben. Punkte: \((0|-2)\), \((-2|-2)\), \((-0{,}5|1)\), \((-1{,}5|1)\).</p>
     </div><figure class="plot" data-plot="ub-hasy"></figure></div>
+  </div></details>
+</div>
+
+<div class="task ub" id="ub-h-hyp" data-topic="pf" data-src="heft" data-k="heft 19.10 hyperbel asymptote n=-1 f1">
+  <h3><span class="an">Heft 19.10.</span>Verschobene Hyperbel f₁</h3>
+  <p class="srcl"><span class="sb m">Mitschrift · Heft 19.10.</span></p>
+  <p>Zeichne \(f_1(x)=-1\cdot(x-1)^{-1}+2\) mit seinen Asymptoten.</p>
+  <details class="loes"><summary>Lösung zeigen</summary><div class="in">
+    <div class="split"><div>
+    <p>Grundform \(x^{-1}=\frac1x\), um \(b=1\) nach rechts und \(c=2\) nach oben verschoben, \(a=-1\) spiegelt an der x-Achse.</p>
+    <p>Senkrechte Asymptote (Polstelle): \(x=1\). Waagrechte Asymptote: \(y=2\).</p>
+    <p>Wegen \(a=-1\) liegen die Äste links oben und rechts unten. Punkte: \((0|3)\), \((-1|2{,}5)\), \((2|1)\), \((3|1{,}5)\). Nullstelle bei \(x=1{,}5\).</p>
+    </div><figure class="plot" data-plot="ub-hhyp"></figure></div>
   </div></details>
 </div>
 
@@ -2482,6 +2510,8 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg
     'ub-hpf-b':{x:[-3,4],y:[-3,6],alt:'x², −¼x², x²+1 und (x−1)²',f:[{f:x=>x*x,c:'c1'},{f:x=>-0.25*x*x,c:'c2'},{f:x=>x*x+1,c:'c3'},{f:x=>(x-1)**2,c:'c4'}]},
     'ub-hasy':{x:[-5,3],y:[-6,2],alt:'(x+1) hoch −2 minus 3 mit Asymptoten',asy:[{x:-1},{y:-3}],f:[{f:x=>1/((x+1)**2)-3,c:'c3'}],
       p:[{x:0,y:-2,c:'c3'},{x:-2,y:-2,c:'c3'},{x:-0.5,y:1,c:'c3'},{x:-1.5,y:1,c:'c3'}]},
+    'ub-hhyp':{x:[-3,5],y:[-3,6],alt:'Hyperbel minus 1 durch x minus 1 plus 2 mit Asymptoten',asy:[{x:1},{y:2}],f:[{f:x=>x<1?2-1/(x-1):NaN,c:'c3'},{f:x=>x>1?2-1/(x-1):NaN,c:'c3'}],
+      p:[{x:0,y:3,c:'c3'},{x:2,y:1,c:'c3'},{x:1.5,y:0,c:'c3'}]},
     'ub-h1910':{w:300,x:[-6,1],y:[-7,5],alt:'drei kubische Funktionen',f:[{f:x=>0.5*(x+3)**3-3,c:'c1'},{f:x=>0.25*(x+3)**3-3,c:'c2'},{f:x=>2*(x+2)**3-1,c:'c3'}],
       p:[{x:-3,y:-3,c:'c1'},{x:-2,y:-1,c:'c3'}]},
     'ub-297b':{w:280,x:[-1,6],y:[-1,6],alt:'2x²+1 und Umkehrfunktion',f:[AUX,{f:x=>2*x*x+1,c:'c1',dom:[0,6],t:'f',at:[0.6,3.3]},{f:x=>Math.sqrt((x-1)/2),c:'c2',dom:[1,6],t:'u',at:[4.8,2]}],
